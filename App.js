@@ -1,5 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { TouchableOpacity, Image, StyleSheet, Text, View } from "react-native";
+import {
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+} from "react-native";
 import { NavigationContainer } from "@react-navigation/native"; //왜 필요함? -> 네비게이션 전체 관리하는 놈
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "@expo/vector-icons/Ionicons";
@@ -95,7 +102,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 15,
+    padding: 10,
     backgroundColor: "white",
     borderBottomWidth: 1,
     borderBottomColor: "#e1e1e1",
@@ -105,8 +112,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   serviceName: {
-    fontSize: 16,
-    color: "rgb(104, 107, 128)",
+    fontSize: 18,
+    color: "black",
     marginLeft: 6,
     fontWeight: "bold",
     paddingBottom: 5,
