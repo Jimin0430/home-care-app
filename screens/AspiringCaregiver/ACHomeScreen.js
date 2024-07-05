@@ -8,15 +8,14 @@ import {
   ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Color } from "../colors/color";
+import { Color } from "../../styles/color";
 
-// import HomeBanner from "../assets/images/home-banner.svg";
 const windowHeight = Dimensions.get("window").height;
 
 export default function HomeScreen() {
   const boxHeight = windowHeight * 0.48; // 화면 세로 길이의 40% 계산
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.scrollViewContent}
         showsVerticalScrollIndicator={false}
@@ -24,7 +23,7 @@ export default function HomeScreen() {
       >
         <View style={styles.imageViewer}>
           <ImageBackground
-            source={require("../assets/images/homeBanner.jpg")}
+            source={require("../../assets/images/homeBanner.jpg")}
             style={styles.bannerImage}
             resizeMode="cover"
           >
@@ -93,7 +92,7 @@ export default function HomeScreen() {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

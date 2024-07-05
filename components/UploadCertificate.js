@@ -5,7 +5,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import Logo from "../assets/images/logo.svg";
 import { signInScreenStyle } from "../styles/globalStyles";
 
-export default function SignIn() {
+export default function UploadCertificate() {
   const navigation = useNavigation();
   const route = useRoute();
   const isSignedIn = route.params?.isSignedIn;
@@ -13,7 +13,14 @@ export default function SignIn() {
   return (
     <View style={signInScreenStyle.container}>
       <Logo width={60} height={60} />
-      <Text style={signInScreenStyle.title}> 안녕하세요! 당신은...</Text>
+      <Text style={signInScreenStyle.title}>
+        {" "}
+        자격증 이미지를 업로드 해주세요.
+      </Text>
+      <Text style={signInScreenStyle.explainText}>
+        {" "}
+        *가능한 자격증 종류: 국가 공인 자격증
+      </Text>
       <View style={signInScreenStyle.buttonContainer}>
         <TouchableOpacity
           style={signInScreenStyle.textBox}
