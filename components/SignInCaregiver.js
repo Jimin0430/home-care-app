@@ -33,13 +33,12 @@ export default function SignInCaregiver() {
   // 초기 상태 설정
   const initialState = {
     name: "",
-    nickname: "",
-    age: "",
+    age: 0,
     gender: "",
     phone: "",
     address: "",
     experience: "",
-    desiredHourlyRate: "",
+    desired_hourly_rate: 0,
   };
 
   const [formData, setFormData] = useState(initialState);
@@ -56,7 +55,7 @@ export default function SignInCaregiver() {
       phone: formData.phone,
       address: formData.address,
       experience: formData.experience,
-      desired_hourly_rate: parseInt(formData.desiredHourlyRate),
+      desired_hourly_rate: parseInt(formData.desired_hourly_rate),
     });
   };
 
@@ -70,7 +69,7 @@ export default function SignInCaregiver() {
         phone: formData.phone,
         address: formData.address,
         experience: formData.experience,
-        desired_hourly_rate: parseInt(formData.desiredHourlyRate),
+        desired_hourly_rate: parseInt(formData.desired_hourly_rate),
       };
       const data = await submitCaregiverInfo(userInfo);
       console.log("Server response:", data);
@@ -114,7 +113,7 @@ export default function SignInCaregiver() {
     전화번호: { value: formData.phone, key: "phone" },
     주소: { value: formData.address, key: "address" },
     경력: { value: formData.experience, key: "experience" },
-    희망시급: { value: formData.desiredHourlyRate, key: "desiredHourlyRate" },
+    희망시급: { value: formData.desired_hourly_rate, key: "desiredHourlyRate" },
   };
 
   return (
