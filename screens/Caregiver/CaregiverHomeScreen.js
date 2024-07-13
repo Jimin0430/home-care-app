@@ -7,13 +7,12 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Color } from "../../styles/color";
 
-const windowHeight = Dimensions.get("window").height;
-
-export default function HomeScreen() {
+export default function CaregiverHomeScreen() {
+  const windowHeight = Dimensions.get("window").height;
   const boxHeight = windowHeight * 0.48; // 화면 세로 길이의 40% 계산
+
   return (
     <View style={styles.container}>
       <ScrollView

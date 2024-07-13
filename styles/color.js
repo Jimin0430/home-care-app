@@ -7,5 +7,6 @@ export const Color = {
   gray100: "#E8E8E8", // outline color
   gray200: "#F5F5F5", // input box color
   gray700: "#808080", // input ex text
+  gray800: "#626262", // boxInnerText
   gray900: "#595959", // explain text
 };

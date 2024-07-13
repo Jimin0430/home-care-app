@@ -12,7 +12,7 @@ import { Color } from "../../styles/color";
 
 const windowHeight = Dimensions.get("window").height;
 
-export default function HomeScreen() {
+export default function PatientHomeScreen() {
   const boxHeight = windowHeight * 0.48; // 화면 세로 길이의 40% 계산
   return (
     <View style={styles.container}>
@@ -27,7 +27,7 @@ export default function HomeScreen() {
             style={styles.bannerImage}
             resizeMode="cover"
           >
-            <Text style={styles.bannerText}>환자 찾기</Text>
+            <Text style={styles.bannerText}>요양사 찾기</Text>
           </ImageBackground>
         </View>
 

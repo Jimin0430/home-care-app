@@ -8,13 +8,11 @@ import {
   StatusBar,
 } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useRoute } from "@react-navigation/native";
+import { dataPerUserRole } from "../utils/dataPerUserRole";
+
 import Icon from "@expo/vector-icons/Ionicons";
-
 import Logo from "../assets/images/logo.svg";
-
-import PatientHomeScreen from "./Patient/PHomeScreen";
-import CaregiverHomeScreen from "./Caregiver/CHomeScreen";
-import AspiringCaregiverHomeScreen from "./AspiringCaregiver/ACHomeScreen";
 
 import ProfileScreen from "./ProfileScreen";
 import SearchScreen from "./SearchScreen";
@@ -23,19 +21,19 @@ import SettingsScreen from "./SettingsScreen";
 
 const Tab = createBottomTabNavigator();
 
-export default function HomeTabs({ userType }) {
-  // userType에 따른 페이지 분류
-  const [HomeComponent, setHomeComponent] = useState(null);
+export default function HomeTabs() {
+  const route = useRoute();
+  const userRole = route.params?.userRole;
+  const userRoleIndex = route.params?.userRoleIndex;
 
+  // userRole에 따른 페이지 분류
+  const [HomeComponent, setHomeComponent] = useState(null);
   useEffect(() => {
-    if (userType === "Patient") {
-      setHomeComponent(() => PatientHomeScreen);
-    } else if (userType === "Caregiver") {
-      setHomeComponent(() => CaregiverHomeScreen);
-    } else {
-      setHomeComponent(() => AspiringCaregiverHomeScreen);
-    }
-  }, [userType]);
+    console.log("home tab page : " + userRole);
+
+    const userRoleDataObject = dataPerUserRole[userRoleIndex]?.homePage;
+    setHomeComponent(() => userRoleDataObject);
+  }, [userRoleIndex]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -105,13 +103,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderBottomWidth: 0,
     alignItems: "center",
-    paddingTop: StatusBar.currentHeight,
+    paddingTop: StatusBar.currentHeight * 1.5,
     paddingHorizontal: 18,
     paddingVertical: 12,
   },
   iconWrapper: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
   },
   serviceName: {
     fontSize: 18,

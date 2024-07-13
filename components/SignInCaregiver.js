@@ -6,9 +6,11 @@ import {
   TextInput,
   ScrollView,
   Alert,
+  KeyboardAvoidingView,
+  Platform,
+  NativeModules,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { signInScreenStyle } from "../styles/globalStyles";
 import { submitCaregiverInfo } from "../apis/signInApi";
 
@@ -24,12 +26,14 @@ const hasFinalConsonant = (char) => {
 };
 
 export default function SignInCaregiver() {
-  //userType 이 CareGiver 이면 다음 버튼 -> 업로드 페이지 -> 종료 ->hometab
-  //userType 이 AspiringCaregiver 이면 종료버튼 -> hometab
-  const route = useRoute();
+  //userRole 이 CareGiver 이면 다음 버튼 -> uploadCertificate (자격증 업로드) 페이지 -> 종료 ->hometab
+  //userRole 이 AspiringCaregiver 이면 종료버튼 -> hometab
   const navigation = useNavigation();
-  const { userType } = route.params;
+  const route = useRoute();
+  const userRole = route.params?.userRole;
+  const userRoleIndex = route.params?.userRoleIndex;
 
+  console.log("SignInCaregiver : " + userRole);
   // 초기 상태 설정
   const initialState = {
     name: "",
@@ -81,28 +85,25 @@ export default function SignInCaregiver() {
     }
   };
 
-  const setIsSignedIn = async (value) => {
-    try {
-      const userType = JSON.stringify(value);
-      await AsyncStorage.setItem("user-role", userType);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const handleCompleteSignup = async () => {
-    // 원래는 userType 넘겨줘야 함
     await handleSubmit();
-    setIsSignedIn(false);
-    navigation.navigate("HomeTabs");
+    console.log("SignInCaregiver : ", userRole);
+    console.log("회원가입 완료하기 클릭됨");
+
+    navigation.navigate("HomeTabs", {
+      userRole: userRole,
+      userRoleIndex: userRoleIndex,
+    });
   };
 
   const moveToSubmit = async () => {
     await handleSubmit();
-    // 원래는 userType 넘겨줘야 함
-    setIsSignedIn(false);
+    // setUserRole(false);
     console.log("다음 버튼 클릭");
-    navigation.navigate("UploadCertificate");
+    navigation.navigate("UploadCertificate", {
+      userRole: userRole,
+      userRoleIndex: userRoleIndex,
+    });
   };
 
   const userInfoFields = {
@@ -116,62 +117,83 @@ export default function SignInCaregiver() {
     희망시급: { value: formData.desired_hourly_rate, key: "desiredHourlyRate" },
   };
 
+  const { StatusBarManager } = NativeModules;
+
+  //StatusBarManager.getHeight는 iOS에서만 호출되도록
+  useEffect(() => {
+    Platform.OS == "ios"
+      ? StatusBarManager.getHeight((statusBarFrameData) => {
+          setStatusBarHeight(statusBarFrameData.height);
+        })
+      : null;
+  }, []);
+
+  const [statusBarHeight, setStatusBarHeight] = useState(0);
+
   return (
-    <View style={signInScreenStyle.container}>
-      <Logo width={60} height={60} />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={signInScreenStyle.keyboardPush}
+      keyboardVerticalOffset={statusBarHeight}
+    >
+      <View style={signInScreenStyle.container}>
+        <Logo width={60} height={60} />
 
-      <Text style={signInScreenStyle.title}> 본인의 정보를 입력해주세요.</Text>
-      <View style={signInScreenStyle.inputList}>
-        <ScrollView
-          contentContainerStyle={signInScreenStyle.scrollViewContent}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-        >
-          {Object.keys(userInfoFields).map((label) => {
-            const particle = hasFinalConsonant(label) ? "을" : "를";
+        <Text style={signInScreenStyle.title}>
+          {" "}
+          본인의 정보를 입력해주세요.
+        </Text>
+        <View style={signInScreenStyle.inputList}>
+          <ScrollView
+            contentContainerStyle={signInScreenStyle.scrollViewContent}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+          >
+            {Object.keys(userInfoFields).map((label) => {
+              const particle = hasFinalConsonant(label) ? "을" : "를";
+              return (
+                <View
+                  key={userInfoFields[label].key}
+                  style={signInScreenStyle.inputContainer}
+                >
+                  <Text style={signInScreenStyle.subTitle}>{label}</Text>
+                  <TextInput
+                    style={signInScreenStyle.input}
+                    placeholder={
+                      userInfoFields[label].placeholder !== undefined
+                        ? `본인의 ${label}${particle} 입력해주세요. ${userInfoFields[label].placeholder}`
+                        : `본인의 ${label}${particle} 입력해주세요.`
+                    }
+                    value={userInfoFields[label].value}
+                    onChangeText={(text) =>
+                      handleInputChange(userInfoFields[label].key, text)
+                    }
+                  />
+                </View>
+              );
+            })}
 
-            return (
-              <View
-                key={userInfoFields[label].key}
-                style={signInScreenStyle.inputContainer}
+            {userRole === "Caregiver" && (
+              <TouchableOpacity
+                style={signInScreenStyle.button}
+                onPress={() => moveToSubmit()}
               >
-                <Text style={signInScreenStyle.subTitle}>{label}</Text>
-                <TextInput
-                  style={signInScreenStyle.input}
-                  placeholder={
-                    userInfoFields[label].placeholder !== undefined
-                      ? `본인의 ${label}${particle} 입력해주세요. ${userInfoFields[label].placeholder}`
-                      : `본인의 ${label}${particle} 입력해주세요.`
-                  }
-                  value={userInfoFields[label].value}
-                  onChangeText={(text) =>
-                    handleInputChange(userInfoFields[label].key, text)
-                  }
-                />
-              </View>
-            );
-          })}
-
-          {userType === "Caregiver" && (
-            <TouchableOpacity
-              style={signInScreenStyle.button}
-              onPress={moveToSubmit}
-            >
-              <Text style={signInScreenStyle.buttonText}>다음</Text>
-            </TouchableOpacity>
-          )}
-          {userType === "AspiringCaregiver" && (
-            <TouchableOpacity
-              style={signInScreenStyle.button}
-              onPress={handleCompleteSignup}
-            >
-              <Text style={signInScreenStyle.buttonText}>
-                회원가입 완료하기
-              </Text>
-            </TouchableOpacity>
-          )}
-        </ScrollView>
+                <Text style={signInScreenStyle.buttonText}>다음</Text>
+              </TouchableOpacity>
+            )}
+            {userRole === "AspiringCaregiver" && (
+              <TouchableOpacity
+                style={signInScreenStyle.button}
+                onPress={() => handleCompleteSignup()}
+              >
+                <Text style={signInScreenStyle.buttonText}>
+                  회원가입 완료하기
+                </Text>
+              </TouchableOpacity>
+            )}
+          </ScrollView>
+        </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
