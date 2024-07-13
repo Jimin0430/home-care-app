@@ -101,3 +101,155 @@ export const signInScreenStyle = StyleSheet.create({
     borderRadius: 10,
   },
 });
+
+export const commonLayoutStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    paddingHorizontal: 18,
+    paddingVertical: 8,
+  },
+});
+
+export const profileScreenStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  profileSection: {
+    flexDirection: "row",
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    position: "relative",
+    // iOS shadow
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    // Android shadow
+    elevation: 10,
+  },
+  profileImage: {
+    width: 99.75,
+    height: 101,
+    borderRadius: 30,
+    resizeMode: "cover",
+  },
+  profileInfo: {
+    marginLeft: 15,
+    flex: 1,
+  },
+  profileInfoTopSection: {
+    flex: 1,
+    gap: 1,
+  },
+  name: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  badge: {
+    fontSize: 13,
+    color: Color.gray900,
+    paddingLeft: 1,
+    fontWeight: "semibold",
+  },
+  badgeInfoData: {
+    flex: 1.5,
+    color: Color.gray800,
+    fontWeight: "500",
+  },
+  detailContainer: {
+    flex: 1,
+    paddingVertical: 11,
+    gap: 3,
+  },
+  details: {
+    fontSize: 13,
+    color: Color.gray900,
+  },
+  ratingContainer: {
+    position: "absolute",
+    top: 15,
+    right: 20,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  rating: {
+    marginLeft: 5,
+  },
+  section: {
+    padding: 30,
+    borderTopWidth: 1,
+    borderTopColor: "#eee",
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  sectionInfo: {
+    flex: 1,
+    flexDirection: "column",
+    gap: 13,
+  },
+  label: {
+    flex: 1,
+    color: Color.gray800,
+    // backgroundColor: "pink",
+  },
+  infoData: {
+    flex: 1.5,
+    color: Color.gray800,
+    fontWeight: "500",
+  },
+  sectionKey: {
+    flex: 1,
+    flexDirection: "column",
+  },
+  sectionData: {
+    flex: 3,
+    flexDirection: "column",
+  },
+  infoRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  badgeContainer: {
+    flex: 1.5,
+    backgroundColor: "#fff",
+    gap: 6,
+  },
+  badgeRow: {
+    flex: 1,
+    flexDirection: "row",
+    borderBottomColor: Color.gray500,
+    borderBottomWidth: 0.5,
+    paddingVertical: 4,
+    paddingRight: 6,
+  },
+  moreLink: {
+    flex: 1,
+    color: Color.gray900,
+    textAlignVertical: "center",
+  },
+  reviewText: {
+    flex: 1,
+    color: Color.gray800,
+    fontWeight: "500",
+    paddingHorizontal: 10,
+  },
+  bottomButton: {
+    marginHorizontal: 30,
+    backgroundColor: Color.pink900,
+    borderRadius: 10,
+    padding: 15,
+    alignItems: "center",
+  },
+  bottomButtonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+});

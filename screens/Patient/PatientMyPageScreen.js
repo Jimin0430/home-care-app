@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export default function ProfileScreen() {
+export default function PatientMyPageScreen() {
   return (
     <View style={styles.container}>
       <Text>Profile Screen</Text>

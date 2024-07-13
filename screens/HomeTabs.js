@@ -9,15 +9,17 @@ import {
 } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useRoute } from "@react-navigation/native";
+
 import { dataPerUserRole } from "../utils/dataPerUserRole";
+import { showRestrictedAccessAlert } from "../components/CustomAlert";
 
 import Icon from "@expo/vector-icons/Ionicons";
 import Logo from "../assets/images/logo.svg";
 
-import ProfileScreen from "./ProfileScreen";
 import SearchScreen from "./SearchScreen";
 import ChatScreen from "./ChatScreen";
 import SettingsScreen from "./SettingsScreen";
+import { Color } from "../styles/color";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,13 +28,29 @@ export default function HomeTabs() {
   const userRole = route.params?.userRole;
   const userRoleIndex = route.params?.userRoleIndex;
 
+  // userRole이 "AspiringCaregiver"이고, 접근이 제한된 탭일 경우 Alert를 표시
+  const handleTabPress = (e, route) => {
+    if (
+      userRole === "AspiringCaregiver" &&
+      (route.name === "My page" ||
+        route.name === "Search" ||
+        route.name === "Chat")
+    ) {
+      e.preventDefault();
+      showRestrictedAccessAlert();
+    }
+  };
   // userRole에 따른 페이지 분류
   const [HomeComponent, setHomeComponent] = useState(null);
+  const [MyPageComponent, setMyPageComponent] = useState(null);
+
   useEffect(() => {
     console.log("home tab page : " + userRole);
 
-    const userRoleDataObject = dataPerUserRole[userRoleIndex]?.homePage;
-    setHomeComponent(() => userRoleDataObject);
+    const homeComponentPerType = dataPerUserRole[userRoleIndex]?.homePage;
+    const myPageComponentPerType = dataPerUserRole[userRoleIndex]?.myPage;
+    setHomeComponent(() => homeComponentPerType);
+    setMyPageComponent(() => myPageComponentPerType);
   }, [userRoleIndex]);
 
   return (
@@ -44,7 +62,7 @@ export default function HomeTabs() {
 
             if (route.name === "Home") {
               iconName = "home";
-            } else if (route.name === "Profile") {
+            } else if (route.name === "My page") {
               iconName = "person";
             } else if (route.name === "Search") {
               iconName = "search";
@@ -56,7 +74,7 @@ export default function HomeTabs() {
 
             return <Icon name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: "tomato",
+          tabBarActiveTintColor: Color.pink900,
           tabBarInactiveTintColor: "gray",
         })}
       >
@@ -66,7 +84,12 @@ export default function HomeTabs() {
             component={HomeComponent}
             options={{
               header: () => (
-                <View style={styles.customHeader}>
+                <View
+                  style={[
+                    styles.customHeader,
+                    { justifyContent: "space-between" },
+                  ]}
+                >
                   <View style={styles.iconWrapper}>
                     <Logo width={42} height={42} />
                     <Text style={styles.serviceName}> 케어프렌즈 </Text>
@@ -82,9 +105,42 @@ export default function HomeTabs() {
             }}
           />
         )}
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-        <Tab.Screen name="Search" component={SearchScreen} />
-        <Tab.Screen name="Chat" component={ChatScreen} />
+        {MyPageComponent !== null && (
+          <Tab.Screen
+            name="My page"
+            component={MyPageComponent}
+            options={{
+              header: () => (
+                <View
+                  style={[styles.customHeader, { justifyContent: "center" }]}
+                >
+                  <Text style={styles.headerTitle}>마이페이지</Text>
+                </View>
+              ),
+              headerStyle: {
+                backgroundColor: "white",
+              },
+              tabBarLabel: "마이페이지",
+            }}
+            listeners={({ navigation, route }) => ({
+              tabPress: (e) => handleTabPress(e, route),
+            })}
+          />
+        )}
+        <Tab.Screen
+          name="Search"
+          component={SearchScreen}
+          listeners={({ navigation, route }) => ({
+            tabPress: (e) => handleTabPress(e, route),
+          })}
+        />
+        <Tab.Screen
+          name="Chat"
+          component={ChatScreen}
+          listeners={({ navigation, route }) => ({
+            tabPress: (e) => handleTabPress(e, route),
+          })}
+        />
         <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
     </SafeAreaView>
@@ -99,13 +155,17 @@ const styles = StyleSheet.create({
   customHeader: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
     backgroundColor: "white",
     borderBottomWidth: 0,
     alignItems: "center",
     paddingTop: StatusBar.currentHeight * 1.5,
     paddingHorizontal: 18,
     paddingVertical: 12,
+  },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    padding: 7,
   },
   iconWrapper: {
     flexDirection: "row",

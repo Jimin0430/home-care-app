@@ -42,7 +42,7 @@ export default function App() {
   if (userRole === null) {
     return (
       <SafeAreaView style={styles.safeArea}>
-        <ActivityIndicator size="large" color="tomato" />
+        <ActivityIndicator size="large" color={Color.pink900} />
       </SafeAreaView>
     );
   }

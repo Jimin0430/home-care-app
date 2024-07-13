@@ -9,12 +9,18 @@ import CameraButton from "./buttons/CameraButton";
 
 export default function UploadCertificate() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const userRole = route.params?.userRole;
+  const userRoleIndex = route.params?.userRoleIndex;
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [certifyLater, setCertifyLater] = useState(false);
 
   const handleCompleteSignup = async () => {
-    navigation.navigate("HomeTabs");
+    navigation.navigate("HomeTabs", {
+      userRole: userRole,
+      userRoleIndex: userRoleIndex,
+    });
   };
 
   const certificateInfoTxt = () => {
