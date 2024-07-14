@@ -119,7 +119,6 @@ export const profileScreenStyle = StyleSheet.create({
   profileSection: {
     flexDirection: "row",
     paddingVertical: 15,
-    paddingHorizontal: 20,
     backgroundColor: "#fff",
     borderRadius: 10,
     position: "relative",
@@ -132,20 +131,23 @@ export const profileScreenStyle = StyleSheet.create({
     elevation: 10,
   },
   profileImage: {
-    width: 99.75,
-    height: 101,
-    borderRadius: 30,
-    resizeMode: "cover",
+    flex: 1,
+    resizeMode: "contain",
   },
   profileInfo: {
-    marginLeft: 15,
-    flex: 1,
+    flex: 1.5,
   },
   profileInfoTopSection: {
     flex: 1,
     gap: 1,
   },
+  certificateAlign: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+  },
   name: {
+    height: "100%",
     fontSize: 18,
     fontWeight: "bold",
   },
@@ -171,8 +173,8 @@ export const profileScreenStyle = StyleSheet.create({
   },
   ratingContainer: {
     position: "absolute",
-    top: 15,
-    right: 20,
+    top: 17,
+    right: 25,
     flexDirection: "row",
     alignItems: "center",
   },
@@ -185,9 +187,9 @@ export const profileScreenStyle = StyleSheet.create({
     borderTopColor: "#eee",
   },
   sectionTitle: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 15,
   },
   sectionInfo: {
     flex: 1,
@@ -239,6 +241,36 @@ export const profileScreenStyle = StyleSheet.create({
     color: Color.gray800,
     fontWeight: "500",
     paddingHorizontal: 10,
+  },
+  subInfoContainer: {
+    flex: 1,
+    width: "100%",
+    marginLeft: 10,
+    marginTop: 5,
+    gap: 2,
+  },
+  subInfoRow: {
+    flexDirection: "row",
+  },
+  subInfoLabel: {
+    flex: 1.1,
+    fontSize: 14,
+    color: "#888",
+    marginRight: 10,
+  },
+  subInfoValue: {
+    flex: 2,
+    fontSize: 14,
+    color: "#888",
+    marginRight: 10,
+  },
+  arrayValueContainer: {
+    flex: 2,
+    flexDirection: "column",
+    gap: 2,
+  },
+  highlightedText: {
+    color: "#FF6347",
   },
   bottomButton: {
     marginHorizontal: 30,

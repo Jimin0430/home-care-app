@@ -1,13 +1,16 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 
-import { Ionicons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
-import { Fontisto } from "@expo/vector-icons";
 import {
   commonLayoutStyle,
   profileScreenStyle,
 } from "../../styles/globalStyles";
+
+import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { Fontisto } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import { Color } from "../../styles/color";
 
 export default function CaregiverMyPageScreen() {
@@ -46,13 +49,17 @@ export default function CaregiverMyPageScreen() {
         "요양사 선생님의 식사 보조 덕분에 어머니의 영양 상태가 많이 좋아졌습니다. 항상 친절하고 꼼꼼하게 돌봐주셔서 정말 감사합니다.",
         "할머니를 정성껏 돌봐주셔서 감사합니다. 특히 운동 보조를 해주신 덕분에 할머니의 근력이 조금씩 좋아지고 있어요. 앞으로도 잘 부탁드립니다.",
         "어르신들을 대하는 태도가 정말 훌륭하십니다. 항상 밝은 미소로 대해주시고, 꼼꼼하게 케어해주셔서 가족들도 안심하고 맡길 수 있었습니다.",
+        " 항상 밝은 미소로 대해주시고, 꼼꼼하게 케어해주셔서 가족들도 안심하고 맡길 수 있었습니다.",
       ],
     },
   ];
 
   return (
     <View style={commonLayoutStyle.container}>
-      <ScrollView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+      >
         {/* Profile Section */}
         <View style={profileScreenStyle.profileSection}>
           <Image
@@ -61,7 +68,14 @@ export default function CaregiverMyPageScreen() {
           />
           <View style={profileScreenStyle.profileInfo}>
             <View style={profileScreenStyle.profileInfoTopSection}>
-              <Text style={profileScreenStyle.name}>부평 헬렌켈러</Text>
+              <View style={profileScreenStyle.certificateAlign}>
+                <Text style={profileScreenStyle.name}>부평 헬렌켈러</Text>
+                <MaterialCommunityIcons
+                  name="check-decagram"
+                  size={17}
+                  color={Color.pink900}
+                />
+              </View>
               <Text style={profileScreenStyle.badge}>
                 내 가족처럼 돌보는 요양사입니다.
               </Text>
@@ -157,7 +171,7 @@ export default function CaregiverMyPageScreen() {
                 ))
               ) : section.type === "review" ? (
                 <>
-                  {section.data.slice(0, 2).map((review, reviewIndex) => (
+                  {section.data.slice(0, 3).map((review, reviewIndex) => (
                     <Text
                       key={reviewIndex}
                       style={profileScreenStyle.reviewText}
@@ -177,7 +191,7 @@ export default function CaregiverMyPageScreen() {
       {/* Bottom Button */}
       <TouchableOpacity style={profileScreenStyle.bottomButton}>
         <Text style={profileScreenStyle.bottomButtonText}>
-          마이페이지 수정하기
+          나의 프로필 수정하기
         </Text>
       </TouchableOpacity>
     </View>

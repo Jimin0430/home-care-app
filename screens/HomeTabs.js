@@ -12,6 +12,7 @@ import { useRoute } from "@react-navigation/native";
 
 import { dataPerUserRole } from "../utils/dataPerUserRole";
 import { showRestrictedAccessAlert } from "../components/CustomAlert";
+import { showCustomAlert } from "../components/CustomAlert";
 
 import Icon from "@expo/vector-icons/Ionicons";
 import Logo from "../assets/images/logo.svg";
@@ -109,19 +110,36 @@ export default function HomeTabs() {
           <Tab.Screen
             name="My page"
             component={MyPageComponent}
-            options={{
+            options={({ navigation }) => ({
               header: () => (
                 <View
-                  style={[styles.customHeader, { justifyContent: "center" }]}
+                  style={[
+                    styles.customHeader,
+                    { justifyContent: "space-between" },
+                  ]}
                 >
-                  <Text style={styles.headerTitle}>마이페이지</Text>
+                  <TouchableOpacity
+                    style={styles.backButton}
+                    onPress={() => navigation.goBack()}
+                  >
+                    <Icon name="chevron-back" size={24} color="black" />
+                  </TouchableOpacity>
+                  <Text style={styles.headerTitle}>나의 프로필</Text>
+                  <TouchableOpacity
+                    style={styles.menuButton}
+                    onPress={() =>
+                      showCustomAlert("안내", "곧 추가될 서비스입니다.")
+                    }
+                  >
+                    <Icon name="menu" size={24} color="black" />
+                  </TouchableOpacity>
                 </View>
               ),
               headerStyle: {
                 backgroundColor: "white",
               },
-              tabBarLabel: "마이페이지",
-            }}
+              tabBarLabel: "My page",
+            })}
             listeners={({ navigation, route }) => ({
               tabPress: (e) => handleTabPress(e, route),
             })}
@@ -163,7 +181,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   headerTitle: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: "bold",
     padding: 7,
   },

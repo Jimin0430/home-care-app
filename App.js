@@ -8,6 +8,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { getUserRole } from "./utils/storage";
+import { Color } from "./styles/color";
 
 import SignIn from "./screens/SignIn";
 import SignInCaregiver from "./components/SignInCaregiver";
