@@ -8,7 +8,7 @@ import {
   StatusBar,
 } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { dataPerUserRole } from "../utils/dataPerUserRole";
 import { showRestrictedAccessAlert } from "../components/CustomAlert";
@@ -24,12 +24,27 @@ import { Color } from "../styles/color";
 
 const Tab = createBottomTabNavigator();
 
-export default function HomeTabs() {
-  const route = useRoute();
-  const userRole = route.params?.userRole;
-  const userRoleIndex = route.params?.userRoleIndex;
+export default function HomeTabs({ route }) {
+  const { userRole, userRoleIndex } = route.params;
+  // const userRole = "Patient";
+  // const userRoleIndex = "1";
+  // userRole에 따른 페이지 분류
+  const [userRoleData, setUserRoleData] = useState(null);
 
-  // userRole이 "AspiringCaregiver"이고, 접근이 제한된 탭일 경우 Alert를 표시
+  useEffect(() => {
+    const roleData = dataPerUserRole.find(
+      (data) => data.index === userRoleIndex
+    );
+    setUserRoleData(roleData);
+    console.log("Hometabs.js 페이지 실행");
+  }, [userRoleIndex]); //
+
+  useEffect(() => {
+    if (userRoleData) {
+      console.log(userRoleData);
+    }
+  }, [userRoleData]);
+
   const handleTabPress = (e, route) => {
     if (
       userRole === "AspiringCaregiver" &&
@@ -41,18 +56,31 @@ export default function HomeTabs() {
       showRestrictedAccessAlert();
     }
   };
+
+  if (!userRoleData) {
+    return <Text>Loading...</Text>; // 또는 적절한 로딩 컴포넌트
+  }
+
+  const { homePage: HomeComponent, myPage: MyPageComponent } = userRoleData;
   // userRole에 따른 페이지 분류
-  const [HomeComponent, setHomeComponent] = useState(null);
-  const [MyPageComponent, setMyPageComponent] = useState(null);
+  // const [HomeComponent, setHomeComponent] = useState(null);
+  // const [MyPageComponent, setMyPageComponent] = useState(null);
+  // const [MyPageEditComponent, setMyPageEditComponent] = useState(null);
 
-  useEffect(() => {
-    console.log("home tab page : " + userRole);
+  // useEffect(() => {
+  //   console.log("home tab page : " + userRole);
+  //   console.log("home tab page : " + userRoleIndex);
 
-    const homeComponentPerType = dataPerUserRole[userRoleIndex]?.homePage;
-    const myPageComponentPerType = dataPerUserRole[userRoleIndex]?.myPage;
-    setHomeComponent(() => homeComponentPerType);
-    setMyPageComponent(() => myPageComponentPerType);
-  }, [userRoleIndex]);
+  //   const homeComponentPerType = dataPerUserRole[userRoleIndex]?.homePage;
+  //   const myPageComponentPerType = dataPerUserRole[userRoleIndex]?.myPage;
+  //   const MyPageEditComponentPerType = dataPerUserRole[userRoleIndex]?.myPage;
+
+  //   setHomeComponent(() => homeComponentPerType);
+  //   setMyPageComponent(() => myPageComponentPerType);
+  //   setMyPageEditComponent(() => MyPageEditComponentPerType);
+  // }, [userRoleIndex]);
+
+  // userRole이 "AspiringCaregiver"이고, 접근이 제한된 탭일 경우 Alert를 표시
 
   return (
     <SafeAreaView style={styles.container}>
@@ -79,72 +107,72 @@ export default function HomeTabs() {
           tabBarInactiveTintColor: "gray",
         })}
       >
-        {HomeComponent !== null && (
-          <Tab.Screen
-            name="Home"
-            component={HomeComponent}
-            options={{
-              header: () => (
-                <View
-                  style={[
-                    styles.customHeader,
-                    { justifyContent: "space-between" },
-                  ]}
-                >
-                  <View style={styles.iconWrapper}>
-                    <Logo width={42} height={42} />
-                    <Text style={styles.serviceName}> 케어프렌즈 </Text>
-                  </View>
-                  <TouchableOpacity style={styles.alarmButton}>
-                    <Icon name="notifications" size={24} color="gray" />
-                  </TouchableOpacity>
+        {/* {HomeComponent !== null && ( */}
+        <Tab.Screen
+          name="Home"
+          component={HomeComponent || (() => null)}
+          options={{
+            header: () => (
+              <View
+                style={[
+                  styles.customHeader,
+                  { justifyContent: "space-between" },
+                ]}
+              >
+                <View style={styles.iconWrapper}>
+                  <Logo width={42} height={42} />
+                  <Text style={styles.serviceName}> 케어프렌즈 </Text>
                 </View>
-              ),
-              headerStyle: {
-                backgroundColor: "white",
-              },
-            }}
-          />
-        )}
-        {MyPageComponent !== null && (
-          <Tab.Screen
-            name="My page"
-            component={MyPageComponent}
-            options={({ navigation }) => ({
-              header: () => (
-                <View
-                  style={[
-                    styles.customHeader,
-                    { justifyContent: "space-between" },
-                  ]}
+                <TouchableOpacity style={styles.alarmButton}>
+                  <Icon name="notifications" size={24} color="gray" />
+                </TouchableOpacity>
+              </View>
+            ),
+            headerStyle: {
+              backgroundColor: "white",
+            },
+          }}
+        />
+        {/* )} */}
+        {/* {MyPageComponent !== null && ( */}
+        <Tab.Screen
+          name="My page"
+          component={MyPageComponent || (() => null)}
+          options={({ navigation }) => ({
+            header: () => (
+              <View
+                style={[
+                  styles.customHeader,
+                  { justifyContent: "space-between" },
+                ]}
+              >
+                <TouchableOpacity
+                  style={styles.backButton}
+                  onPress={() => navigation.goBack()}
                 >
-                  <TouchableOpacity
-                    style={styles.backButton}
-                    onPress={() => navigation.goBack()}
-                  >
-                    <Icon name="chevron-back" size={24} color="black" />
-                  </TouchableOpacity>
-                  <Text style={styles.headerTitle}>나의 프로필</Text>
-                  <TouchableOpacity
-                    style={styles.menuButton}
-                    onPress={() =>
-                      showCustomAlert("안내", "곧 추가될 서비스입니다.")
-                    }
-                  >
-                    <Icon name="menu" size={24} color="black" />
-                  </TouchableOpacity>
-                </View>
-              ),
-              headerStyle: {
-                backgroundColor: "white",
-              },
-              tabBarLabel: "My page",
-            })}
-            listeners={({ navigation, route }) => ({
-              tabPress: (e) => handleTabPress(e, route),
-            })}
-          />
-        )}
+                  <Icon name="chevron-back" size={24} color="black" />
+                </TouchableOpacity>
+                <Text style={styles.headerTitle}>나의 프로필</Text>
+                <TouchableOpacity
+                  style={styles.menuButton}
+                  onPress={() =>
+                    showCustomAlert("안내", "곧 추가될 서비스입니다.")
+                  }
+                >
+                  <Icon name="menu" size={24} color="black" />
+                </TouchableOpacity>
+              </View>
+            ),
+            headerStyle: {
+              backgroundColor: "white",
+            },
+            tabBarLabel: "My page",
+          })}
+          listeners={({ navigation, route }) => ({
+            tabPress: (e) => handleTabPress(e, route),
+          })}
+        />
+        {/* )} */}
         <Tab.Screen
           name="Search"
           component={SearchScreen}

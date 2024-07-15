@@ -14,6 +14,8 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { signInScreenStyle } from "../styles/globalStyles";
 import { submitCaregiverInfo } from "../apis/signInApi";
 
+import { useAuth } from "../contexts/AuthContext";
+
 import Logo from "../assets/images/logo.svg";
 
 // 받침 여부 판단 함수
@@ -25,13 +27,18 @@ const hasFinalConsonant = (char) => {
   return consonantOffset !== 0;
 };
 
-export default function SignInCaregiver() {
+export default function SignInCaregiver({ route }) {
   //userRole 이 CareGiver 이면 다음 버튼 -> uploadCertificate (자격증 업로드) 페이지 -> 종료 ->hometab
   //userRole 이 AspiringCaregiver 이면 종료버튼 -> hometab
   const navigation = useNavigation();
-  const route = useRoute();
-  const userRole = route.params?.userRole;
-  const userRoleIndex = route.params?.userRoleIndex;
+  // const route = useRoute();
+  // const { handleSignIn } = route.params;
+  const { handleSignIn } = useAuth();
+
+  const { userRole, userRoleIndex } = route.params;
+
+  // const userRole = route.params?.userRole;
+  // const userRoleIndex = route.params?.userRoleIndex;
 
   console.log("SignInCaregiver : " + userRole);
   // 초기 상태 설정
@@ -90,15 +97,11 @@ export default function SignInCaregiver() {
     console.log("SignInCaregiver : ", userRole);
     console.log("회원가입 완료하기 클릭됨");
 
-    navigation.navigate("HomeTabs", {
-      userRole: userRole,
-      userRoleIndex: userRoleIndex,
-    });
+    handleSignIn(userRole, userRoleIndex);
   };
 
   const moveToSubmit = async () => {
     await handleSubmit();
-    // setUserRole(false);
     console.log("다음 버튼 클릭");
     navigation.navigate("UploadCertificate", {
       userRole: userRole,

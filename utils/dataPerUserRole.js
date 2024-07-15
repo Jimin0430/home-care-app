@@ -4,6 +4,10 @@ import AspiringCaregiverHomeScreen from "../screens/AspiringCaregiver/AspiringCa
 
 import CaregiverMyPageScreen from "../screens/Caregiver/CaregiverMyPageScreen";
 import PatientMyPageScreen from "../screens/Patient/PatientMyPageScreen";
+
+// import CaregiverMyPageEdit from "../screens/Caregiver/CaregiverMyPageEdit";
+import PatientMyPageEdit from "../screens/Patient/PatientMyPageEdit";
+
 export const dataPerUserRole = [
   {
     index: 0,
@@ -12,6 +16,8 @@ export const dataPerUserRole = [
     text: "요양사에요.",
     homePage: CaregiverHomeScreen,
     myPage: CaregiverMyPageScreen,
+    // myPageEdit: CaregiverMyPageEdit,
+    myPageEdit: null,
   },
   {
     index: 1,
@@ -20,6 +26,7 @@ export const dataPerUserRole = [
     text: "환자에요.",
     homePage: PatientHomeScreen,
     myPage: PatientMyPageScreen,
+    myPageEdit: PatientMyPageEdit,
   },
   {
     index: 2,
@@ -28,5 +35,6 @@ export const dataPerUserRole = [
     text: "요양사 자격증 취득을 원해요.",
     homePage: AspiringCaregiverHomeScreen,
     myPage: null,
+    myPageEdit: null,
   },
 ];

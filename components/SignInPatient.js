@@ -10,9 +10,10 @@ import {
   Platform,
   NativeModules,
 } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 import { signInScreenStyle } from "../styles/globalStyles";
 import { submitPatientInfo } from "../apis/signInApi";
+import { useAuth } from "../contexts/AuthContext";
 
 import Dropdown from "./buttons/Dropdown";
 import SingleChoiceSelector from "./buttons/OptionPicker";
@@ -27,11 +28,24 @@ const hasFinalConsonant = (char) => {
   return consonantOffset !== 0;
 };
 
-export default function SignInPatient() {
-  const navigation = useNavigation();
-  const route = useRoute();
-  const userRole = route.params?.userRole;
-  const userRoleIndex = route.params?.userRoleIndex;
+export default function SignInPatient({ route }) {
+  // const  = useRoute();
+  // const { handleSignIn } = route.params;
+  const { handleSignIn } = useAuth();
+
+  const { userRole, userRoleIndex } = route.params;
+
+  const moveToHomeTab = () => {
+    handleSignIn(userRole, userRoleIndex);
+    console.log("sign in page : " + userRole);
+    // try {
+    //   // App.js의 상태 업데이트 및 HomeTabs로 이동
+    //   handleSignIn(userRole, userRoleIndex);
+    console.log("sign in page : " + userRole);
+    // } catch (e) {
+    //   console.log("sign in page moveToHomeTab click error", e);
+    // }
+  };
 
   const options = ["고민 중이에요.", "구하는 중이에요.", "당장 필요해요."];
   const [items, setItems] = useState([
@@ -93,13 +107,9 @@ export default function SignInPatient() {
   };
 
   const handleCompleteSignup = async () => {
-    // 원래는 userRole 넘겨줘야 함
     await handleSubmit();
-    // setIsSignedIn(false);
-    navigation.navigate("HomeTabs", {
-      userRole: userRole,
-      userRoleIndex: userRoleIndex,
-    });
+    moveToHomeTab();
+    //userRole, userRoleIndex 저장은 이미 signIn 페이지에서 함
   };
 
   // 화면 렌더링 map에 사용 & api 연동

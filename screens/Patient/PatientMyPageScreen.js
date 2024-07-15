@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import CustomSlider from "../../components/CustomSlider";
 
@@ -16,6 +10,7 @@ import {
 } from "../../styles/globalStyles";
 
 export default function PatientMyPageScreen() {
+  const navigate = useNavigation();
   const profileInfo = [
     { label: "병명", value: "선망증세" },
     { label: "키/몸무게", value: "167cm | 57kg" },
@@ -62,6 +57,15 @@ export default function PatientMyPageScreen() {
       data: workInfo,
     },
   ];
+  const navigateToEditPage = () => {
+    // navigate("Stacks", {
+    //   screen: "PatientMyPageEdit",
+    // });
+    // navigation("Stacks", {
+    //   screen: "PatientMyPageEdit",
+    // });
+    navigate.navigate("PatientMyPageEdit");
+  };
 
   return (
     <View style={commonLayoutStyle.container}>
@@ -183,7 +187,10 @@ export default function PatientMyPageScreen() {
       </ScrollView>
 
       {/* Bottom Button */}
-      <TouchableOpacity style={profileScreenStyle.bottomButton}>
+      <TouchableOpacity
+        style={profileScreenStyle.bottomButton}
+        onPress={() => navigateToEditPage()}
+      >
         <Text style={profileScreenStyle.bottomButtonText}>
           나의 프로필 수정하기
         </Text>

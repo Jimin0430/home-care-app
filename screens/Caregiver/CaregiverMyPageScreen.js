@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   commonLayoutStyle,
@@ -14,6 +15,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Color } from "../../styles/color";
 
 export default function CaregiverMyPageScreen() {
+  const navigation = useNavigation();
   const profileInfo = [
     { label: "활동 시간/요일", value: "월 수 금 | 오전 8시 - 오후 6시" },
     {
@@ -189,7 +191,10 @@ export default function CaregiverMyPageScreen() {
       </ScrollView>
 
       {/* Bottom Button */}
-      <TouchableOpacity style={profileScreenStyle.bottomButton}>
+      <TouchableOpacity
+        style={profileScreenStyle.bottomButton}
+        // onPress={navigation.navigate("PatientMyPageEdit")}
+      >
         <Text style={profileScreenStyle.bottomButtonText}>
           나의 프로필 수정하기
         </Text>

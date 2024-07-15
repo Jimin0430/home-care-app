@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
+
+import { getUserRole, getUserRoleIndex } from "../utils/storage";
+import { setUserRole, setUserRoleIndex } from "../utils/storage";
+import { useAuth } from "../contexts/AuthContext";
 
 import Logo from "../assets/images/logo.svg";
 import { signInScreenStyle } from "../styles/globalStyles";
@@ -8,19 +12,35 @@ import FileUploadButton from "./buttons/FileUploadButton";
 import CameraButton from "./buttons/CameraButton";
 
 export default function UploadCertificate() {
-  const navigation = useNavigation();
   const route = useRoute();
-  const userRole = route.params?.userRole;
-  const userRoleIndex = route.params?.userRoleIndex;
+  // const { handleSignIn } = route.params;
+  const { handleSignIn } = useAuth();
+
+  const { userRole, userRoleIndex } = route.params;
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [certifyLater, setCertifyLater] = useState(false);
 
-  const handleCompleteSignup = async () => {
-    navigation.navigate("HomeTabs", {
-      userRole: userRole,
-      userRoleIndex: userRoleIndex,
-    });
+  // 회원가입 후 앱에 재접속 하는 경우 로그인 상태 유지
+
+  // const fetchUserRole = async () => {
+  //   try {
+  //     const role = await getUserRole();
+  //     const roleIndex = await getUserRoleIndex();
+  // setUserRole(role || false); // 초기 userRole을 false로 설정, getUserRole에서 값을 받아오면 해당 값으로 업데이트
+  // setUserRoleIndex(roleIndex || -1);
+  //   } catch (error) {
+  //     console.log(error);
+  //     setUserRole(false); //user-role key값이 존재하지 않는 초기 상태에 대한 처리
+  //   }
+  // };
+
+  const fetchUserRole = () => {
+    setUserRole(userRole || false); // 초기 userRole을 false로 설정, getUserRole에서 값을 받아오면 해당 값으로 업데이트
+    setUserRoleIndex(userRoleIndex || -1);
+
+    // App.js의 상태 업데이트 및 HomeTabs로 이동
+    handleSignIn(userRole, userRoleIndex);
   };
 
   const certificateInfoTxt = () => {
@@ -82,7 +102,7 @@ export default function UploadCertificate() {
       >
         <TouchableOpacity
           style={signInScreenStyle.button}
-          onPress={handleCompleteSignup}
+          onPress={() => fetchUserRole()}
         >
           <Text style={signInScreenStyle.buttonText}>회원가입 완료하기</Text>
         </TouchableOpacity>
