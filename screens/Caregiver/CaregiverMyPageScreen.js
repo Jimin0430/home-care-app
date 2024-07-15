@@ -193,7 +193,7 @@ export default function CaregiverMyPageScreen() {
       {/* Bottom Button */}
       <TouchableOpacity
         style={profileScreenStyle.bottomButton}
-        // onPress={navigation.navigate("PatientMyPageEdit")}
+        onPress={navigation.navigate("CaregiverMyPageEdit")}
       >
         <Text style={profileScreenStyle.bottomButtonText}>
           나의 프로필 수정하기

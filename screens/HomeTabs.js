@@ -107,7 +107,6 @@ export default function HomeTabs({ route }) {
           tabBarInactiveTintColor: "gray",
         })}
       >
-        {/* {HomeComponent !== null && ( */}
         <Tab.Screen
           name="Home"
           component={HomeComponent || (() => null)}
@@ -133,8 +132,7 @@ export default function HomeTabs({ route }) {
             },
           }}
         />
-        {/* )} */}
-        {/* {MyPageComponent !== null && ( */}
+
         <Tab.Screen
           name="My page"
           component={MyPageComponent || (() => null)}
@@ -172,7 +170,7 @@ export default function HomeTabs({ route }) {
             tabPress: (e) => handleTabPress(e, route),
           })}
         />
-        {/* )} */}
+
         <Tab.Screen
           name="Search"
           component={SearchScreen}
@@ -204,7 +202,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderBottomWidth: 0,
     alignItems: "center",
-    paddingTop: StatusBar.currentHeight * 1.5,
+    // paddingTop: StatusBar.currentHeight * 1.5,
+    // paddingTop: StatusBar.currentHeight,
     paddingHorizontal: 18,
     paddingVertical: 12,
   },

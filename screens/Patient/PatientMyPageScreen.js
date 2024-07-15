@@ -17,7 +17,7 @@ export default function PatientMyPageScreen() {
     { label: "간병 필요도", value: "당장 필요해요" },
     { label: "정기 간병", value: "월 수 금 | 오전 8시 - 오후 7시" },
     { label: "하루 간병", value: "7월 8일 | 오전 8시 - 오전 11시" },
-    { label: "증세 정도", value: "" }, // 슬라이더를 위한 빈 값
+    { label: "증세 정도", value: "" }, // 슬라이더를 위해 value를 빈 값으로 설정
   ];
 
   const workInfo = [
@@ -192,7 +192,7 @@ export default function PatientMyPageScreen() {
         onPress={() => navigateToEditPage()}
       >
         <Text style={profileScreenStyle.bottomButtonText}>
-          나의 프로필 수정하기
+          나의 정보 수정하기
         </Text>
       </TouchableOpacity>
     </View>

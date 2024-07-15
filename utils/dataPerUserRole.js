@@ -5,8 +5,8 @@ import AspiringCaregiverHomeScreen from "../screens/AspiringCaregiver/AspiringCa
 import CaregiverMyPageScreen from "../screens/Caregiver/CaregiverMyPageScreen";
 import PatientMyPageScreen from "../screens/Patient/PatientMyPageScreen";
 
-// import CaregiverMyPageEdit from "../screens/Caregiver/CaregiverMyPageEdit";
-import PatientMyPageEdit from "../screens/Patient/PatientMyPageEdit";
+import CaregiverMyPageEdit from "../screens/Caregiver/CaregiverMyPageEdit";
+import PatientMyPageEdit from "../screens/Caregiver/CaregiverMyPageEdit";
 
 export const dataPerUserRole = [
   {
@@ -16,7 +16,7 @@ export const dataPerUserRole = [
     text: "요양사에요.",
     homePage: CaregiverHomeScreen,
     myPage: CaregiverMyPageScreen,
-    // myPageEdit: CaregiverMyPageEdit,
+    myPageEdit: CaregiverMyPageEdit,
     myPageEdit: null,
   },
   {

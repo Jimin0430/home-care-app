@@ -139,9 +139,21 @@ android {
     }
 }
 
+//카메라 버전 충돌로 인한 빌드 오류 해결
+repositories {
+    google()
+    mavenCentral()
+    maven { url 'https://www.jitpack.io' }
+}
+
+
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    //camera라이브러리로 인한 빌드 오류 해결
+    implementation project(':expo')
+    implementation project(':expo-camera')
+    implementation 'com.google.android:cameraview:1.0.0'
 
     def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true";
     def isWebpEnabled = (findProperty('expo.webp.enabled') ?: "") == "true";

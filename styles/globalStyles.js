@@ -6,8 +6,8 @@ export const signInScreenStyle = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     padding: 20,
-    gap: 59,
-    paddingTop: StatusBar.currentHeight * 2.5,
+    gap: 40,
+    paddingTop: StatusBar.currentHeight,
     backgroundColor: "white",
   },
   title: {

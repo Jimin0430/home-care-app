@@ -136,16 +136,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 35,
     borderRadius: 5,
+    // backgroundColor: "black",
   },
   mainBoxInnerText: {
     fontSize: 24.5,
     color: "white",
     fontWeight: "bold",
+    height: "100%",
   },
   mainBoxInnerTextHighlight: {
     fontSize: 24.5,
     color: Color.pink900,
     fontWeight: "bold",
+    height: "100%",
   },
   communityContainer: {
     width: "100%",

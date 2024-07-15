@@ -14,6 +14,7 @@ import SignInPatient from "./components/SignInPatient";
 import UploadCertificate from "./components/UploadCertificate";
 import HomeTabs from "./screens/HomeTabs";
 
+import CaregiverMyPageEdit from "./screens/Caregiver/CaregiverMyPageEdit";
 import PatientMyPageEdit from "./screens/Patient/PatientMyPageEdit";
 
 const Stack = createStackNavigator();
@@ -67,10 +68,10 @@ export default function App() {
       const roleIndex = await getUserRoleIndex();
       const signedIn = await getAutoSignedIn();
 
-      setUserRole(role || false); // 초기 userRole을 false로 설정, getUserRole에서 값을 받아오면 해당 값으로 업데이트
-      setUserRoleIndex(roleIndex || -1);
-      // setUserRole("Caregiver");
-      // setUserRoleIndex(0);
+      // setUserRole(role || false); // 초기 userRole을 false로 설정, getUserRole에서 값을 받아오면 해당 값으로 업데이트
+      // setUserRoleIndex(roleIndex || -1);
+      setUserRole("Patient");
+      setUserRoleIndex(1);
       setIsSignedIn(signedIn || false);
     } catch (error) {
       console.log(error);
@@ -116,6 +117,10 @@ export default function App() {
                 <Stack.Screen
                   name="PatientMyPageEdit"
                   component={PatientMyPageEdit}
+                />
+                <Stack.Screen
+                  name="CaregiverMyPageEdit"
+                  component={CaregiverMyPageEdit}
                 />
               </>
             ) : (

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { View, Text, StyleSheet, PanResponder, Animated } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-const CustomSlider = ({ width = 300, disabled = false, initialValue = 0 }) => {
+const CustomSlider = ({ width = 320, disabled = false, initialValue = 0 }) => {
   const [currentValue, setCurrentValue] = useState(initialValue);
   const panX = useRef(new Animated.Value(initialValue * (width - 24))).current;
   const lastOffset = useRef(initialValue * (width - 24));
