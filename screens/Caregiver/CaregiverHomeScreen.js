@@ -19,7 +19,7 @@ export default function CaregiverHomeScreen() {
   const windowHeight = Dimensions.get("window").height;
   const boxHeight = windowHeight * 0.48; // 화면 세로 길이의 40% 계산
   const moveToMap = () => {
-    navigation.navigate("Map");
+    navigation.navigate("CaregiverSearchEducation");
   };
   return (
     <View style={styles.container}>

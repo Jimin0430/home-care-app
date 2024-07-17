@@ -20,7 +20,7 @@ export const dataPerUserRole = [
     homePage: CaregiverHomeScreen,
     myPage: CaregiverMyPageScreen,
     myPageEdit: CaregiverMyPageEdit,
-    search: CaregiverSearchScreen,
+    searchPage: CaregiverSearchScreen,
   },
   {
     index: 1,
@@ -30,7 +30,7 @@ export const dataPerUserRole = [
     homePage: PatientHomeScreen,
     myPage: PatientMyPageScreen,
     myPageEdit: PatientMyPageEdit,
-    search: PatientSearchScreen,
+    searchPage: PatientSearchScreen,
   },
   {
     index: 2,
@@ -40,6 +40,6 @@ export const dataPerUserRole = [
     homePage: AspiringCaregiverHomeScreen,
     myPage: null,
     myPageEdit: null,
-    search: null,
+    searchPage: null,
   },
 ];

@@ -19,8 +19,8 @@ import SignInCaregiver from "./components/SignInCaregiver";
 import SignInPatient from "./components/SignInPatient";
 import UploadCertificate from "./components/UploadCertificate";
 import HomeTabs from "./screens/HomeTabs";
-
-import Map from "./components/Map";
+import CaregiverSearchEducation from "./screens/Caregiver/CaregiverSearchEducation";
+// import Map from "./components/Map";
 import CaregiverMyPageEdit from "./screens/Caregiver/CaregiverMyPageEdit";
 import PatientMyPageEdit from "./screens/Patient/PatientMyPageEdit";
 
@@ -123,7 +123,11 @@ export default function App() {
                     component={HomeTabs}
                     initialParams={{ userRole, userRoleIndex }}
                   />
-                  <Stack.Screen name="Map" component={Map} />
+                  <Stack.Screen
+                    name="CaregiverSearchEducation"
+                    component={CaregiverSearchEducation}
+                  />
+                  {/* <Stack.Screen name="Map" component={Map} /> */}
                   <Stack.Screen
                     name="PatientMyPageEdit"
                     component={PatientMyPageEdit}

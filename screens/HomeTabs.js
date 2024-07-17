@@ -64,7 +64,7 @@ export default function HomeTabs({ route }) {
   const {
     homePage: HomeComponent,
     myPage: MyPageComponent,
-    search: SearchComponent,
+    searchPage: SearchComponent,
   } = userRoleData;
   // userRole에 따른 페이지 분류
   // const [HomeComponent, setHomeComponent] = useState(null);
