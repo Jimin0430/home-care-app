@@ -56,6 +56,9 @@ export default function CaregiverMyPageScreen() {
     },
   ];
 
+  const handleEditButton = () => {
+    navigation.navigate("CaregiverMyPageEdit");
+  };
   return (
     <View style={commonLayoutStyle.container}>
       <ScrollView
@@ -193,7 +196,7 @@ export default function CaregiverMyPageScreen() {
       {/* Bottom Button */}
       <TouchableOpacity
         style={profileScreenStyle.bottomButton}
-        onPress={navigation.navigate("CaregiverMyPageEdit")}
+        onPress={() => handleEditButton()}
       >
         <Text style={profileScreenStyle.bottomButtonText}>
           나의 프로필 수정하기

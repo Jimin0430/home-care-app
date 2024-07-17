@@ -21,13 +21,13 @@ import SearchScreen from "./SearchScreen";
 import ChatScreen from "./ChatScreen";
 import SettingsScreen from "./SettingsScreen";
 import { Color } from "../styles/color";
+import CaregiverSearchScreen from "./Caregiver/CaregiverSearchScreen";
 
 const Tab = createBottomTabNavigator();
 
 export default function HomeTabs({ route }) {
   const { userRole, userRoleIndex } = route.params;
-  // const userRole = "Patient";
-  // const userRoleIndex = "1";
+
   // userRole에 따른 페이지 분류
   const [userRoleData, setUserRoleData] = useState(null);
 
@@ -61,7 +61,11 @@ export default function HomeTabs({ route }) {
     return <Text>Loading...</Text>; // 또는 적절한 로딩 컴포넌트
   }
 
-  const { homePage: HomeComponent, myPage: MyPageComponent } = userRoleData;
+  const {
+    homePage: HomeComponent,
+    myPage: MyPageComponent,
+    search: SearchComponent,
+  } = userRoleData;
   // userRole에 따른 페이지 분류
   // const [HomeComponent, setHomeComponent] = useState(null);
   // const [MyPageComponent, setMyPageComponent] = useState(null);
@@ -173,7 +177,41 @@ export default function HomeTabs({ route }) {
 
         <Tab.Screen
           name="Search"
-          component={SearchScreen}
+          component={SearchComponent || (() => null)}
+          options={({ navigation }) => ({
+            header: () => (
+              <View
+                style={[
+                  styles.customHeader,
+                  { justifyContent: "space-between" },
+                ]}
+              >
+                <TouchableOpacity
+                  style={styles.backButton}
+                  onPress={() => navigation.goBack()}
+                >
+                  <Icon name="chevron-back" size={24} color="black" />
+                </TouchableOpacity>
+                {userRole === "Caregiver" ? (
+                  <Text style={styles.headerTitle}>환자 찾기</Text>
+                ) : (
+                  <Text style={styles.headerTitle}>요양사 찾기</Text>
+                )}
+                <TouchableOpacity
+                  style={styles.menuButton}
+                  onPress={() =>
+                    showCustomAlert("안내", "곧 추가될 서비스입니다.")
+                  }
+                >
+                  <Icon name="menu" size={24} color="black" />
+                </TouchableOpacity>
+              </View>
+            ),
+            headerStyle: {
+              backgroundColor: "white",
+            },
+            tabBarLabel: "Search",
+          })}
           listeners={({ navigation, route }) => ({
             tabPress: (e) => handleTabPress(e, route),
           })}

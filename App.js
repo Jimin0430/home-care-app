@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, StyleSheet, ActivityIndicator } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  ActivityIndicator,
+  StatusBar,
+  Platform,
+} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -14,6 +20,7 @@ import SignInPatient from "./components/SignInPatient";
 import UploadCertificate from "./components/UploadCertificate";
 import HomeTabs from "./screens/HomeTabs";
 
+import Map from "./components/Map";
 import CaregiverMyPageEdit from "./screens/Caregiver/CaregiverMyPageEdit";
 import PatientMyPageEdit from "./screens/Patient/PatientMyPageEdit";
 
@@ -70,8 +77,8 @@ export default function App() {
 
       // setUserRole(role || false); // 초기 userRole을 false로 설정, getUserRole에서 값을 받아오면 해당 값으로 업데이트
       // setUserRoleIndex(roleIndex || -1);
-      setUserRole("Patient");
-      setUserRoleIndex(1);
+      setUserRole("Caregiver");
+      setUserRoleIndex(0);
       setIsSignedIn(signedIn || false);
     } catch (error) {
       console.log(error);
@@ -103,37 +110,41 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <AuthProvider handleSignIn={handleSignIn}>
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-            {isSignedIn ? (
-              <>
+    <>
+      <StatusBar barStyle={"dark-content"} backgroundColor={"white"} />
+      <SafeAreaView style={styles.safeArea}>
+        <AuthProvider handleSignIn={handleSignIn}>
+          <NavigationContainer>
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+              {isSignedIn ? (
+                <>
+                  <Stack.Screen
+                    name="HomeTabs"
+                    component={HomeTabs}
+                    initialParams={{ userRole, userRoleIndex }}
+                  />
+                  <Stack.Screen name="Map" component={Map} />
+                  <Stack.Screen
+                    name="PatientMyPageEdit"
+                    component={PatientMyPageEdit}
+                  />
+                  <Stack.Screen
+                    name="CaregiverMyPageEdit"
+                    component={CaregiverMyPageEdit}
+                  />
+                </>
+              ) : (
                 <Stack.Screen
-                  name="HomeTabs"
-                  component={HomeTabs}
-                  initialParams={{ userRole, userRoleIndex }}
+                  name="Auth"
+                  component={AuthNavigator}
+                  // initialParams={{ handleSignIn }}
                 />
-                <Stack.Screen
-                  name="PatientMyPageEdit"
-                  component={PatientMyPageEdit}
-                />
-                <Stack.Screen
-                  name="CaregiverMyPageEdit"
-                  component={CaregiverMyPageEdit}
-                />
-              </>
-            ) : (
-              <Stack.Screen
-                name="Auth"
-                component={AuthNavigator}
-                // initialParams={{ handleSignIn }}
-              />
-            )}
-          </Stack.Navigator>
-        </NavigationContainer>
-      </AuthProvider>
-    </SafeAreaView>
+              )}
+            </Stack.Navigator>
+          </NavigationContainer>
+        </AuthProvider>
+      </SafeAreaView>
+    </>
   );
 }
 

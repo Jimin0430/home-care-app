@@ -8,6 +8,9 @@ import PatientMyPageScreen from "../screens/Patient/PatientMyPageScreen";
 import CaregiverMyPageEdit from "../screens/Caregiver/CaregiverMyPageEdit";
 import PatientMyPageEdit from "../screens/Caregiver/CaregiverMyPageEdit";
 
+import CaregiverSearchScreen from "../screens/Caregiver/CaregiverSearchScreen";
+import PatientSearchScreen from "../screens/Patient/PatientSearchScreen";
+
 export const dataPerUserRole = [
   {
     index: 0,
@@ -17,7 +20,7 @@ export const dataPerUserRole = [
     homePage: CaregiverHomeScreen,
     myPage: CaregiverMyPageScreen,
     myPageEdit: CaregiverMyPageEdit,
-    myPageEdit: null,
+    search: CaregiverSearchScreen,
   },
   {
     index: 1,
@@ -27,6 +30,7 @@ export const dataPerUserRole = [
     homePage: PatientHomeScreen,
     myPage: PatientMyPageScreen,
     myPageEdit: PatientMyPageEdit,
+    search: PatientSearchScreen,
   },
   {
     index: 2,
@@ -36,5 +40,6 @@ export const dataPerUserRole = [
     homePage: AspiringCaregiverHomeScreen,
     myPage: null,
     myPageEdit: null,
+    search: null,
   },
 ];

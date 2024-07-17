@@ -4,12 +4,12 @@ import CalendarStrip from "react-native-calendar-strip";
 import DropDownPicker from "react-native-dropdown-picker";
 import moment from "moment";
 
-import { Color } from "../styles/color";
-import { schedules } from "../utils/patientScheduleData";
+import { Color } from "../../styles/color";
+import { schedules } from "../../utils/patientScheduleData";
 
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 
-const SearchScreen = () => {
+const CaregiverSearchScreen = () => {
   const [openCareType, setOpenCareType] = useState(false);
   const [openRegion, setOpenRegion] = useState(false);
   const [openTimeSlot, setOpenTimeSlot] = useState(false);
@@ -43,8 +43,9 @@ const SearchScreen = () => {
       <View style={styles.scheduleDetails}>
         <View styles={styles.titleContainer}>
           <Text style={styles.scheduleTitle}>{item.title}</Text>
-          <MaterialCommunityIcons name="pill" size={14} color="tomato" />
+          <MaterialCommunityIcons name="pill" size={14} color={Color.pink900} />
         </View>
+
         <Text style={styles.scheduleSubtext}>
           여 | 시급: {item.pay} | 종료: {item.duration}
         </Text>
@@ -58,7 +59,8 @@ const SearchScreen = () => {
         scrollable
         style={styles.calendarStrip}
         calendarColor={"#FFF"}
-        calendarHeaderStyle={{ color: "#000" }}
+        calendarHeaderStyle={{ color: "#fff" }}
+        calendarHeaderFormat={""}
         dateNumberStyle={{ color: "#000" }}
         dateNameStyle={{ color: "#000" }}
         highlightDateNumberStyle={{ color: "#FFF" }}
@@ -66,6 +68,12 @@ const SearchScreen = () => {
         highlightDateContainerStyle={{ backgroundColor: Color.pink900 }}
         onDateSelected={onDateSelected}
         selectedDate={selectedDate ? moment(selectedDate) : moment()}
+        leftSelector={
+          <AntDesign name="leftcircle" size={24} color={Color.pink700} />
+        }
+        rightSelector={
+          <AntDesign name="rightcircle" size={24} color={Color.pink700} />
+        }
       />
       <View style={styles.dropdownContainer}>
         <View style={styles.dropdownWrapper}>
@@ -223,25 +231,34 @@ const styles = StyleSheet.create({
   },
   scheduleList: {
     flex: 1,
+    paddingHorizontal: 30,
+    marginTop: 10,
   },
   scheduleItem: {
+    flex: 1,
     flexDirection: "row",
-    padding: 15,
-    marginBottom: 10,
+    padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#e0e0e0",
   },
   scheduleTime: {
+    flex: 1,
     fontSize: 16,
     fontWeight: "bold",
     marginRight: 10,
   },
   scheduleDetails: {
-    flex: 1,
+    flex: 5,
+    flexDirection: "column",
+    // backgroundColor: "pink",
   },
   titleContainer: {
+    flex: 1,
+    // width: "100%",
     flexDirection: "row",
-    backgroundColor: "blue",
+    // alignItems: "center",
+    justifyContent: "flex-start",
+    zIndex: 3000,
   },
   scheduleTitle: {
     fontSize: 16,
@@ -253,4 +270,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchScreen;
+export default CaregiverSearchScreen;

@@ -10,7 +10,7 @@ import {
 } from "../../styles/globalStyles";
 
 export default function PatientMyPageScreen() {
-  const navigate = useNavigation();
+  const navigation = useNavigation();
   const profileInfo = [
     { label: "병명", value: "선망증세" },
     { label: "키/몸무게", value: "167cm | 57kg" },
@@ -64,7 +64,7 @@ export default function PatientMyPageScreen() {
     // navigation("Stacks", {
     //   screen: "PatientMyPageEdit",
     // });
-    navigate.navigate("PatientMyPageEdit");
+    navigation.navigate("PatientMyPageEdit");
   };
 
   return (

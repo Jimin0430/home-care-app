@@ -6,13 +6,21 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import { Color } from "../../styles/color";
+// import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function CaregiverHomeScreen() {
+  const navigation = useNavigation();
+
   const windowHeight = Dimensions.get("window").height;
   const boxHeight = windowHeight * 0.48; // 화면 세로 길이의 40% 계산
-
+  const moveToMap = () => {
+    navigation.navigate("Map");
+  };
   return (
     <View style={styles.container}>
       <ScrollView
@@ -32,17 +40,19 @@ export default function CaregiverHomeScreen() {
 
         <View style={[styles.homeMainContainer, { height: boxHeight }]}>
           <View style={styles.mainInnerContainer}>
-            <View
+            <TouchableOpacity
               style={[
                 styles.leftInnerBox,
                 { flex: 3, backgroundColor: Color.pink700 },
               ]}
+              onPress={moveToMap}
             >
               <Text style={styles.mainBoxInnerText}>
                 오프라인 {"\n"}정기교육 {"\n"}신청하기
               </Text>
-            </View>
-            <View
+            </TouchableOpacity>
+
+            <TouchableOpacity
               style={[
                 styles.leftInnerBox,
                 { flex: 2, backgroundColor: Color.pink400 },
@@ -51,11 +61,11 @@ export default function CaregiverHomeScreen() {
               <Text style={styles.mainBoxInnerTextHighlight}>
                 일정{"\n"}관리하기
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.mainInnerContainer}>
-            <View
+            <TouchableOpacity
               style={[
                 styles.leftInnerBox,
                 { flex: 1.1, backgroundColor: Color.grin600 },
@@ -64,9 +74,9 @@ export default function CaregiverHomeScreen() {
               <Text style={styles.mainBoxInnerText}>
                 나의 리뷰 {"\n"}관리하기
               </Text>
-            </View>
+            </TouchableOpacity>
 
-            <View
+            <TouchableOpacity
               style={[
                 styles.leftInnerBox,
                 { flex: 2, backgroundColor: Color.grin500 },
@@ -75,7 +85,7 @@ export default function CaregiverHomeScreen() {
               <Text style={styles.mainBoxInnerText}>
                 요양사{"\n"}커뮤니티{"\n"}살펴보기
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.communityContainer}>
@@ -140,11 +150,13 @@ const styles = StyleSheet.create({
     fontSize: 24.5,
     color: "white",
     fontWeight: "bold",
+    height: "100%",
   },
   mainBoxInnerTextHighlight: {
     fontSize: 24.5,
     color: Color.pink900,
     fontWeight: "bold",
+    height: "100%",
   },
   communityContainer: {
     width: "100%",
