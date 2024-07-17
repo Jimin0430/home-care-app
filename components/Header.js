@@ -35,10 +35,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     padding: 16,
-    paddingTop: Platform.OS === "ios" ? 44 : StatusBar.currentHeight,
     backgroundColor: "white",
-    borderBottomWidth: 1,
-    borderBottomColor: "#e0e0e0",
+    borderBottomWidth: 0,
   },
   headerTitle: {
     fontSize: 18,

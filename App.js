@@ -77,8 +77,8 @@ export default function App() {
 
       // setUserRole(role || false); // 초기 userRole을 false로 설정, getUserRole에서 값을 받아오면 해당 값으로 업데이트
       // setUserRoleIndex(roleIndex || -1);
-      setUserRole("Caregiver");
-      setUserRoleIndex(0);
+      setUserRole("Patient");
+      setUserRoleIndex(1);
       setIsSignedIn(signedIn || false);
     } catch (error) {
       console.log(error);

@@ -48,7 +48,7 @@ export default function CaregiverHomeScreen() {
               onPress={moveToMap}
             >
               <Text style={styles.mainBoxInnerText}>
-                오프라인 {"\n"}정기교육 {"\n"}신청하기
+                오프라인 {"\n"}정기 교육 {"\n"}기관 찾기
               </Text>
             </TouchableOpacity>
 

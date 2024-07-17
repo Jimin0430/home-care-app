@@ -9,7 +9,7 @@ import CaregiverMyPageEdit from "../screens/Caregiver/CaregiverMyPageEdit";
 import PatientMyPageEdit from "../screens/Caregiver/CaregiverMyPageEdit";
 
 import CaregiverSearchScreen from "../screens/Caregiver/CaregiverSearchScreen";
-import PatientSearchScreen from "../screens/Patient/PatientSearchScreen";
+import PatientSearchScreen from "../screens/Patient/PatientSearchCaregiver";
 
 export const dataPerUserRole = [
   {
