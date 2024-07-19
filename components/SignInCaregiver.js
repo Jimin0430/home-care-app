@@ -12,7 +12,10 @@ import {
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { signInScreenStyle } from "../styles/globalStyles";
-import { submitCaregiverInfo } from "../apis/signInApi";
+import {
+  submitCaregiverInfo,
+  checkUsernameAvailability,
+} from "../apis/signInApi";
 
 import { useAuth } from "../contexts/AuthContext";
 
@@ -44,19 +47,32 @@ export default function SignInCaregiver({ route }) {
   // 초기 상태 설정
   const initialState = {
     name: "",
+    username: "",
+    email: "",
+    password: "",
     age: 0,
     gender: "",
     phone: "",
     address: "",
-    username: "",
-    email: "",
-    password: "",
   };
 
   const [formData, setFormData] = useState(initialState);
+  const [usernameAvailable, setUsernameAvailable] = useState(null);
 
-  const handleInputChange = (name, value) => {
+  const handleInputChange = async (name, value) => {
     setFormData({ ...formData, [name]: value });
+
+    // 유효성 검사
+    if (name === "username" && value) {
+      try {
+        const available = await checkUsernameAvailability(value);
+        setUsernameAvailable(available);
+      } catch (error) {
+        console.error("Failed to check username availability:", error);
+        // 사용자에게 오류 메시지를 표시할 수 있습니다.
+        Alert.alert("오류", "닉네임 중복 확인 중 문제가 발생했습니다.");
+      }
+    }
   };
 
   const logFormData = () => {
@@ -85,6 +101,28 @@ export default function SignInCaregiver({ route }) {
         email: formData.email,
         password: formData.password,
       };
+
+      // // 유효성 검사
+      // if (
+      //   !userInfo.name ||
+      //   !userInfo.age ||
+      //   !userInfo.gender ||
+      //   !userInfo.phone ||
+      //   !userInfo.address ||
+      //   !userInfo.username ||
+      //   !userInfo.email ||
+      //   !userInfo.password
+      // ) {
+      //   Alert.alert("모든 필드를 채워주세요.");
+      //   return;
+      // }
+
+      // username 중복 검사
+      if (!usernameAvailable) {
+        Alert.alert("사용할 수 없는 닉네임입니다. 다른 닉네임을 입력해주세요.");
+        return;
+      }
+
       const data = await submitCaregiverInfo(userInfo);
       console.log("Server response:", data);
       // Clear the form
@@ -113,13 +151,13 @@ export default function SignInCaregiver({ route }) {
 
   const userInfoFields = {
     이름: { value: formData.name, key: "name" },
+    닉네임: { value: formData.username, key: "username" },
+    이메일: { value: formData.email, key: "email" },
+    비밀번호: { value: formData.passWord, key: "passWord" },
     나이: { value: formData.age, key: "age" },
     성별: { value: formData.gender, key: "gender", placeholder: "(ex. 여자)" },
     전화번호: { value: formData.phone, key: "phone" },
     주소: { value: formData.address, key: "address" },
-    닉네임: { value: formData.username, key: "username" },
-    이메일: { value: formData.email, key: "email" },
-    비밀번호: { value: formData.passWord, key: "passWord" },
   };
 
   const { StatusBarManager } = NativeModules;
@@ -174,6 +212,15 @@ export default function SignInCaregiver({ route }) {
                       handleInputChange(userInfoFields[label].key, text)
                     }
                   />
+                  {label === "닉네임" && (
+                    <Text style={signInScreenStyle.subTitle}>
+                      {usernameAvailable === null
+                        ? ""
+                        : usernameAvailable
+                        ? "사용 가능한 닉네임입니다."
+                        : "이미 사용 중인 닉네임입니다."}
+                    </Text>
+                  )}
                 </View>
               );
             })}

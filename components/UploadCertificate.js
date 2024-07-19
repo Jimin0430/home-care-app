@@ -102,7 +102,7 @@ export default function UploadCertificate() {
       >
         <TouchableOpacity
           style={signInScreenStyle.button}
-          onPress={() => fetchUserRole()}
+          onPress={fetchUserRole}
         >
           <Text style={signInScreenStyle.buttonText}>회원가입 완료하기</Text>
         </TouchableOpacity>
