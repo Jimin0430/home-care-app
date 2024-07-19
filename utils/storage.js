@@ -12,7 +12,7 @@ export const setAutoSignedIn = async (value) => {
 export const getAutoSignedIn = async () => {
   try {
     const value = await AsyncStorage.getItem("auto-signed-in");
-    return value != null ? JSON.parse(value) : false;
+    return value !== null ? JSON.parse(value) : false;
   } catch (error) {
     console.log(error);
     return null;
@@ -32,7 +32,7 @@ export const setUserRole = async (value) => {
 export const getUserRole = async () => {
   try {
     const userType = await AsyncStorage.getItem("user-role");
-    return userType != null ? JSON.parse(userType) : false;
+    return userType !== null ? JSON.parse(userType) : false;
   } catch (e) {
     console.log(e);
     return null;
@@ -52,7 +52,7 @@ export const setUserRoleIndex = async (value) => {
 export const getUserRoleIndex = async () => {
   try {
     const userRoleIndex = await AsyncStorage.getItem("user-role-index");
-    return userRoleIndex != null ? JSON.parse(userRoleIndex) : -1;
+    return userRoleIndex !== null ? JSON.parse(userRoleIndex) : -1;
   } catch (e) {
     console.log(e);
     return null;

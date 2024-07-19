@@ -19,16 +19,26 @@ const SingleChoiceSelector = ({ options, formData, handleInputChange }) => {
     <View style={styles.container}>
       {options &&
         options.map((option, index) => (
-          <TouchableOpacity
-            key={index}
-            style={[
-              signInScreenStyle.input,
-              selectedOption === index && styles.selectedButton,
-            ]}
-            onPress={() => handlePress(index)}
-          >
-            <Text style={signInScreenStyle.boxInnerText}>{option}</Text>
-          </TouchableOpacity>
+          <View key={index} style={styles.optionContainer}>
+            <TouchableOpacity
+              style={[
+                signInScreenStyle.input,
+                selectedOption === index && styles.selectedButton,
+              ]}
+              onPress={() => handlePress(index)}
+            >
+              <Text
+                style={
+                  selectedOption === index
+                    ? styles.selectionText
+                    : signInScreenStyle.boxInnerText
+                }
+              >
+                {option}
+              </Text>
+            </TouchableOpacity>
+            {selectedOption === index && <View style={styles.overlay} />}
+          </View>
         ))}
     </View>
   );
@@ -41,12 +51,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 9,
   },
+  optionContainer: {
+    position: "relative",
+  },
   selectedButton: {
     borderColor: Color.pink900,
     borderWidth: 1,
   },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: Color.pink900,
+    opacity: 0.1,
+    borderRadius: 10,
+  },
   selectionText: {
-    fontSize: 18,
+    fontSize: 16,
     color: "#333",
   },
 });

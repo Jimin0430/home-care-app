@@ -80,7 +80,7 @@ export default function PatientScheduleTimeScreen({ navigation }) {
       <Header title={"일정 관리하기"} />
 
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        // behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={[signInScreenStyle.keyboardPush, { flexGrow: 1 }]}
         keyboardVerticalOffset={statusBarHeight + 44}
       >

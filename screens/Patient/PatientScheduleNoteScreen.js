@@ -37,7 +37,7 @@ export default function PatientScheduleNoteScreen({ navigation }) {
       <Header title={"일정 관리하기"} />
 
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        // behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={signInScreenStyle.keyboardPush}
         keyboardVerticalOffset={statusBarHeight + 44}
       >

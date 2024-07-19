@@ -2,17 +2,25 @@ import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   StyleSheet,
+  // StatusBar,
+  Text,
   ActivityIndicator,
-  StatusBar,
-  Platform,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { getUserRole, getUserRoleIndex } from "./utils/storage";
+import { StatusBar } from "expo-status-bar";
+
+import {
+  getUserRole,
+  getUserRoleIndex,
+  setAutoSignedIn,
+  getAutoSignedIn,
+} from "./utils/storage";
 import { Color } from "./styles/color";
 import { AuthProvider } from "./contexts/AuthContext";
-import { setAutoSignedIn, getAutoSignedIn } from "./utils/storage";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import SignIn from "./screens/SignIn";
 import SignInCaregiver from "./components/SignInCaregiver";
@@ -26,35 +34,20 @@ import PatientMyPageEdit from "./screens/Patient/PatientMyPageEdit";
 import PatientScheduleTimeScreen from "./screens/Patient/PatientScheduleTimeScreen";
 import PatientScheduleNoteScreen from "./screens/Patient/PatientScheduleNoteScreen";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 const Stack = createStackNavigator();
 const AuthStack = createStackNavigator();
 
 function AuthNavigator() {
-  // const { handleSignIn } = route.params;
+  console.log("로그인 페이지 라우팅");
   return (
     <AuthStack.Navigator screenOptions={{ headerShown: false }}>
-      <AuthStack.Screen
-        name="SignIn"
-        component={SignIn}
-        // initialParams={{ handleSignIn }}
-      />
-      <AuthStack.Screen
-        name="SignInCaregiver"
-        component={SignInCaregiver}
-        // initialParams={{ handleSignIn }}
-      />
+      <AuthStack.Screen name="SignIn" component={SignIn} />
+      <AuthStack.Screen name="SignInCaregiver" component={SignInCaregiver} />
       <AuthStack.Screen
         name="UploadCertificate"
         component={UploadCertificate}
-        // initialParams={{ handleSignIn }}
       />
-      <AuthStack.Screen
-        name="SignInPatient"
-        component={SignInPatient}
-        // initialParams={{ handleSignIn }}
-      />
+      <AuthStack.Screen name="SignInPatient" component={SignInPatient} />
     </AuthStack.Navigator>
   );
 }
@@ -63,7 +56,9 @@ export default function App() {
   const [userRole, setUserRole] = useState(null);
   const [userRoleIndex, setUserRoleIndex] = useState(null);
   const [isSignedIn, setIsSignedIn] = useState(null);
-  //로그인 정보 초기화
+  // const [isLoading, setIsLoading] = useState(true);
+
+  // 로그인 정보 초기화
   useEffect(() => {
     const clearStorage = async () => {
       try {
@@ -77,7 +72,6 @@ export default function App() {
     clearStorage();
   }, []);
 
-  // 초기 회원가입 후 바로 HomeTab(메인화면)으로 이동해야하는 경우 로그인 정보 전달하여 app.js 리렌더링 -> HomeTab으로 navigate
   const handleSignIn = (role, roleIndex) => {
     setUserRole(role);
     setUserRoleIndex(roleIndex);
@@ -85,91 +79,101 @@ export default function App() {
     setAutoSignedIn(true);
   };
 
-  // 회원가입 후 앱에 재접속 하는 경우 로그인 상태 유지
   const fetchUserRole = async () => {
     try {
       const role = await getUserRole();
       const roleIndex = await getUserRoleIndex();
       const signedIn = await getAutoSignedIn();
 
-      setUserRole(role || false); // 초기 userRole을 false로 설정, getUserRole에서 값을 받아오면 해당 값으로 업데이트
-      setUserRoleIndex(roleIndex || -1);
-      // setUserRole("Caregiver");
-      // setUserRoleIndex(1);
-      setIsSignedIn(signedIn || false);
+      setUserRole(role);
+      setUserRoleIndex(roleIndex);
+      setIsSignedIn(signedIn);
     } catch (error) {
       console.log(error);
-      setUserRole(false); //user-role key값이 존재하지 않는 초기 상태에 대한 처리
+      setUserRole(false);
       setUserRoleIndex(-1);
       setIsSignedIn(false);
     }
   };
 
   useEffect(() => {
-    //**재접속 시에는 초기 회원가입으로 인한 자동로그인상태가 해지된 상태임. 이때에 스토리에 저장된 userRole, userRoleIndex를 가져옴
-    if (!isSignedIn) {
-      fetchUserRole();
-    }
-  }, [isSignedIn]);
+    fetchUserRole();
+  }, []);
 
   useEffect(() => {
-    console.log("app.js 페이지 " + userRole);
-    console.log("app.js 페이지 " + userRoleIndex);
-  }, [userRole, userRoleIndex]);
+    console.log("app.js 페이지 userRole: " + userRole);
+    console.log("app.js 페이지 userRoleIndex: " + userRoleIndex);
+    console.log("app.js 페이지 isSignedIn: " + isSignedIn);
+  }, [isSignedIn]);
 
-  // 초기 로딩 화면
-  if (userRole === null) {
+  if (isSignedIn === null) {
     return (
       <SafeAreaView style={styles.safeArea}>
         <ActivityIndicator size="large" color={Color.pink900} />
+        <Text>로딩중</Text>
       </SafeAreaView>
     );
   }
+  // if (!isLoading) {
+  //   console.log("로딩 끝남");
+  // }
 
   return (
     <>
-      <StatusBar barStyle={"dark-content"} backgroundColor={"white"} />
-      <SafeAreaView style={styles.safeArea}>
-        <AuthProvider handleSignIn={handleSignIn}>
-          <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-              {isSignedIn ? (
-                <>
-                  <Stack.Screen
-                    name="HomeTabs"
-                    component={HomeTabs}
-                    initialParams={{ userRole, userRoleIndex }}
-                  />
-                  <Stack.Screen
-                    name="CaregiverSearchEducation"
-                    component={CaregiverSearchEducation}
-                  />
-                  <Stack.Screen
-                    name="CaregiverMyPageEdit"
-                    component={CaregiverMyPageEdit}
-                  />
-                  <Stack.Screen name="MapScreen" component={MapScreen} />
-                  <Stack.Screen
-                    name="PatientMyPageEdit"
-                    component={PatientMyPageEdit}
-                  />
+      <StatusBar StatusBarStyle="light" style="dark" backgroundColor="#fff" />
 
-                  <Stack.Screen
-                    name="PatientScheduleTimeScreen"
-                    component={PatientScheduleTimeScreen}
-                  />
-                  <Stack.Screen
-                    name="PatientScheduleNoteScreen"
-                    component={PatientScheduleNoteScreen}
-                  />
-                </>
-              ) : (
-                <Stack.Screen name="Auth" component={AuthNavigator} />
-              )}
-            </Stack.Navigator>
-          </NavigationContainer>
-        </AuthProvider>
-      </SafeAreaView>
+      {/* <SafeAreaView style={styles.safeArea}> */}
+      <AuthProvider handleSignIn={handleSignIn}>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            {isSignedIn === true ? (
+              <>
+                <Stack.Screen
+                  name="HomeTabs"
+                  component={HomeTabs}
+                  initialParams={{ userRole, userRoleIndex }}
+                />
+                <Stack.Screen
+                  name="CaregiverSearchEducation"
+                  component={CaregiverSearchEducation}
+                />
+                <Stack.Screen
+                  name="CaregiverMyPageEdit"
+                  component={CaregiverMyPageEdit}
+                />
+                <Stack.Screen name="MapScreen" component={MapScreen} />
+                <Stack.Screen
+                  name="PatientMyPageEdit"
+                  component={PatientMyPageEdit}
+                />
+                <Stack.Screen
+                  name="PatientScheduleTimeScreen"
+                  component={PatientScheduleTimeScreen}
+                />
+                <Stack.Screen
+                  name="PatientScheduleNoteScreen"
+                  component={PatientScheduleNoteScreen}
+                />
+              </>
+            ) : (
+              // <Stack.Screen name="Auth" component={AuthNavigator} />
+              <>
+                <Stack.Screen name="SignIn" component={SignIn} />
+                <Stack.Screen
+                  name="SignInCaregiver"
+                  component={SignInCaregiver}
+                />
+                <Stack.Screen
+                  name="UploadCertificate"
+                  component={UploadCertificate}
+                />
+                <Stack.Screen name="SignInPatient" component={SignInPatient} />
+              </>
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AuthProvider>
+      {/* </SafeAreaView> */}
     </>
   );
 }
@@ -178,5 +182,6 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     justifyContent: "center",
+    alignItems: "center",
   },
 });

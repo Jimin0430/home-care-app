@@ -65,12 +65,12 @@ const CaregiverSearchScreen = () => {
         scrollable
         style={styles.calendarStrip}
         calendarColor={"#FFF"}
-        calendarHeaderStyle={{ color: "#fff" }}
+        calendarHeaderStyle={{ color: "#fff", fontSize: 12 }}
         calendarHeaderFormat={""}
-        dateNumberStyle={{ color: "#000" }}
-        dateNameStyle={{ color: "#000" }}
-        highlightDateNumberStyle={{ color: "#FFF" }}
-        highlightDateNameStyle={{ color: "#FFF" }}
+        dateNumberStyle={{ color: "#000", fontSize: 12 }}
+        dateNameStyle={{ color: "#000", fontSize: 12 }}
+        highlightDateNumberStyle={{ color: "#FFF", fontSize: 12 }}
+        highlightDateNameStyle={{ color: "#FFF", fontSize: 12 }}
         highlightDateContainerStyle={{ backgroundColor: Color.pink900 }}
         onDateSelected={onDateSelected}
         selectedDate={selectedDate ? moment(selectedDate) : moment()}

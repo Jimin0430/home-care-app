@@ -8,7 +8,6 @@ import {
   StatusBar,
 } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { dataPerUserRole } from "../utils/dataPerUserRole";
 import { showRestrictedAccessAlert } from "../components/CustomAlert";
@@ -56,7 +55,11 @@ export default function HomeTabs({ route }) {
   };
 
   if (!userRoleData) {
-    return <Text>Loading...</Text>; // 또는 적절한 로딩 컴포넌트
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Loading...</Text>
+      </View>
+    );
   }
 
   const {

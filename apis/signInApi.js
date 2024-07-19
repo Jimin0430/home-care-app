@@ -64,14 +64,24 @@ export const submitCaregiverInfo = async (caregiverInfo) => {
 //   }
 // };
 
-// 모든 요양사 정보 받아오기
-export const submitPatientInfo = async () => {
+// 신규 보호자 정보 등록하기
+export const submitPatientInfo = async (patientInfo) => {
   try {
-    const response = await api.post("/guardians/");
+    const response = await api.post("/guardians/", patientInfo);
     return response.data;
   } catch (error) {
-    console.error("Failed to fetch caregivers:", error);
-    throw error;
+    if (error.response) {
+      console.error("Server responded with an error:", error.response.data);
+      throw new Error(
+        error.response.data.detail || "Failed to submit caregiverInfo data"
+      );
+    } else if (error.request) {
+      console.error("No response received:", error.request);
+      throw new Error("Network error: No response received from server");
+    } else {
+      console.error("Error setting up the request:", error.message);
+      throw new Error("Failed to set up the request");
+    }
   }
 };
 
@@ -87,7 +97,8 @@ export const checkUsernameAvailability = async (username) => {
     if (error.response) {
       console.error("Server responded with an error:", error.response.data);
       throw new Error(
-        error.response.data.detail || "Failed to check username availability"
+        error.response.data.detail.msg ||
+          "Failed to check username availability"
       );
     } else if (error.request) {
       console.error("No response received:", error.request);
@@ -111,7 +122,7 @@ export const checkEmailAvailability = async (email) => {
     if (error.response) {
       console.error("Server responded with an error:", error.response.data);
       throw new Error(
-        error.response.data.detail || "Failed to check email availability"
+        error.response.data.detail.msg || "Failed to check email availability"
       );
     } else if (error.request) {
       console.error("No response received:", error.request);

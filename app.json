@@ -26,6 +26,10 @@
       "package": "org.carefriends.goyounginha",
       "permissions": ["CAMERA"]
     },
+    "androidStatusBar": {
+      "backgroundColor": "#fff",
+      "translucent": false
+    },
     "web": {
       "favicon": "./assets/favicon.png"
     },

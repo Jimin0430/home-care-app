@@ -82,24 +82,22 @@ export default function SignInCaregiver({ route }) {
   const checkAvailability = async (name, value) => {
     // 유효성 검사
     if (name === "username" && value) {
+      console.log(value);
+      console.log(typeof value);
       try {
         const available = await checkUsernameAvailability(value);
-        console.log("available : ", available);
+        console.log("checkUsernameAvailability : ", available);
         setUsernameAvailable(available);
       } catch (error) {
         console.error("Failed to check username availability:", error);
-        // 사용자에게 오류 메시지를 표시할 수 있습니다.
-        Alert.alert("오류", "닉네임 중복 확인 중 문제가 발생했습니다.");
       }
     } else if (name === "email" && value) {
       try {
         const available = await checkEmailAvailability(value);
-        console.log("available : ", available);
+        console.log("checkEmailAvailability : ", available);
         setEmailAvailable(available);
       } catch (error) {
-        console.error("Failed to check username availability:", error);
-        // 사용자에게 오류 메시지를 표시할 수 있습니다.
-        Alert.alert("오류", "닉네임 중복 확인 중 문제가 발생했습니다.");
+        console.error("Failed to check email availability:", error);
       }
     }
   };
@@ -147,10 +145,10 @@ export default function SignInCaregiver({ route }) {
       // }
 
       // username 중복 검사
-      if (!usernameAvailable) {
-        Alert.alert("사용할 수 없는 닉네임입니다. 다른 닉네임을 입력해주세요.");
-        return;
-      }
+      // if (!usernameAvailable) {
+      //   Alert.alert("사용할 수 없는 닉네임입니다. 다른 닉네임을 입력해주세요.");
+      //   return;
+      // }
 
       const data = await submitCaregiverInfo(userInfo);
       console.log("Server response:", data);
@@ -182,7 +180,7 @@ export default function SignInCaregiver({ route }) {
     이름: { value: formData.name, key: "name" },
     닉네임: { value: formData.username, key: "username" },
     이메일: { value: formData.email, key: "email" },
-    비밀번호: { value: formData.passWord, key: "passWord" },
+    비밀번호: { value: formData.password, key: "password" },
     나이: { value: formData.age, key: "age" },
     성별: { value: formData.gender, key: "gender", placeholder: "(ex. 여자)" },
     전화번호: { value: formData.phone, key: "phone" },
@@ -204,7 +202,7 @@ export default function SignInCaregiver({ route }) {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      // behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={signInScreenStyle.keyboardPush}
       keyboardVerticalOffset={statusBarHeight}
     >
@@ -235,8 +233,8 @@ export default function SignInCaregiver({ route }) {
                         style={[signInScreenStyle.input, { width: "70%" }]}
                         placeholder={
                           userInfoFields[label].placeholder !== undefined
-                            ? `본인의 ${label}${particle} 입력해주세요. ${userInfoFields[label].placeholder}`
-                            : `본인의 ${label}${particle} 입력해주세요.`
+                            ? `${label}${particle} 입력해주세요. ${userInfoFields[label].placeholder}`
+                            : `${label}${particle} 입력해주세요.`
                         }
                         value={userInfoFields[label].value}
                         onChangeText={(text) =>
@@ -269,13 +267,14 @@ export default function SignInCaregiver({ route }) {
                       style={signInScreenStyle.input}
                       placeholder={
                         userInfoFields[label].placeholder !== undefined
-                          ? `본인의 ${label}${particle} 입력해주세요. ${userInfoFields[label].placeholder}`
-                          : `본인의 ${label}${particle} 입력해주세요.`
+                          ? `${label}${particle} 입력해주세요. ${userInfoFields[label].placeholder}`
+                          : `${label}${particle} 입력해주세요.`
                       }
                       value={userInfoFields[label].value}
                       onChangeText={(text) =>
                         handleInputChange(userInfoFields[label].key, text)
                       }
+                      secureTextEntry={label === "비밀번호"} // 비밀번호 입력 시 텍스트 숨김
                     />
                   )}
                   {label === "닉네임" && usernameAvailable !== null && (

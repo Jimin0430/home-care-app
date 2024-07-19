@@ -41,7 +41,7 @@ export default function SignInPatient({ route }) {
     // try {
     //   // App.js의 상태 업데이트 및 HomeTabs로 이동
     //   handleSignIn(userRole, userRoleIndex);
-    console.log("sign in page : " + userRole);
+
     // } catch (e) {
     //   console.log("sign in page moveToHomeTab click error", e);
     // }
@@ -135,7 +135,7 @@ export default function SignInPatient({ route }) {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      // behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={signInScreenStyle.keyboardPush}
       keyboardVerticalOffset={statusBarHeight}
     >
@@ -171,6 +171,7 @@ export default function SignInPatient({ route }) {
                     onChangeText={(text) =>
                       handleInputChange(userInfoFields[label].key, text)
                     }
+                    secureTextEntry={label === "비밀번호"} // 비밀번호 입력 시 텍스트 숨김
                   />
                 </View>
               );

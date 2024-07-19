@@ -7,7 +7,7 @@ export const signInScreenStyle = StyleSheet.create({
     alignItems: "center",
     padding: 20,
     gap: 40,
-    paddingTop: StatusBar.currentHeight,
+    // paddingTop: StatusBar.currentHeight,
     backgroundColor: "white",
   },
   title: {

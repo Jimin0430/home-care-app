@@ -10,7 +10,7 @@ import { dataPerUserRole } from "../utils/dataPerUserRole";
 export default function SignIn() {
   const navigation = useNavigation();
   const route = useRoute();
-  //
+  console.log("SignIn page 실행");
   // const { handleSignIn } = route.params;
   //파라미터로서 전달받음
   const moveSignInPerRole = async (userRole, userRoleIndex, moveToPage) => {

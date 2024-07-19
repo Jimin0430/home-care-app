@@ -112,7 +112,7 @@ export default function PatientMyPageEdit({ navigation }) {
         <View style={profileEditStyle.placeholder} />
       </View>
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        // behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={[signInScreenStyle.keyboardPush, { flexGrow: 1 }]}
         keyboardVerticalOffset={statusBarHeight + 44}
       >
