@@ -66,6 +66,7 @@ export default function SignInCaregiver({ route }) {
     if (name === "username" && value) {
       try {
         const available = await checkUsernameAvailability(value);
+        console.log("available : ", available);
         setUsernameAvailable(available);
       } catch (error) {
         console.error("Failed to check username availability:", error);
@@ -212,11 +213,9 @@ export default function SignInCaregiver({ route }) {
                       handleInputChange(userInfoFields[label].key, text)
                     }
                   />
-                  {label === "닉네임" && (
-                    <Text style={signInScreenStyle.subTitle}>
-                      {usernameAvailable === null
-                        ? ""
-                        : usernameAvailable
+                  {label === "닉네임" && usernameAvailable !== null && (
+                    <Text style={signInScreenStyle.explainText}>
+                      {usernameAvailable
                         ? "사용 가능한 닉네임입니다."
                         : "이미 사용 중인 닉네임입니다."}
                     </Text>

@@ -61,9 +61,8 @@ export const checkUsernameAvailability = async (username) => {
     const response = await api.get("/account/check-username", {
       params: { username },
     });
-
-    // API 응답이 문자열 "true" 또는 "false"를 반환.
-    return response.data === "true";
+    // API 응답이 true 또는 false 를 반환.
+    return response.data.is_unique === true;
   } catch (error) {
     if (error.response) {
       console.error("Server responded with an error:", error.response.data);

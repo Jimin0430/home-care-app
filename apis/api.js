@@ -1,7 +1,8 @@
 import axios from "axios";
+import { Platform } from "react-native";
 
-const BASE_URL = "http://localhost:8000"; // FastAPI 서버의 기본 URL
-
+const BASE_URL = "http://3.38.48.154:8000";
+// const BASE_URL = Platform.OS === "ios" ? ios_BASE_URL : android_BASE_URL;
 const api = axios.create({
   baseURL: BASE_URL,
   headers: {
