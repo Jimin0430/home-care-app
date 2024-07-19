@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import {
-  SafeAreaView,
+  // SafeAreaView,
   StyleSheet,
-  // StatusBar,
+  // Platform,
   Text,
   ActivityIndicator,
 } from "react-native";
+import {
+  SafeAreaView,
+  SafeAreaProvider,
+  SafeAreaInsetsContext,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -120,59 +126,63 @@ export default function App() {
 
   return (
     <>
-      <StatusBar StatusBarStyle="light" style="dark" backgroundColor="#fff" />
-
+      <StatusBar style="dark" backgroundColor="#fff" />
       {/* <SafeAreaView style={styles.safeArea}> */}
-      <AuthProvider handleSignIn={handleSignIn}>
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-            {isSignedIn === true ? (
-              <>
-                <Stack.Screen
-                  name="HomeTabs"
-                  component={HomeTabs}
-                  initialParams={{ userRole, userRoleIndex }}
-                />
-                <Stack.Screen
-                  name="CaregiverSearchEducation"
-                  component={CaregiverSearchEducation}
-                />
-                <Stack.Screen
-                  name="CaregiverMyPageEdit"
-                  component={CaregiverMyPageEdit}
-                />
-                <Stack.Screen name="MapScreen" component={MapScreen} />
-                <Stack.Screen
-                  name="PatientMyPageEdit"
-                  component={PatientMyPageEdit}
-                />
-                <Stack.Screen
-                  name="PatientScheduleTimeScreen"
-                  component={PatientScheduleTimeScreen}
-                />
-                <Stack.Screen
-                  name="PatientScheduleNoteScreen"
-                  component={PatientScheduleNoteScreen}
-                />
-              </>
-            ) : (
-              // <Stack.Screen name="Auth" component={AuthNavigator} />
-              <>
-                <Stack.Screen name="SignIn" component={SignIn} />
-                <Stack.Screen
-                  name="SignInCaregiver"
-                  component={SignInCaregiver}
-                />
-                <Stack.Screen
-                  name="UploadCertificate"
-                  component={UploadCertificate}
-                />
-                <Stack.Screen name="SignInPatient" component={SignInPatient} />
-              </>
-            )}
-          </Stack.Navigator>
-        </NavigationContainer>
-      </AuthProvider>
+      <SafeAreaProvider>
+        <AuthProvider handleSignIn={handleSignIn}>
+          <NavigationContainer>
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+              {isSignedIn === true ? (
+                <>
+                  <Stack.Screen
+                    name="HomeTabs"
+                    component={HomeTabs}
+                    initialParams={{ userRole, userRoleIndex }}
+                  />
+                  <Stack.Screen
+                    name="CaregiverSearchEducation"
+                    component={CaregiverSearchEducation}
+                  />
+                  <Stack.Screen
+                    name="CaregiverMyPageEdit"
+                    component={CaregiverMyPageEdit}
+                  />
+                  <Stack.Screen name="MapScreen" component={MapScreen} />
+                  <Stack.Screen
+                    name="PatientMyPageEdit"
+                    component={PatientMyPageEdit}
+                  />
+                  <Stack.Screen
+                    name="PatientScheduleTimeScreen"
+                    component={PatientScheduleTimeScreen}
+                  />
+                  <Stack.Screen
+                    name="PatientScheduleNoteScreen"
+                    component={PatientScheduleNoteScreen}
+                  />
+                </>
+              ) : (
+                <Stack.Screen name="Auth" component={AuthNavigator} />
+                // <>
+                //   <Stack.Screen name="SignIn" component={SignIn} />
+                //   <Stack.Screen
+                //     name="SignInCaregiver"
+                //     component={SignInCaregiver}
+                //   />
+                //   <Stack.Screen
+                //     name="UploadCertificate"
+                //     component={UploadCertificate}
+                //   />
+                //   <Stack.Screen
+                //     name="SignInPatient"
+                //     component={SignInPatient}
+                //   />
+                // </>
+              )}
+            </Stack.Navigator>
+          </NavigationContainer>
+        </AuthProvider>
+      </SafeAreaProvider>
       {/* </SafeAreaView> */}
     </>
   );
@@ -181,7 +191,8 @@ export default function App() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    width: "100%",
+    // justifyContent: "center",
+    // alignItems: "center",
   },
 });

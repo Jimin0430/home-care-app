@@ -228,7 +228,7 @@ export default function SignInCaregiver({ route }) {
                 >
                   <Text style={signInScreenStyle.subTitle}>{label}</Text>
                   {label === "닉네임" || label === "이메일" ? (
-                    <View style={{ flexDirection: "row" }}>
+                    <View style={{ flexDirection: "row", gap: 10 }}>
                       <TextInput
                         style={[signInScreenStyle.input, { width: "70%" }]}
                         placeholder={
@@ -248,7 +248,7 @@ export default function SignInCaregiver({ route }) {
                         }
                         style={[
                           signInScreenStyle.button,
-                          { width: "30%", backgroundColor: Color.pink900 },
+                          { width: "30%", backgroundColor: "#ff8266" },
                         ]}
                       >
                         <Text
