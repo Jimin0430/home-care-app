@@ -15,11 +15,13 @@ import { signInScreenStyle } from "../styles/globalStyles";
 import {
   submitCaregiverInfo,
   checkUsernameAvailability,
+  checkEmailAvailability,
 } from "../apis/signInApi";
 
 import { useAuth } from "../contexts/AuthContext";
 
 import Logo from "../assets/images/logo.svg";
+import { Color } from "../styles/color";
 
 // 받침 여부 판단 함수
 const hasFinalConsonant = (char) => {
@@ -58,16 +60,42 @@ export default function SignInCaregiver({ route }) {
 
   const [formData, setFormData] = useState(initialState);
   const [usernameAvailable, setUsernameAvailable] = useState(null);
+  const [emailAvailable, setEmailAvailable] = useState(null);
 
   const handleInputChange = async (name, value) => {
     setFormData({ ...formData, [name]: value });
 
+    // // 유효성 검사
+    // if (name === "username" && value) {
+    //   try {
+    //     const available = await checkUsernameAvailability(value);
+    //     console.log("available : ", available);
+    //     setUsernameAvailable(available);
+    //   } catch (error) {
+    //     console.error("Failed to check username availability:", error);
+    //     // 사용자에게 오류 메시지를 표시할 수 있습니다.
+    //     Alert.alert("오류", "닉네임 중복 확인 중 문제가 발생했습니다.");
+    //   }
+    // }
+  };
+
+  const checkAvailability = async (name, value) => {
     // 유효성 검사
     if (name === "username" && value) {
       try {
         const available = await checkUsernameAvailability(value);
         console.log("available : ", available);
         setUsernameAvailable(available);
+      } catch (error) {
+        console.error("Failed to check username availability:", error);
+        // 사용자에게 오류 메시지를 표시할 수 있습니다.
+        Alert.alert("오류", "닉네임 중복 확인 중 문제가 발생했습니다.");
+      }
+    } else if (name === "email" && value) {
+      try {
+        const available = await checkEmailAvailability(value);
+        console.log("available : ", available);
+        setEmailAvailable(available);
       } catch (error) {
         console.error("Failed to check username availability:", error);
         // 사용자에게 오류 메시지를 표시할 수 있습니다.
@@ -201,23 +229,77 @@ export default function SignInCaregiver({ route }) {
                   style={signInScreenStyle.inputContainer}
                 >
                   <Text style={signInScreenStyle.subTitle}>{label}</Text>
-                  <TextInput
-                    style={signInScreenStyle.input}
-                    placeholder={
-                      userInfoFields[label].placeholder !== undefined
-                        ? `본인의 ${label}${particle} 입력해주세요. ${userInfoFields[label].placeholder}`
-                        : `본인의 ${label}${particle} 입력해주세요.`
-                    }
-                    value={userInfoFields[label].value}
-                    onChangeText={(text) =>
-                      handleInputChange(userInfoFields[label].key, text)
-                    }
-                  />
+                  {label === "닉네임" || label === "이메일" ? (
+                    <View style={{ flexDirection: "row" }}>
+                      <TextInput
+                        style={[signInScreenStyle.input, { width: "70%" }]}
+                        placeholder={
+                          userInfoFields[label].placeholder !== undefined
+                            ? `본인의 ${label}${particle} 입력해주세요. ${userInfoFields[label].placeholder}`
+                            : `본인의 ${label}${particle} 입력해주세요.`
+                        }
+                        value={userInfoFields[label].value}
+                        onChangeText={(text) =>
+                          handleInputChange(userInfoFields[label].key, text)
+                        }
+                      />
+
+                      <TouchableOpacity
+                        onPress={(text) =>
+                          checkAvailability(userInfoFields[label].key, text)
+                        }
+                        style={[
+                          signInScreenStyle.button,
+                          { width: "30%", backgroundColor: Color.pink900 },
+                        ]}
+                      >
+                        <Text
+                          style={[
+                            signInScreenStyle.buttonText,
+                            { fontSize: 14 },
+                          ]}
+                        >
+                          {" "}
+                          중복 확인하기{" "}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  ) : (
+                    <TextInput
+                      style={signInScreenStyle.input}
+                      placeholder={
+                        userInfoFields[label].placeholder !== undefined
+                          ? `본인의 ${label}${particle} 입력해주세요. ${userInfoFields[label].placeholder}`
+                          : `본인의 ${label}${particle} 입력해주세요.`
+                      }
+                      value={userInfoFields[label].value}
+                      onChangeText={(text) =>
+                        handleInputChange(userInfoFields[label].key, text)
+                      }
+                    />
+                  )}
                   {label === "닉네임" && usernameAvailable !== null && (
-                    <Text style={signInScreenStyle.explainText}>
+                    <Text
+                      style={[
+                        signInScreenStyle.explainText,
+                        { color: Color.pink900 },
+                      ]}
+                    >
                       {usernameAvailable
                         ? "사용 가능한 닉네임입니다."
                         : "이미 사용 중인 닉네임입니다."}
+                    </Text>
+                  )}
+                  {label === "이메일" && emailAvailable !== null && (
+                    <Text
+                      style={[
+                        signInScreenStyle.explainText,
+                        { color: Color.pink900 },
+                      ]}
+                    >
+                      {emailAvailable
+                        ? "사용 가능한 이메일입니다."
+                        : "이미 사용 중인 이메일입니다."}
                     </Text>
                   )}
                 </View>

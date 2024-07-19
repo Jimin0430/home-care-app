@@ -6,8 +6,18 @@ export const getCaregivers = async () => {
     const response = await api.get("/caregivers/");
     return response.data;
   } catch (error) {
-    console.error("Failed to fetch caregivers:", error);
-    throw error;
+    if (error.response) {
+      console.error("Server responded with an error:", error.response.data);
+      throw new Error(
+        error.response.data.detail || "Failed to check username availability"
+      );
+    } else if (error.request) {
+      console.error("No response received:", error.request);
+      throw new Error("Network error: No response received from server");
+    } else {
+      console.error("Error setting up the request:", error.message);
+      throw new Error("Failed to set up the request");
+    }
   }
 };
 
@@ -17,8 +27,18 @@ export const submitCaregiverInfo = async (caregiverInfo) => {
     const response = await api.post("/caregivers/", caregiverInfo);
     return response.data;
   } catch (error) {
-    console.error("Failed to submit caregiverInfo data:", error);
-    throw error;
+    if (error.response) {
+      console.error("Server responded with an error:", error.response.data);
+      throw new Error(
+        error.response.data.detail || "Failed to submit caregiverInfo data"
+      );
+    } else if (error.request) {
+      console.error("No response received:", error.request);
+      throw new Error("Network error: No response received from server");
+    } else {
+      console.error("Error setting up the request:", error.message);
+      throw new Error("Failed to set up the request");
+    }
   }
 };
 
@@ -68,6 +88,30 @@ export const checkUsernameAvailability = async (username) => {
       console.error("Server responded with an error:", error.response.data);
       throw new Error(
         error.response.data.detail || "Failed to check username availability"
+      );
+    } else if (error.request) {
+      console.error("No response received:", error.request);
+      throw new Error("Network error: No response received from server");
+    } else {
+      console.error("Error setting up the request:", error.message);
+      throw new Error("Failed to set up the request");
+    }
+  }
+};
+
+// 이메일 중복체크하기
+export const checkEmailAvailability = async (email) => {
+  try {
+    const response = await api.get("/account/check-email", {
+      params: { email },
+    });
+    // API 응답이 true 또는 false 를 반환.
+    return response.data.is_unique === true;
+  } catch (error) {
+    if (error.response) {
+      console.error("Server responded with an error:", error.response.data);
+      throw new Error(
+        error.response.data.detail || "Failed to check email availability"
       );
     } else if (error.request) {
       console.error("No response received:", error.request);
