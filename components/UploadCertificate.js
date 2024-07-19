@@ -36,8 +36,8 @@ export default function UploadCertificate() {
   // };
 
   const fetchUserRole = () => {
-    setUserRole(userRole || false); // 초기 userRole을 false로 설정, getUserRole에서 값을 받아오면 해당 값으로 업데이트
-    setUserRoleIndex(userRoleIndex || -1);
+    // setUserRole(userRole || false); // 초기 userRole을 false로 설정, getUserRole에서 값을 받아오면 해당 값으로 업데이트
+    // setUserRoleIndex(userRoleIndex || -1);
 
     // App.js의 상태 업데이트 및 HomeTabs로 이동
     handleSignIn(userRole, userRoleIndex);

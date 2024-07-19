@@ -12,7 +12,7 @@ export const setAutoSignedIn = async (value) => {
 export const getAutoSignedIn = async () => {
   try {
     const value = await AsyncStorage.getItem("auto-signed-in");
-    return value != null ? JSON.parse(value) : null;
+    return value != null ? JSON.parse(value) : false;
   } catch (error) {
     console.log(error);
     return null;

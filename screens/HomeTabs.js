@@ -17,11 +17,9 @@ import { showCustomAlert } from "../components/CustomAlert";
 import Icon from "@expo/vector-icons/Ionicons";
 import Logo from "../assets/images/logo.svg";
 
-import SearchScreen from "./SearchScreen";
 import ChatScreen from "./ChatScreen";
 import SettingsScreen from "./SettingsScreen";
 import { Color } from "../styles/color";
-import CaregiverSearchScreen from "./Caregiver/CaregiverSearchScreen";
 
 const Tab = createBottomTabNavigator();
 

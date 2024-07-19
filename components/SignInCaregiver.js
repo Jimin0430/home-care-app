@@ -48,8 +48,9 @@ export default function SignInCaregiver({ route }) {
     gender: "",
     phone: "",
     address: "",
-    experience: "",
-    desired_hourly_rate: 0,
+    username: "",
+    email: "",
+    password: "",
   };
 
   const [formData, setFormData] = useState(initialState);
@@ -65,8 +66,9 @@ export default function SignInCaregiver({ route }) {
       gender: formData.gender,
       phone: formData.phone,
       address: formData.address,
-      experience: formData.experience,
-      desired_hourly_rate: parseInt(formData.desired_hourly_rate),
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
     });
   };
 
@@ -79,8 +81,9 @@ export default function SignInCaregiver({ route }) {
         gender: formData.gender,
         phone: formData.phone,
         address: formData.address,
-        experience: formData.experience,
-        desired_hourly_rate: parseInt(formData.desired_hourly_rate),
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
       };
       const data = await submitCaregiverInfo(userInfo);
       console.log("Server response:", data);
@@ -88,7 +91,6 @@ export default function SignInCaregiver({ route }) {
       setFormData(initialState);
     } catch (e) {
       console.log(e);
-      Alert.alert("Error", "Failed to save user data");
     }
   };
 
@@ -111,13 +113,13 @@ export default function SignInCaregiver({ route }) {
 
   const userInfoFields = {
     이름: { value: formData.name, key: "name" },
-    닉네임: { value: formData.nickname, key: "nickname" },
     나이: { value: formData.age, key: "age" },
     성별: { value: formData.gender, key: "gender", placeholder: "(ex. 여자)" },
     전화번호: { value: formData.phone, key: "phone" },
     주소: { value: formData.address, key: "address" },
-    경력: { value: formData.experience, key: "experience" },
-    희망시급: { value: formData.desired_hourly_rate, key: "desiredHourlyRate" },
+    닉네임: { value: formData.username, key: "username" },
+    이메일: { value: formData.email, key: "email" },
+    비밀번호: { value: formData.passWord, key: "passWord" },
   };
 
   const { StatusBarManager } = NativeModules;

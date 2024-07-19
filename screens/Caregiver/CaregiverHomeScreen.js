@@ -147,13 +147,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   mainBoxInnerText: {
-    fontSize: 24.5,
+    fontSize: 24,
     color: "white",
     fontWeight: "bold",
     height: "100%",
   },
   mainBoxInnerTextHighlight: {
-    fontSize: 24.5,
+    fontSize: 24,
     color: Color.pink900,
     fontWeight: "bold",
     height: "100%",
@@ -180,6 +180,4 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   middleTitle: { color: "black", fontWeight: "bold", fontSize: 18 },
-  middleText: {},
-  smallText: {},
 });

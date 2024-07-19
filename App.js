@@ -20,9 +20,13 @@ import SignInPatient from "./components/SignInPatient";
 import UploadCertificate from "./components/UploadCertificate";
 import HomeTabs from "./screens/HomeTabs";
 import CaregiverSearchEducation from "./screens/Caregiver/CaregiverSearchEducation";
-// import Map from "./components/Map";
+import MapScreen from "./screens/MapScreen";
 import CaregiverMyPageEdit from "./screens/Caregiver/CaregiverMyPageEdit";
 import PatientMyPageEdit from "./screens/Patient/PatientMyPageEdit";
+import PatientScheduleTimeScreen from "./screens/Patient/PatientScheduleTimeScreen";
+import PatientScheduleNoteScreen from "./screens/Patient/PatientScheduleNoteScreen";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createStackNavigator();
 const AuthStack = createStackNavigator();
@@ -59,6 +63,19 @@ export default function App() {
   const [userRole, setUserRole] = useState(null);
   const [userRoleIndex, setUserRoleIndex] = useState(null);
   const [isSignedIn, setIsSignedIn] = useState(null);
+  //로그인 정보 초기화
+  useEffect(() => {
+    const clearStorage = async () => {
+      try {
+        await AsyncStorage.clear();
+        console.log("AsyncStorage cleared");
+      } catch (e) {
+        console.error("Failed to clear AsyncStorage:", e);
+      }
+    };
+
+    clearStorage();
+  }, []);
 
   // 초기 회원가입 후 바로 HomeTab(메인화면)으로 이동해야하는 경우 로그인 정보 전달하여 app.js 리렌더링 -> HomeTab으로 navigate
   const handleSignIn = (role, roleIndex) => {
@@ -75,10 +92,10 @@ export default function App() {
       const roleIndex = await getUserRoleIndex();
       const signedIn = await getAutoSignedIn();
 
-      // setUserRole(role || false); // 초기 userRole을 false로 설정, getUserRole에서 값을 받아오면 해당 값으로 업데이트
-      // setUserRoleIndex(roleIndex || -1);
-      setUserRole("Patient");
-      setUserRoleIndex(1);
+      setUserRole(role || false); // 초기 userRole을 false로 설정, getUserRole에서 값을 받아오면 해당 값으로 업데이트
+      setUserRoleIndex(roleIndex || -1);
+      // setUserRole("Caregiver");
+      // setUserRoleIndex(1);
       setIsSignedIn(signedIn || false);
     } catch (error) {
       console.log(error);
@@ -127,22 +144,27 @@ export default function App() {
                     name="CaregiverSearchEducation"
                     component={CaregiverSearchEducation}
                   />
-                  {/* <Stack.Screen name="Map" component={Map} /> */}
-                  <Stack.Screen
-                    name="PatientMyPageEdit"
-                    component={PatientMyPageEdit}
-                  />
                   <Stack.Screen
                     name="CaregiverMyPageEdit"
                     component={CaregiverMyPageEdit}
                   />
+                  <Stack.Screen name="MapScreen" component={MapScreen} />
+                  <Stack.Screen
+                    name="PatientMyPageEdit"
+                    component={PatientMyPageEdit}
+                  />
+
+                  <Stack.Screen
+                    name="PatientScheduleTimeScreen"
+                    component={PatientScheduleTimeScreen}
+                  />
+                  <Stack.Screen
+                    name="PatientScheduleNoteScreen"
+                    component={PatientScheduleNoteScreen}
+                  />
                 </>
               ) : (
-                <Stack.Screen
-                  name="Auth"
-                  component={AuthNavigator}
-                  // initialParams={{ handleSignIn }}
-                />
+                <Stack.Screen name="Auth" component={AuthNavigator} />
               )}
             </Stack.Navigator>
           </NavigationContainer>

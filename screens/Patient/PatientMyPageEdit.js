@@ -17,7 +17,7 @@ import {
 } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
-import { signInScreenStyle } from "../../styles/globalStyles";
+import { profileEditStyle, signInScreenStyle } from "../../styles/globalStyles";
 import CustomSlider from "../../components/CustomSlider";
 import DiseaseSeverityTable from "../../components/DiseaseSeverityTable";
 
@@ -103,37 +103,39 @@ export default function PatientMyPageEdit({ navigation }) {
   const [statusBarHeight, setStatusBarHeight] = useState(0);
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.header}>
+    <SafeAreaView style={profileEditStyle.safeArea}>
+      <View style={profileEditStyle.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name="chevron-back" size={24} color="black" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>나의 프로필 수정페이지</Text>
-        <View style={styles.placeholder} />
+        <Text style={profileEditStyle.headerTitle}>나의 프로필 수정페이지</Text>
+        <View style={profileEditStyle.placeholder} />
       </View>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView
-          contentContainerStyle={[
-            signInScreenStyle.scrollViewContent,
-            { flexGrow: 1 },
-          ]}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-        >
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={[signInScreenStyle.keyboardPush, { flex: 1 }]}
-            keyboardVerticalOffset={statusBarHeight + 44}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={[signInScreenStyle.keyboardPush, { flexGrow: 1 }]}
+        keyboardVerticalOffset={statusBarHeight + 44}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <ScrollView
+            contentContainerStyle={[
+              signInScreenStyle.scrollViewContent,
+              { flexGrow: 1 },
+            ]}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
           >
-            <View style={styles.container}>
-              <Text style={styles.title}>환자 정보를 입력해주세요</Text>
-              <View style={styles.inputList}>
+            <View style={profileEditStyle.container}>
+              <Text style={profileEditStyle.title}>
+                환자 정보를 입력해주세요
+              </Text>
+              <View style={profileEditStyle.inputList}>
                 {Object.keys(userInfoFields).map((label) => {
                   const particle = hasFinalConsonant(label) ? "을" : "를";
                   return (
                     <View
                       key={userInfoFields[label].key}
-                      style={styles.inputContainer}
+                      style={profileEditStyle.inputContainer}
                     >
                       <Text style={signInScreenStyle.subTitle}>{label}</Text>
                       <TextInput
@@ -189,10 +191,10 @@ export default function PatientMyPageEdit({ navigation }) {
                     }
                   />
                 </View>
+                <DiseaseSeverityTable />
 
                 {/* <Text>선택된 증세 정도: {formData.extentOfDisease}단계</Text> */}
 
-                <DiseaseSeverityTable />
                 <TouchableOpacity
                   style={signInScreenStyle.button}
                   onPress={() => saveButton()}
@@ -201,51 +203,9 @@ export default function PatientMyPageEdit({ navigation }) {
                 </TouchableOpacity>
               </View>
             </View>
-          </KeyboardAvoidingView>
-        </ScrollView>
-      </TouchableWithoutFeedback>
+          </ScrollView>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "white",
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#e0e0e0",
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  placeholder: {
-    width: 24,
-  },
-  container: {
-    flex: 1,
-    alignItems: "center",
-    padding: 20,
-    gap: 45,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "700",
-    width: "100%",
-  },
-  inputList: {
-    width: "100%",
-    padding: 10,
-    gap: 23,
-  },
-  inputContainer: {
-    width: "100%",
-    gap: 11,
-  },
-});

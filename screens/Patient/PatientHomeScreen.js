@@ -6,14 +6,32 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Color } from "../../styles/color";
+import { profileScreenStyle } from "../../styles/globalStyles";
 
 const windowHeight = Dimensions.get("window").height;
 
-export default function PatientHomeScreen() {
+export default function PatientHomeScreen({ navigation }) {
   const boxHeight = windowHeight * 0.48; // 화면 세로 길이의 40% 계산
+  const review = {
+    title: "후기",
+    type: "review",
+    data: [
+      "요양사 선생님의 식사 보조 덕분에 어머니의 영양 상태가 많이 좋아졌습니다. 항상 친절하고 꼼꼼하게 돌봐주셔서 정말 감사합니다.",
+      "할머니를 정성껏 돌봐주셔서 감사합니다. 특히 운동 보조를 해주신 덕분에 할머니의 근력이 조금씩 좋아지고 있어요. 앞으로도 잘 부탁드립니다.",
+      "어르신들을 대하는 태도가 정말 훌륭하십니다. 항상 밝은 미소로 대해주시고, 꼼꼼하게 케어해주셔서 가족들도 안심하고 맡길 수 있었습니다.",
+      " 항상 밝은 미소로 대해주시고, 꼼꼼하게 케어해주셔서 가족들도 안심하고 맡길 수 있었습니다.",
+    ],
+  };
+
+  const checkGradeProfit = () => {};
+
+  const moveScheduleManagement = () => {
+    navigation.navigate("PatientScheduleTimeScreen");
+  };
   return (
     <View style={styles.container}>
       <ScrollView
@@ -33,62 +51,70 @@ export default function PatientHomeScreen() {
 
         <View style={[styles.homeMainContainer, { height: boxHeight }]}>
           <View style={styles.mainInnerContainer}>
-            <View
+            <TouchableOpacity
               style={[
                 styles.leftInnerBox,
                 { flex: 3, backgroundColor: Color.pink700 },
               ]}
+              onPress={() => checkGradeProfit()}
             >
               <Text style={styles.mainBoxInnerText}>
-                오프라인 {"\n"}정기교육 {"\n"}신청하기
+                장기요양{"\n"}등급 혜택{"\n"}확인하기
               </Text>
-            </View>
-            <View
+            </TouchableOpacity>
+            <TouchableOpacity
               style={[
                 styles.leftInnerBox,
                 { flex: 2, backgroundColor: Color.pink400 },
               ]}
+              onPress={() => moveScheduleManagement()}
             >
               <Text style={styles.mainBoxInnerTextHighlight}>
                 일정{"\n"}관리하기
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.mainInnerContainer}>
-            <View
+            <TouchableOpacity
               style={[
                 styles.leftInnerBox,
                 { flex: 1.1, backgroundColor: Color.grin600 },
               ]}
             >
               <Text style={styles.mainBoxInnerText}>
-                나의 리뷰 {"\n"}관리하기
+                나의 리뷰 {"\n"}작성하기
               </Text>
-            </View>
+            </TouchableOpacity>
 
-            <View
+            <TouchableOpacity
               style={[
                 styles.leftInnerBox,
                 { flex: 2, backgroundColor: Color.grin500 },
               ]}
             >
               <Text style={styles.mainBoxInnerText}>
-                요양사{"\n"}커뮤니티{"\n"}살펴보기
+                관련{"\n"}뉴스 기사{"\n"}살펴보기
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.communityContainer}>
+        <View style={styles.reviewContainer}>
           <View style={styles.communityTop}>
-            <Text style={styles.middleTitle}>커뮤니티 글</Text>
+            <Text style={styles.middleTitle}>후기</Text>
             <Text style={styles.middleText}>더보기 {">"}</Text>
           </View>
-          <View style={styles.communityBox}>
-            <Text style={styles.middleTitle}>
-              이런 상황의 대처법이 궁금해요
-            </Text>
-            <Text>답변 4개</Text>
+          <View style={profileScreenStyle.sectionInfo}>
+            {review.data.slice(0, 3).map((review, reviewIndex) => (
+              <Text
+                key={reviewIndex}
+                style={styles.reviewText}
+                numberOfLines={1} //한줄 넘어가면 ellipsizeMode 처리
+                ellipsizeMode="tail" // ...으로 표시하도록 힘
+              >
+                {review}
+              </Text>
+            ))}
           </View>
         </View>
       </ScrollView>
@@ -139,22 +165,22 @@ const styles = StyleSheet.create({
     // backgroundColor: "black",
   },
   mainBoxInnerText: {
-    fontSize: 24.5,
+    fontSize: 24,
     color: "white",
     fontWeight: "bold",
     height: "100%",
   },
   mainBoxInnerTextHighlight: {
-    fontSize: 24.5,
+    fontSize: 24,
     color: Color.pink900,
     fontWeight: "bold",
     height: "100%",
   },
-  communityContainer: {
+  reviewContainer: {
     width: "100%",
+    marginTop: 10,
     padding: 21,
-    height: 140,
-    gap: 7,
+    gap: 20,
   },
   communityTop: {
     flexDirection: "row",
@@ -172,6 +198,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   middleTitle: { color: "black", fontWeight: "bold", fontSize: 18 },
-  middleText: {},
-  smallText: {},
+  reviewText: {
+    flex: 1,
+    color: Color.gray800,
+    fontWeight: "500",
+    paddingHorizontal: 5,
+  },
 });

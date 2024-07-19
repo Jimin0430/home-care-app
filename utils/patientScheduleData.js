@@ -5,8 +5,8 @@ export const schedules = [
     pay: "20,000원",
     duration: "오후 5시",
     date: "2024-07-29",
-    emergency: false,
-    pills: false,
+    emergency: true,
+    pills: true,
   },
   {
     time: "8:00",
@@ -15,7 +15,7 @@ export const schedules = [
     duration: "오후 4시",
     date: "2024-07-29",
     emergency: false,
-    pills: false,
+    pills: true,
   },
   {
     time: "9:00",
@@ -23,8 +23,8 @@ export const schedules = [
     pay: "15,000원",
     duration: "오전 10시",
     date: "2024-07-29",
-    emergency: false,
-    pills: false,
+    emergency: true,
+    pills: true,
   },
   {
     time: "10:00",
@@ -32,7 +32,7 @@ export const schedules = [
     pay: "30,000원",
     duration: "오후 3시",
     date: "2024-07-29",
-    emergency: false,
+    emergency: true,
     pills: false,
   },
   {
@@ -77,8 +77,8 @@ export const schedules = [
     pay: "40,000원",
     duration: "오전 10시",
     date: "2024-07-29",
-    emergency: false,
-    pills: false,
+    emergency: true,
+    pills: true,
   },
   {
     time: "16:00",

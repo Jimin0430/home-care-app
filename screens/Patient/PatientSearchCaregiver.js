@@ -189,6 +189,7 @@ const PatientSearchCaregiver = () => {
         renderItem={renderCaregiverItem}
         keyExtractor={(item) => item.id.toString()}
         style={styles.caregiverList}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
@@ -200,11 +201,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     paddingHorizontal: 20,
-  },
-  calendarStrip: {
-    height: 100,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
   },
   dropdownContainer: {
     flexDirection: "row",
@@ -251,39 +247,11 @@ const styles = StyleSheet.create({
     color: Color.gray700,
     lineHeight: 15, // Ensuring the text is vertically centered
   },
-  scheduleItem: {
-    flexDirection: "row",
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: Color.gray200,
-  },
-  scheduleTime: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: Color.gray900,
-    marginRight: 10,
-  },
-  scheduleDetails: {
-    flex: 1,
-  },
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  scheduleTitle: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: Color.gray900,
-  },
-  scheduleSubtext: {
-    fontSize: 12,
-    color: Color.gray700,
-  },
   caregiverItem: {
     flexDirection: "row",
     paddingHorizontal: 15,
     paddingVertical: 5,
-    marginVertical: 20,
+    marginVertical: 15,
     borderRadius: 20,
     gap: 28,
   },
@@ -328,9 +296,7 @@ const styles = StyleSheet.create({
   },
   caregiverDetails: {
     flexDirection: "column",
-    // marginBottom: 5,
   },
-
   caregiverDescription: {
     fontSize: 13,
     color: Color.gray700,
@@ -355,7 +321,7 @@ const styles = StyleSheet.create({
       width: -10,
       height: 0,
     },
-    elevation: 18,
+    elevation: 5,
   },
   caregiverList: {
     marginTop: 20,

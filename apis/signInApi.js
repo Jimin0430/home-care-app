@@ -11,6 +11,8 @@ export const submitCaregiverInfo = async (caregiverInfo) => {
     });
 
     if (!response.ok) {
+      const data = await response.json();
+      return data;
       throw new Error("Failed to submit caregiverInfo data");
     }
 

@@ -11,7 +11,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
-const Header = ({ title }) => {
+const Header = ({ title, placeholder }) => {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.safeArea}>

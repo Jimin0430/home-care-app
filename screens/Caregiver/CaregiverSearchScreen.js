@@ -8,14 +8,12 @@ import { Color } from "../../styles/color";
 import { schedules } from "../../utils/patientScheduleData";
 
 import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
-
+import { MaterialIcons } from "@expo/vector-icons";
 const CaregiverSearchScreen = () => {
-  const [openCareType, setOpenCareType] = useState(false);
   const [openRegion, setOpenRegion] = useState(false);
   const [openTimeSlot, setOpenTimeSlot] = useState(false);
   const [openPeriod, setOpenPeriod] = useState(null);
   const [openGender, setOpenGender] = useState(null);
-  const [valueCareType, setValueCareType] = useState(null);
   const [valueRegion, setValueRegion] = useState(null);
   const [valueTimeSlot, setValueTimeSlot] = useState(null);
   const [valuePeriod, setValuePeriod] = useState(null);
@@ -41,11 +39,19 @@ const CaregiverSearchScreen = () => {
     <View style={styles.scheduleItem}>
       <Text style={styles.scheduleTime}>{item.time}</Text>
       <View style={styles.scheduleDetails}>
-        <View styles={styles.titleContainer}>
+        <View style={styles.titleContainer}>
           <Text style={styles.scheduleTitle}>{item.title}</Text>
-          <MaterialCommunityIcons name="pill" size={14} color={Color.pink900} />
+          {item.emergency && (
+            <MaterialIcons name="emergency" size={15} color={Color.pink900} />
+          )}
+          {item.pills && (
+            <MaterialCommunityIcons
+              name="pill"
+              size={15}
+              color={Color.pink900}
+            />
+          )}
         </View>
-
         <Text style={styles.scheduleSubtext}>
           여 | 시급: {item.pay} | 종료: {item.duration}
         </Text>
@@ -81,12 +87,11 @@ const CaregiverSearchScreen = () => {
             open={openPeriod}
             value={valuePeriod}
             items={[
-              { label: "1주일", value: "1week" },
-              { label: "2주일", value: "2weeks" },
+              { label: "1개월 이내", value: "1-less-month" },
               { label: "1개월", value: "1month" },
               { label: "3개월", value: "3months" },
               { label: "6개월", value: "6months" },
-              { label: "1년", value: "1year" },
+              { label: "1년 이상", value: "over-1year" },
             ]}
             setOpen={setOpenPeriod}
             setValue={setValuePeriod}
@@ -98,7 +103,6 @@ const CaregiverSearchScreen = () => {
             placeholderStyle={styles.dropdownLabel}
             zIndex={3000}
             textStyle={styles.dropdownText}
-            // mode="BADGE"
             listMode="SCROLLVIEW"
             scrollViewProps={{ nestedScrollEnabled: true }}
           />
@@ -242,31 +246,34 @@ const styles = StyleSheet.create({
     borderBottomColor: "#e0e0e0",
   },
   scheduleTime: {
-    flex: 1,
+    flex: 1.2,
+    alignSelf: "center",
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: "semibold",
     marginRight: 10,
   },
   scheduleDetails: {
     flex: 5,
     flexDirection: "column",
-    // backgroundColor: "pink",
   },
   titleContainer: {
     flex: 1,
-    // width: "100%",
+    width: "100%",
     flexDirection: "row",
-    // alignItems: "center",
+    alignItems: "center",
     justifyContent: "flex-start",
-    zIndex: 3000,
   },
   scheduleTitle: {
     fontSize: 16,
     fontWeight: "bold",
+    marginRight: 5,
   },
   scheduleSubtext: {
     fontSize: 14,
     color: "gray",
+  },
+  icon: {
+    marginLeft: 5,
   },
 });
 

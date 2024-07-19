@@ -285,3 +285,105 @@ export const profileScreenStyle = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+
+export const profileEditStyle = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#e0e0e0",
+  },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  placeholder: {
+    width: 24,
+  },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    padding: 20,
+    gap: 45,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "700",
+    width: "100%",
+  },
+  inputList: {
+    width: "100%",
+    padding: 10,
+    gap: 23,
+  },
+  inputContainer: {
+    flex: 1,
+    width: "100%",
+    gap: 11,
+  },
+  timeContainer: {
+    flex: 1,
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  selectTimeContainer: {
+    width: 140,
+  },
+  selectTimeInput: {
+    backgroundColor: Color.gray200,
+    color: Color.gray700,
+    borderRadius: 10,
+    fontSize: 16,
+    borderWidth: 0,
+    justifyContent: "center",
+    paddingVertical: 18,
+    paddingHorizontal: 16,
+  },
+  input: {
+    backgroundColor: Color.gray200,
+    color: Color.gray700,
+    borderRadius: 10,
+    width: "100%",
+    fontSize: 16,
+    borderWidth: 0,
+    justifyContent: "center",
+    paddingVertical: 18,
+    paddingHorizontal: 16,
+  },
+  subText: {
+    fontSize: 18,
+    fontWeight: "regular",
+    color: Color.gray900,
+  },
+  boldText: {
+    fontWeight: "bold",
+    color: "#000",
+  },
+  unitInputContainer: {
+    width: "100%",
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+
+  optionalBoxContainer: {
+    backgroundColor: Color.gray200,
+    color: Color.gray700,
+    borderRadius: 10,
+    width: "90%",
+    fontSize: 16,
+    borderWidth: 0,
+    justifyContent: "center",
+    paddingVertical: 18,
+    paddingHorizontal: 16,
+  },
+});
