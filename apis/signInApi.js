@@ -62,7 +62,7 @@ export const checkUsernameAvailability = async (username) => {
       params: { username },
     });
 
-    // API 응답이 문자열 "true" 또는 "false"를 반환한다고 가정.
+    // API 응답이 문자열 "true" 또는 "false"를 반환.
     return response.data === "true";
   } catch (error) {
     if (error.response) {
