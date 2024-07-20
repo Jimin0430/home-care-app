@@ -22,6 +22,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 import Logo from "../assets/images/logo.svg";
 import { Color } from "../styles/color";
+import { setUserName } from "../utils/storage";
 
 // 받침 여부 판단 함수
 const hasFinalConsonant = (char) => {
@@ -151,7 +152,9 @@ export default function SignInCaregiver({ route }) {
       // }
 
       const data = await submitCaregiverInfo(userInfo);
-      console.log("Server response:", data);
+
+      setUserName(userInfo.username);
+      console.log("Server response:", data.message);
       // Clear the form
       setFormData(initialState);
     } catch (e) {

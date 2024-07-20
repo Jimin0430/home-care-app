@@ -17,16 +17,20 @@ import { Calendar } from "react-native-calendars";
 import { profileEditStyle, signInScreenStyle } from "../../styles/globalStyles";
 import FixedCareDays from "../../components/FixedCareDays";
 import Header from "../../components/Header";
+import TimePicker from "../../components/TimePicker";
 
 export default function PatientScheduleTimeScreen({ navigation }) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+
   const [timeStart, setTimeStart] = useState(new Date());
   const [timeEnd, setTimeEnd] = useState(new Date());
-  const [showStartDatePicker, setShowStartDatePicker] = useState(false);
-  const [showEndDatePicker, setShowEndDatePicker] = useState(false);
   const [showTimeStartPicker, setShowTimeStartPicker] = useState(false);
   const [showTimeEndPicker, setShowTimeEndPicker] = useState(false);
+
+  const [showStartDatePicker, setShowStartDatePicker] = useState(false);
+  const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+
   const [selectedDates, setSelectedDates] = useState({});
   const { StatusBarManager } = NativeModules;
 
@@ -50,6 +54,8 @@ export default function PatientScheduleTimeScreen({ navigation }) {
 
   const onChangeStartDate = (event, selectedDate) => {
     const currentDate = selectedDate || startDate;
+    console.log("currentDate : ", currentDate);
+
     setShowStartDatePicker(Platform.OS === "ios");
     setStartDate(currentDate);
   };
@@ -113,6 +119,7 @@ export default function PatientScheduleTimeScreen({ navigation }) {
                     mode="date"
                     display="default"
                     onChange={onChangeStartDate}
+                    locale="ko"
                   />
                 )}
               </View>
@@ -132,53 +139,23 @@ export default function PatientScheduleTimeScreen({ navigation }) {
                     mode="date"
                     display="default"
                     onChange={onChangeEndDate}
+                    locale="ko"
                   />
                 )}
               </View>
               <FixedCareDays />
               <View style={profileEditStyle.inputContainer}>
                 <Text style={signInScreenStyle.subTitle}>고정 간병 시간</Text>
-                <View style={profileEditStyle.timeContainer}>
-                  <TouchableOpacity
-                    onPress={() => setShowTimeStartPicker(true)}
-                    style={profileEditStyle.selectTimeContainer}
-                  >
-                    <TextInput
-                      style={profileEditStyle.selectTimeInput}
-                      placeholder="시작 시간을 선택해주세요"
-                      value={timeStart.toLocaleTimeString()}
-                      editable={false}
-                    />
-                  </TouchableOpacity>
-                  {showTimeStartPicker && (
-                    <DateTimePicker
-                      value={timeStart}
-                      mode="time"
-                      display="spinner"
-                      onChange={onChangeTimeStart}
-                    />
-                  )}
-                  <Text style={{ fontSize: 20, fontWeight: "700" }}> ~ </Text>
-                  <TouchableOpacity
-                    onPress={() => setShowTimeEndPicker(true)}
-                    style={profileEditStyle.selectTimeContainer}
-                  >
-                    <TextInput
-                      style={profileEditStyle.selectTimeInput}
-                      placeholder="종료 시간을 선택해주세요"
-                      value={timeEnd.toLocaleTimeString()}
-                      editable={false}
-                    />
-                  </TouchableOpacity>
-                  {showTimeEndPicker && (
-                    <DateTimePicker
-                      value={timeEnd}
-                      mode="time"
-                      display="spinner"
-                      onChange={onChangeTimeEnd}
-                    />
-                  )}
-                </View>
+                <TimePicker
+                  timeStart={timeStart}
+                  timeEnd={timeEnd}
+                  onChangeTimeStart={onChangeTimeStart}
+                  onChangeTimeEnd={onChangeTimeEnd}
+                  showTimeStartPicker={showTimeStartPicker}
+                  setShowTimeStartPicker={setShowTimeStartPicker}
+                  showTimeEndPicker={showTimeEndPicker}
+                  setShowTimeEndPicker={setShowTimeEndPicker}
+                />
               </View>
               <View style={profileEditStyle.inputContainer}>
                 <Text style={signInScreenStyle.subTitle}>추가 간병일</Text>

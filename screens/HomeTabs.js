@@ -220,6 +220,36 @@ export default function HomeTabs({ route }) {
         <Tab.Screen
           name="Chat"
           component={ChatScreen}
+          options={({ navigation }) => ({
+            header: () => (
+              <View
+                style={[
+                  styles.customHeader,
+                  { justifyContent: "space-between" },
+                ]}
+              >
+                <TouchableOpacity
+                  style={styles.backButton}
+                  onPress={() => navigation.goBack()}
+                >
+                  <Icon name="chevron-back" size={24} color="black" />
+                </TouchableOpacity>
+                <Text style={styles.headerTitle}>쪽지함</Text>
+                <TouchableOpacity
+                  style={styles.menuButton}
+                  onPress={() =>
+                    showCustomAlert("안내", "곧 추가될 서비스입니다.")
+                  }
+                >
+                  <Icon name="menu" size={24} color="black" />
+                </TouchableOpacity>
+              </View>
+            ),
+            headerStyle: {
+              backgroundColor: "white",
+            },
+            tabBarLabel: "Chat",
+          })}
           listeners={({ navigation, route }) => ({
             tabPress: (e) => handleTabPress(e, route),
           })}
@@ -241,7 +271,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderBottomWidth: 0,
     alignItems: "center",
-    paddingTop: StatusBar.currentHeight * 1.5,
+    paddingTop: StatusBar.currentHeight * 1.3,
     paddingHorizontal: 18,
     paddingVertical: 12,
   },

@@ -11,19 +11,19 @@ import { Ionicons } from "@expo/vector-icons";
 import { profileEditStyle, signInScreenStyle } from "../styles/globalStyles";
 import { Color } from "../styles/color";
 
-export default function MedicationList({ title }) {
-  const [medications, setMedications] = useState([]);
-  const [medicationName, setMedicationName] = useState("");
+export default function MedicationList({ title, placeholder }) {
+  const [item, setItem] = useState([]);
+  const [itemName, setItemName] = useState("");
 
-  const addMedication = () => {
-    if (medicationName.trim()) {
-      setMedications([...medications, medicationName.trim()]);
-      setMedicationName("");
+  const addItems = () => {
+    if (itemName.trim()) {
+      setItem([...item, itemName.trim()]);
+      setItemName("");
     }
   };
 
   const removeMedication = (name) => {
-    setMedications(medications.filter((med) => med !== name));
+    setItem(item.filter((med) => med !== name));
   };
 
   return (
@@ -32,18 +32,18 @@ export default function MedicationList({ title }) {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="약 이름을 입력해주세요"
-          value={medicationName}
-          onChangeText={setMedicationName}
+          placeholder={placeholder}
+          value={itemName}
+          onChangeText={setItemName}
         />
-        <TouchableOpacity style={styles.addButton} onPress={addMedication}>
+        <TouchableOpacity style={styles.addButton} onPress={addItems}>
           <Ionicons name="add" size={20} color="white" />
         </TouchableOpacity>
       </View>
-      <View style={styles.medicationList}>
-        {medications.map((item, index) => (
-          <View key={index.toString()} style={styles.medicationContainer}>
-            <Text style={styles.medicationText}>{item}</Text>
+      <View style={styles.itemList}>
+        {item.map((item, index) => (
+          <View key={index.toString()} style={styles.itemContainer}>
+            <Text style={styles.itemText}>{item}</Text>
             <TouchableOpacity onPress={() => removeMedication(item)}>
               <Ionicons name="close-circle" size={20} color={Color.gray500} />
             </TouchableOpacity>
@@ -88,14 +88,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  medicationList: {
+  itemList: {
     flexDirection: "row",
     flexWrap: "wrap",
     paddingBottom: 5,
     borderBottomWidth: 1, // 왼쪽에만 border 적용
     borderBottomColor: Color.gray100, // border 색상
   },
-  medicationContainer: {
+  itemContainer: {
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 10,
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 50,
   },
-  medicationText: {
+  itemText: {
     marginRight: 5,
   },
 });

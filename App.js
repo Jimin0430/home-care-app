@@ -91,9 +91,12 @@ export default function App() {
       const roleIndex = await getUserRoleIndex();
       const signedIn = await getAutoSignedIn();
 
-      setUserRole(role);
-      setUserRoleIndex(roleIndex);
-      setIsSignedIn(signedIn);
+      // setUserRole(role || false);
+      // setUserRoleIndex(roleIndex || -1);
+      // setIsSignedIn(signedIn || false);
+      setUserRole("Caregiver");
+      setUserRoleIndex(0);
+      setIsSignedIn(true);
     } catch (error) {
       console.log(error);
       setUserRole(false);
@@ -163,21 +166,6 @@ export default function App() {
                 </>
               ) : (
                 <Stack.Screen name="Auth" component={AuthNavigator} />
-                // <>
-                //   <Stack.Screen name="SignIn" component={SignIn} />
-                //   <Stack.Screen
-                //     name="SignInCaregiver"
-                //     component={SignInCaregiver}
-                //   />
-                //   <Stack.Screen
-                //     name="UploadCertificate"
-                //     component={UploadCertificate}
-                //   />
-                //   <Stack.Screen
-                //     name="SignInPatient"
-                //     component={SignInPatient}
-                //   />
-                // </>
               )}
             </Stack.Navigator>
           </NavigationContainer>
@@ -192,7 +180,5 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     width: "100%",
-    // justifyContent: "center",
-    // alignItems: "center",
   },
 });

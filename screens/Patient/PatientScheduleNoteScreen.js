@@ -53,7 +53,10 @@ export default function PatientScheduleNoteScreen({ navigation }) {
                 기타 유의 사항을 입력해주세요
               </Text>
 
-              <MedicationList title={"복용하는 약"} />
+              <MedicationList
+                title={"복용하는 약"}
+                placeholder={"약 이름을 입력해주세요"}
+              />
               <View style={profileEditStyle.inputContainer}>
                 <Text style={signInScreenStyle.subTitle}>
                   간병인에게 전하고 싶은 말

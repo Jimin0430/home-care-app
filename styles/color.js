@@ -1,6 +1,7 @@
 export const Color = {
   pink400: "#FCF1F1", // home bottom color
   pink700: "#FDAC99", // home top color
+  pink800: "#ff8266", // sub Button color
   pink900: "#FD694D", // clicked button & highlight text color
   grin600: "#43DEB6", // home top color
   grin500: "#7FDED5", // home bottom color

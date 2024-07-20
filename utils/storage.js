@@ -58,3 +58,23 @@ export const getUserRoleIndex = async () => {
     return null;
   }
 };
+
+// 유저네임(닉네임) 저장
+export const setUserName = async (value) => {
+  try {
+    const userType = JSON.stringify(value);
+    await AsyncStorage.setItem("user-name", userType);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getUserName = async () => {
+  try {
+    const userType = await AsyncStorage.getItem("user-name");
+    return userType !== null ? JSON.parse(userType) : false;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+};
