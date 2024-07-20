@@ -198,7 +198,6 @@ const styles = StyleSheet.create({
   },
   calendarStrip: {
     height: 100,
-    paddingVertical: 10,
     paddingHorizontal: 10,
   },
   dropdownContainer: {

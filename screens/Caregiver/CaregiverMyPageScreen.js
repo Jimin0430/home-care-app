@@ -120,6 +120,9 @@ export default function CaregiverMyPageScreen() {
   const handleEditButton = () => {
     navigation.navigate("CaregiverMyPageEdit");
   };
+  const moveToReview = () => {
+    navigation.navigate("ReviewScreen");
+  };
 
   if (caregiverData === null) {
     return (
@@ -197,7 +200,7 @@ export default function CaregiverMyPageScreen() {
                 <Text style={profileScreenStyle.sectionTitle}>
                   {section.title}
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => moveToReview()}>
                   <Text style={profileScreenStyle.moreLink}>더보기 {">"}</Text>
                 </TouchableOpacity>
               </View>

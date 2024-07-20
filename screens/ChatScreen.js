@@ -1,94 +1,193 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
-import axios from "axios";
-import api from "../apis/api";
-import MessageItem from "../components/MessageItem";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  FlatList,
+  StyleSheet,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { profileEditStyle } from "../styles/globalStyles";
+import Header from "../components/Header";
+import { Color } from "../styles/color";
+import {
+  sendMessage,
+  getMessageBySender,
+  getMessageByReceiver,
+} from "../apis/chatApi";
 
-const API_URL = api.BASE_URL;
+const ChatScreen = ({ route }) => {
+  const { sender, receiver } = route.params;
+  const [messages, setMessages] = useState([]);
+  const [inputMessage, setInputMessage] = useState("");
 
-const messages = [
-  {
-    sender: "미추홀 입동 요양사",
-    receiver: "current_username",
-    content: "안녕하세요. 프로필 보고 연락드립니다. 함께 근무해요.",
-    timestamp: "3일 전",
-  },
-  {
-    sender: "안천헬렌켈러",
-    receiver: "current_username",
-    content: "안녕하세요. 프로필 보고 연락드립니다. 함께 근무해요.",
-    timestamp: "3일 전",
-  },
-  {
-    sender: "부평헬렌켈러",
-    receiver: "current_username",
-    content: "안녕하세요. 프로필 보고 연락드립니다. 함께 근무해요.",
-    timestamp: "3일 전",
-  },
-];
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const sentMessages = await getMessageBySender(sender);
+        const receivedMessages = await getMessageByReceiver(sender);
+        const allMessages = [...sentMessages, ...receivedMessages]
+          .filter(
+            (message) =>
+              (message.sender_username === sender &&
+                message.receiver_username === receiver) ||
+              (message.sender_username === receiver &&
+                message.receiver_username === sender)
+          )
+          .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+        setMessages(allMessages);
+      } catch (error) {
+        console.error("Failed to fetch messages:", error);
+      }
+    };
 
-export default function ChatScreen({ route }) {
-  const [messageList, setMessageList] = useState(messages);
-  const username = "current_username"; // 현재 로그인된 사용자 이름을 여기에 설정
+    fetchMessages();
+  }, [sender, receiver]);
 
-  const fetchMessages = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/messages/inbox/${username}`);
-      setMessages(response.data);
-    } catch (error) {
-      console.error(error);
+  const sendMessageHandler = async () => {
+    if (inputMessage.trim()) {
+      const messageInfo = {
+        sender_username: sender,
+        receiver_username: receiver,
+        content: inputMessage,
+      };
+      try {
+        await sendMessage(messageInfo);
+        const newMessage = {
+          id: Date.now().toString(), // 고유 ID 생성
+          sender_username: sender,
+          receiver_username: receiver,
+          content: inputMessage,
+          timestamp: new Date().toISOString(), // 현재 시간으로 타임스탬프 설정
+        };
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+        setInputMessage("");
+      } catch (error) {
+        console.error("Failed to send message:", error);
+      }
     }
   };
 
-  useEffect(() => {
-    // fetchMessages();
-  }, []);
-
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={messages}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <MessageItem
-            sender={item.sender}
-            receiver={item.receiver}
-            content={item.content}
-            timestamp={item.timestamp}
-          />
-        )}
-      />
+  const renderItem = ({ item }) => (
+    <View
+      style={[
+        styles.messageContainer,
+        item.sender_username === sender ? styles.sender : styles.receiver,
+      ]}
+    >
+      <Text
+        style={[
+          styles.messageText,
+          item.sender_username === sender
+            ? styles.senderText
+            : styles.receiverText,
+        ]}
+      >
+        {item.content}
+      </Text>
     </View>
   );
-}
+
+  return (
+    <SafeAreaView style={profileEditStyle.safeArea}>
+      <Header title={receiver} />
+      <View style={styles.container}>
+        <FlatList
+          data={messages}
+          keyExtractor={(item, index) =>
+            item.id ? item.id.toString() : `${index}-${item.timestamp}`
+          } // 메시지의 고유 id 사용
+          renderItem={renderItem}
+          contentContainerStyle={styles.messageList}
+        />
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            value={inputMessage}
+            onChangeText={setInputMessage}
+            placeholder="메시지를 입력하세요..."
+            onSubmitEditing={sendMessageHandler}
+          />
+          <TouchableOpacity
+            onPress={sendMessageHandler}
+            style={styles.sendButton}
+          >
+            <Text style={styles.sendButtonText}>전송</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "rgba(1,110,79,0.4)",
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
+  messageList: {
+    padding: 10,
   },
   messageContainer: {
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    marginVertical: 6,
+    paddingHorizontal: 15,
+    paddingVertical: 9,
+    borderRadius: 30,
+    maxWidth: "80%",
   },
-  senderReceiverText: {
+  sender: {
+    alignSelf: "flex-end",
+    backgroundColor: "#2A2D34",
+  },
+  receiver: {
+    alignSelf: "flex-start",
+    backgroundColor: "#FFFFFF",
+  },
+  senderText: {
+    color: "#fff",
+  },
+  receiverText: {
+    color: "#000",
+  },
+  messageText: {
+    fontSize: 15,
+  },
+  inputContainer: {
+    flexDirection: "row",
+    height: 75,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderTopWidth: 0.5,
+    borderColor: Color.gray500,
+    backgroundColor: "#fff",
+  },
+  input: {
+    flex: 1,
+    paddingHorizontal: 10,
+    backgroundColor: Color.gray200,
+    color: Color.gray700,
+    borderRadius: 10,
     fontSize: 16,
-    fontWeight: "bold",
+    borderWidth: 0,
+    justifyContent: "center",
+    paddingVertical: 18,
+    paddingHorizontal: 16,
   },
-  contentText: {
-    fontSize: 14,
-    color: "#555",
+  sendButton: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    backgroundColor: Color.pink900,
+    borderRadius: 10,
   },
-  timestampText: {
-    fontSize: 12,
-    color: "#999",
-    textAlign: "right",
+  sendButtonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "600",
   },
 });
+
+export default ChatScreen;

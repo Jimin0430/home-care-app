@@ -16,7 +16,7 @@ import { getUserRole, getUserRoleIndex } from "../utils/storage";
 import Icon from "@expo/vector-icons/Ionicons";
 import Logo from "../assets/images/logo.svg";
 
-import ChatScreen from "./ChatScreen";
+import ChatScreen from "./ChatListScreen";
 import SettingsScreen from "./SettingsScreen";
 import { Color } from "../styles/color";
 

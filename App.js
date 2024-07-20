@@ -40,6 +40,9 @@ import CaregiverMyPageEdit from "./screens/Caregiver/CaregiverMyPageEdit";
 import PatientMyPageEdit from "./screens/Patient/PatientMyPageEdit";
 import PatientScheduleTimeScreen from "./screens/Patient/PatientScheduleTimeScreen";
 import PatientScheduleNoteScreen from "./screens/Patient/PatientScheduleNoteScreen";
+import ChatListScreen from "./screens/ChatListScreen";
+import ChatScreen from "./screens/ChatScreen";
+import ReviewScreen from "./screens/ReviewScreen";
 
 const Stack = createStackNavigator();
 const AuthStack = createStackNavigator();
@@ -65,7 +68,7 @@ export default function App() {
   const [isSignedIn, setIsSignedIn] = useState(null);
   // const [isLoading, setIsLoading] = useState(true);
 
-  // 로그인 정보 초기화
+  // // 로그인 정보 초기화
   // useEffect(() => {
   //   const clearStorage = async () => {
   //     try {
@@ -92,12 +95,12 @@ export default function App() {
       const roleIndex = await getUserRoleIndex();
       const signedIn = await getAutoSignedIn();
 
-      // setUserRole(role || false);
-      // setUserRoleIndex(roleIndex);
-      // setIsSignedIn(signedIn || false);
-      setUserRole("Caregiver");
-      setUserRoleIndex(0);
-      setIsSignedIn(true);
+      setUserRole(role || false);
+      setUserRoleIndex(roleIndex);
+      setIsSignedIn(signedIn || false);
+      // setUserRole("Caregiver");
+      // setUserRoleIndex(0);
+      // setIsSignedIn(true);
     } catch (error) {
       console.log(error);
       setUserRole(false);
@@ -143,6 +146,7 @@ export default function App() {
                     component={HomeTabs}
                     initialParams={{ userRole, userRoleIndex }}
                   />
+                  <Stack.Screen name="ReviewScreen" component={ReviewScreen} />
                   <Stack.Screen
                     name="CaregiverSearchEducation"
                     component={CaregiverSearchEducation}
@@ -164,6 +168,7 @@ export default function App() {
                     name="PatientScheduleNoteScreen"
                     component={PatientScheduleNoteScreen}
                   />
+                  <Stack.Screen name="ChatScreen" component={ChatScreen} />
                 </>
               ) : (
                 <Stack.Screen name="Auth" component={AuthNavigator} />
