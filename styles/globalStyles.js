@@ -88,7 +88,7 @@ export const signInScreenStyle = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     gap: 12,
-    justifyContent: "center",
+    // justifyContent: "center",
   },
   buttonShort: {
     flex: 1,

@@ -18,10 +18,13 @@ buildscript {
         classpath('com.android.tools.build:gradle')
         classpath('com.facebook.react:react-native-gradle-plugin')
         classpath('org.jetbrains.kotlin:kotlin-gradle-plugin')
+        // classpath('com.google.gms:google-services:4.3.10') // 이 줄을 추가
+
     }
 }
 
 apply plugin: "com.facebook.react.rootproject"
+// apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 allprojects {
     repositories {

@@ -1,7 +1,40 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
-// apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+// apply plugin: "com.google.gms.google-services"
+
+// import org.apache.tools.ant.taskdefs.condition.Os
+// import java.util.Properties
+
+// def loadEnv() {
+//     Properties properties = new Properties()
+//     file(".env").withInputStream { stream ->
+//         properties.load(stream)
+//     }
+//     properties.each { key, value ->
+//         ext[key] = value
+//     }
+// }
+// def loadEnv() {
+//     Properties properties = new Properties()
+//     File envFile = new File(rootProject.rootDir, '.env')
+//     if (envFile.exists()) {
+//         envFile.withInputStream { stream ->
+//             properties.load(stream)
+//         }
+//         properties.each { key, value ->
+//             ext[key] = value
+//         }
+//         println "Loaded environment variables from .env file: ${properties}"
+//     } else {
+//         throw new GradleException(".env file not found: ${envFile.absolutePath}")
+//     }
+// }
+
+// loadEnv()
+
+// apply from: "../../node_modules/react-native-config/android/dotenv.gradle"
+
 
 def projectRoot = rootDir.getAbsoluteFile().getParentFile().getAbsolutePath()
 
@@ -91,7 +124,19 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
+        // resValue "string", "google_maps_api_key", GOOGLE_MAPS_API_KEY
+
     }
+    // task printEnvVariables {
+    //     doLast {
+    //         println "GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY}"
+    //     }
+    // }
+
+    // gradle.projectsEvaluated {
+    //     preBuild.dependsOn printEnvVariables
+    // }
+
     signingConfigs {
         debug {
             storeFile file('debug.keystore')

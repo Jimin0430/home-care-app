@@ -24,9 +24,12 @@
         "backgroundColor": "#ffffff"
       },
       "package": "org.carefriends.goyounginha",
-      "permissions": [
-        "CAMERA"
-      ]
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDtZrroHW8B937WdhKlsf1jikT97_rsBBY"
+        }
+      },
+      "permissions": ["CAMERA"]
     },
     "androidStatusBar": {
       "backgroundColor": "#fff",

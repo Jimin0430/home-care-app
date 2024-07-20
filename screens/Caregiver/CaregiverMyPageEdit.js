@@ -101,7 +101,7 @@ export default function CaregiverMyPageEdit({ navigation }) {
                 placeholder="본인의 경력을 입력해주세요"
               />
 
-              <View style={[profileEditStyle.inputContainer]}>
+              <View style={profileEditStyle.inputContainer}>
                 <Text style={signInScreenStyle.subTitle}>
                   나의 경력 인증하기
                 </Text>

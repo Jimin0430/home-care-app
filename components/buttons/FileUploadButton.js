@@ -29,13 +29,8 @@ export default function FileUploadButton({ setSelectedImage }) {
   };
 
   return (
-    <View>
-      <TouchableOpacity
-        style={signInScreenStyle.buttonShort}
-        onPress={pickImage}
-      >
-        <Text style={signInScreenStyle.buttonText}>첨부파일 선택하기</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity style={signInScreenStyle.buttonShort} onPress={pickImage}>
+      <Text style={signInScreenStyle.buttonText}>첨부파일 선택하기</Text>
+    </TouchableOpacity>
   );
 }

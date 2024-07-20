@@ -1,29 +1,13 @@
-/*
-MIT License
-
-Copyright (c) 2023 Pallavi Khedle
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
-
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Platform } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Platform,
+  ActivityIndicator,
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Location from "expo-location";
 
 import loadGoogleMapsAPI from "../components/loadGoogleMapsAPI"; // Import the function
 import fetchPlaceData from "../apis/fetchPlaceData"; // Import the function
@@ -40,23 +24,21 @@ if (Platform.OS === "web") {
   MapView = require("@preflower/react-native-web-maps").default;
 }
 
-function getRandomLatLngWithinSeoul() {
-  const centerLat = 37.5665; // 서울시 중심부 위도
-  const centerLng = 126.978; // 서울시 중심부 경도
-  const radiusInKm = 5; // 반경 5km
+const LOCATION_KEY = "randomLocations";
 
+function getRandomLatLngWithinRadius(lat, lng, radiusInKm) {
   const getRandomOffset = () => (Math.random() - 0.5) * 2 * (radiusInKm / 111); // 위도와 경도 1도의 거리는 약 111km
 
-  const latitude = centerLat + getRandomOffset();
-  const longitude = centerLng + getRandomOffset();
+  const latitude = lat + getRandomOffset();
+  const longitude = lng + getRandomOffset();
 
   return { latitude, longitude };
 }
 
-function generateRandomLocations(count) {
+function generateRandomLocations(lat, lng, count, radiusInKm) {
   const locations = [];
   for (let i = 0; i < count; i++) {
-    locations.push(getRandomLatLngWithinSeoul());
+    locations.push(getRandomLatLngWithinRadius(lat, lng, radiusInKm));
   }
   return locations;
 }
@@ -74,36 +56,83 @@ function getCentralLocation(locations) {
 export default class MapScreen extends Component {
   constructor(props) {
     super(props);
-    const randomLocations = generateRandomLocations(3);
-    const centralLocation = getCentralLocation(randomLocations);
-
     this.state = {
       places: [],
       googleMapsLoaded: false,
-      region: {
-        latitude: centralLocation.latitude,
-        longitude: centralLocation.longitude,
-        latitudeDelta: 0.1,
-        longitudeDelta: 0.1,
-      },
-      randomLocations: randomLocations,
+      region: null,
+      randomLocations: null,
+      loading: true,
     };
   }
 
   async componentDidMount() {
-    if (Platform.OS === "web") {
-      loadGoogleMapsAPI(() => {
-        this.setState({ googleMapsLoaded: true });
-        this.fetchPlaces();
-      });
-    } else {
-      this.fetchPlaces();
+    await this.initializeMap();
+  }
+
+  async initializeMap() {
+    try {
+      const storedLocations = await AsyncStorage.getItem(LOCATION_KEY);
+      if (storedLocations) {
+        const randomLocations = JSON.parse(storedLocations);
+        const centralLocation = getCentralLocation(randomLocations);
+        this.setState({
+          randomLocations,
+          region: {
+            latitude: centralLocation.latitude,
+            longitude: centralLocation.longitude,
+            latitudeDelta: 0.1,
+            longitudeDelta: 0.1,
+          },
+          loading: false,
+        });
+      } else {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== "granted") {
+          console.error("Location permission not granted");
+          return;
+        }
+
+        const location = await Location.getCurrentPositionAsync({});
+        const randomLocations = generateRandomLocations(
+          location.coords.latitude,
+          location.coords.longitude,
+          3,
+          5
+        );
+        const centralLocation = getCentralLocation(randomLocations);
+
+        await AsyncStorage.setItem(
+          LOCATION_KEY,
+          JSON.stringify(randomLocations)
+        );
+
+        this.setState({
+          randomLocations,
+          region: {
+            latitude: centralLocation.latitude,
+            longitude: centralLocation.longitude,
+            latitudeDelta: 0.1,
+            longitudeDelta: 0.1,
+          },
+          loading: false,
+        });
+
+        this.fetchPlaces(randomLocations);
+      }
+
+      if (Platform.OS === "web") {
+        loadGoogleMapsAPI(() => {
+          this.setState({ googleMapsLoaded: true });
+        });
+      }
+    } catch (error) {
+      console.error("Error initializing map:", error);
     }
   }
 
-  async fetchPlaces() {
+  async fetchPlaces(locations) {
     try {
-      const places = await fetchPlaceData(this.state.randomLocations);
+      const places = await fetchPlaceData(locations);
       this.setState({ places });
     } catch (error) {
       console.error("Error fetching place data:", error);
@@ -115,7 +144,12 @@ export default class MapScreen extends Component {
   };
 
   render() {
-    const { googleMapsLoaded, region, places, randomLocations } = this.state;
+    const { googleMapsLoaded, region, places, randomLocations, loading } =
+      this.state;
+
+    if (loading) {
+      return <ActivityIndicator size="large" color="#0000ff" />;
+    }
 
     return (
       <View style={styles.container}>

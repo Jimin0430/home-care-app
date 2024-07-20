@@ -40,10 +40,25 @@ export default function UploadCertificate() {
         </Text>
       </View>
 
-      <View style={signInScreenStyle.buttonContainer}>
-        <View style={signInScreenStyle.buttonHorizontal}>
-          <FileUploadButton setSelectedImage={setSelectedImage} />
-          <CameraButton setSelectedImage={setSelectedImage} />
+      <View style={[signInScreenStyle.buttonContainer, { flex: 1 }]}>
+        <View
+          style={[
+            signInScreenStyle.buttonHorizontal,
+            // {
+            //   backgroundColor: "blue",
+            //   // width: "100%",
+            //   justifyContent: "space-between",
+            // },
+          ]}
+        >
+          <FileUploadButton
+            setSelectedImage={setSelectedImage}
+            style={{ flex: 1 }}
+          />
+          <CameraButton
+            setSelectedImage={setSelectedImage}
+            style={{ flex: 1 }}
+          />
         </View>
         <TouchableOpacity onPress={certificateInfoTxt}>
           <Text

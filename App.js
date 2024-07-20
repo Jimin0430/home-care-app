@@ -66,18 +66,18 @@ export default function App() {
   // const [isLoading, setIsLoading] = useState(true);
 
   // 로그인 정보 초기화
-  useEffect(() => {
-    const clearStorage = async () => {
-      try {
-        await AsyncStorage.clear();
-        console.log("AsyncStorage cleared");
-      } catch (e) {
-        console.error("Failed to clear AsyncStorage:", e);
-      }
-    };
+  // useEffect(() => {
+  //   const clearStorage = async () => {
+  //     try {
+  //       await AsyncStorage.clear();
+  //       console.log("AsyncStorage cleared");
+  //     } catch (e) {
+  //       console.error("Failed to clear AsyncStorage:", e);
+  //     }
+  //   };
 
-    clearStorage();
-  }, []);
+  //   clearStorage();
+  // }, []);
 
   const handleSignIn = (role, roleIndex) => {
     setUserRole(role);
@@ -92,12 +92,12 @@ export default function App() {
       const roleIndex = await getUserRoleIndex();
       const signedIn = await getAutoSignedIn();
 
-      setUserRole(role || false);
-      setUserRoleIndex(roleIndex);
-      setIsSignedIn(signedIn || false);
-      // setUserRole("Caregiver");
-      // setUserRoleIndex(0);
-      // setIsSignedIn(true);
+      // setUserRole(role || false);
+      // setUserRoleIndex(roleIndex);
+      // setIsSignedIn(signedIn || false);
+      setUserRole("Caregiver");
+      setUserRoleIndex(0);
+      setIsSignedIn(true);
     } catch (error) {
       console.log(error);
       setUserRole(false);
