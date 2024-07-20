@@ -11,7 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { profileEditStyle, signInScreenStyle } from "../styles/globalStyles";
 import { Color } from "../styles/color";
 
-export default function MedicationList({ title, placeholder }) {
+export default function AddList({ title, placeholder }) {
   const [item, setItem] = useState([]);
   const [itemName, setItemName] = useState("");
 

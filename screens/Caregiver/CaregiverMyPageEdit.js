@@ -11,12 +11,18 @@ import {
   SafeAreaView,
   TouchableWithoutFeedback,
   Keyboard,
+  StyleSheet,
 } from "react-native";
 import { profileEditStyle, signInScreenStyle } from "../../styles/globalStyles";
-import MedicationList from "../../components/AddList";
+import AddList from "../../components/AddList";
 import Header from "../../components/Header";
 import TimePicker from "../../components/TimePicker";
 import SelectOneOfTwo from "../../components/SelectOneOfTwo";
+import { Foundation } from "@expo/vector-icons";
+import { Color } from "../../styles/color";
+import FileUploadButton from "../../components/buttons/FileUploadButton";
+import CameraButton from "../../components/buttons/CameraButton";
+import CareerList from "../../components/CareerList";
 
 export default function CaregiverMyPageEdit({ navigation }) {
   const { StatusBarManager } = NativeModules;
@@ -25,6 +31,7 @@ export default function CaregiverMyPageEdit({ navigation }) {
   const [timeEnd, setTimeEnd] = useState(new Date());
   const [showTimeStartPicker, setShowTimeStartPicker] = useState(false);
   const [showTimeEndPicker, setShowTimeEndPicker] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const onChangeTimeStart = (event, selectedDate) => {
     const currentTime = selectedDate || timeStart;
@@ -45,6 +52,11 @@ export default function CaregiverMyPageEdit({ navigation }) {
         })
       : null;
   }, []);
+
+  const career = [
+    { career: "병원 간호사 2년", certified: true },
+    { career: "요양원 간호사 1년", certified: false },
+  ];
 
   const [statusBarHeight, setStatusBarHeight] = useState(0);
 
@@ -67,7 +79,7 @@ export default function CaregiverMyPageEdit({ navigation }) {
               { gap: 20, paddingBottom: 20 },
             ]}
           >
-            <View style={profileEditStyle.container}>
+            <View style={[profileEditStyle.container, { gap: 30 }]}>
               <View
                 style={{
                   width: "100%",
@@ -76,15 +88,51 @@ export default function CaregiverMyPageEdit({ navigation }) {
                 }}
               >
                 <Text style={profileEditStyle.title}>나의 경력</Text>
-                <Text style={signInScreenStyle.explainText}>
-                  * 인증된 경력은 체크표시가 되며 나의 프로필에서도 표시됩니다.
+                <Text
+                  style={[signInScreenStyle.explainText, { lineHeight: 20 }]}
+                >
+                  * 인증된 경력은 체크표시가 되며 나의 프로필에서도 {"\n"}표시
+                  됩니다.
                 </Text>
+                <CareerList data={career} />
               </View>
-
-              <MedicationList
-                title={"나의 경력 입력하기"}
-                placeholder={"본인의 경력을 입력해주세요"}
+              <AddList
+                title="나의 경력 입력하기"
+                placeholder="본인의 경력을 입력해주세요"
               />
+
+              <View style={[profileEditStyle.inputContainer]}>
+                <Text style={signInScreenStyle.subTitle}>
+                  나의 경력 인증하기
+                </Text>
+                <View style={styles.container}>
+                  <View style={styles.iconContainer}>
+                    <Foundation
+                      name="lightbulb"
+                      size={24}
+                      color={Color.pink900}
+                    />
+                  </View>
+                  <View style={styles.textContainer}>
+                    <Text style={styles.mainText}>
+                      경력을 인증할 수 있는 자료를 업로드 하세요.
+                    </Text>
+                    <Text style={styles.subText}>
+                      * 4대보험 내역, 월급 명세서 등
+                    </Text>
+                  </View>
+                </View>
+                <View style={signInScreenStyle.buttonHorizontal}>
+                  <FileUploadButton
+                    setSelectedImage={setSelectedImage}
+                    style={{ flex: 1 }}
+                  />
+                  <CameraButton
+                    setSelectedImage={setSelectedImage}
+                    style={{ flex: 1 }}
+                  />
+                </View>
+              </View>
               <View style={profileEditStyle.inputContainer}>
                 <Text style={profileEditStyle.title}>활동 지역</Text>
                 <TextInput
@@ -155,21 +203,45 @@ export default function CaregiverMyPageEdit({ navigation }) {
                   multiline={true}
                 />
               </View>
-              <View style={profileEditStyle.inputContainer}>
-                <Text style={signInScreenStyle.subTitle}></Text>
-              </View>
             </View>
           </ScrollView>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
-      <View style={{ paddingHorizontal: 41, paddingVertical: 41 }}>
+      <View style={{ paddingHorizontal: 41, paddingVertical: 21 }}>
         <TouchableOpacity
           style={[signInScreenStyle.button, { borderRadius: 10 }]}
           onPress={() => handleCompleteButton()}
         >
-          <Text style={signInScreenStyle.buttonText}>공고 등록하기</Text>
+          <Text style={signInScreenStyle.buttonText}>저장</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F5F5F5",
+    padding: 15,
+    borderRadius: 8,
+    position: "relative",
+  },
+  iconContainer: {
+    position: "absolute",
+    top: 13,
+    left: 16,
+  },
+  textContainer: {
+    // flex: 1,
+    marginLeft: 30,
+  },
+  mainText: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  subText: {
+    fontSize: 14,
+    color: "#666",
+  },
+});

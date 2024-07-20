@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { showRestrictedAccessAlert } from "../../components/CustomAlert";
 
 import { Color } from "../../styles/color";
 // import { TouchableOpacity } from "react-native-gesture-handler";
@@ -20,6 +21,10 @@ export default function CaregiverHomeScreen() {
   const boxHeight = windowHeight * 0.48; // 화면 세로 길이의 40% 계산
   const moveToMap = () => {
     navigation.navigate("CaregiverSearchEducation");
+  };
+
+  const handleAlert = () => {
+    showRestrictedAccessAlert("upcoming");
   };
   return (
     <View style={styles.container}>
@@ -57,6 +62,7 @@ export default function CaregiverHomeScreen() {
                 styles.leftInnerBox,
                 { flex: 2, backgroundColor: Color.pink400 },
               ]}
+              onPress={() => handleAlert()}
             >
               <Text style={styles.mainBoxInnerTextHighlight}>
                 일정{"\n"}관리하기

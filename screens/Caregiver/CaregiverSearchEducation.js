@@ -10,8 +10,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 const CaregiverSearchEducation = () => {
   return (
-    <View style={styles.container}>
-      <Header title={"교육기관 찾기"} />
+    <View style={[styles.container, { backgroundColor: "blue" }]}>
+      <View style={{ backgroundColor: "pink" }}>
+        <Header title={"교육기관 찾기"} />
+      </View>
       <View style={styles.top}>
         <View style={[styles.keyWrapper, { marginBottom: 20, gap: 0 }]}>
           <Text style={styles.title}>부평 헬렌켈러님!</Text>
@@ -132,7 +134,8 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     flex: 1,
-    minHeight: "50%",
+    minHeight: 300,
+    // minHeight: "50%",s
   },
 });
 

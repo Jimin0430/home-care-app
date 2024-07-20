@@ -12,7 +12,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { dataPerUserRole } from "../utils/dataPerUserRole";
 import { showRestrictedAccessAlert } from "../components/CustomAlert";
 import { showCustomAlert } from "../components/CustomAlert";
-
+import { getUserRole, getUserRoleIndex } from "../utils/storage";
 import Icon from "@expo/vector-icons/Ionicons";
 import Logo from "../assets/images/logo.svg";
 
@@ -23,10 +23,31 @@ import { Color } from "../styles/color";
 const Tab = createBottomTabNavigator();
 
 export default function HomeTabs({ route }) {
-  const { userRole, userRoleIndex } = route.params;
+  // const { userRole, userRoleIndex } = route.params;
 
   // userRole에 따른 페이지 분류
   const [userRoleData, setUserRoleData] = useState(null);
+  const [userRole, setUserRole] = useState(null);
+  const [userRoleIndex, setUserRoleIndex] = useState(null);
+
+  const fetchUserRole = async () => {
+    try {
+      const role = await getUserRole();
+      const roleIndex = await getUserRoleIndex();
+
+      console.log("getUserRoleIndex 결과 : ", roleIndex);
+      setUserRole(role);
+      setUserRoleIndex(roleIndex);
+    } catch (error) {
+      console.log(error);
+      setUserRole(false);
+      setUserRoleIndex(-1);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserRole();
+  }, []);
 
   useEffect(() => {
     const roleData = dataPerUserRole.find(
@@ -34,13 +55,9 @@ export default function HomeTabs({ route }) {
     );
     setUserRoleData(roleData);
     console.log("Hometabs.js 페이지 실행");
+    console.log("Hometabs.js 페이지 userRole : ", userRole);
+    console.log("Hometabs.js 페이지 userRoleIndex : ", userRoleIndex);
   }, [userRoleIndex]); //
-
-  useEffect(() => {
-    if (userRoleData) {
-      console.log(userRoleData);
-    }
-  }, [userRoleData]);
 
   const handleTabPress = (e, route) => {
     if (
@@ -50,7 +67,7 @@ export default function HomeTabs({ route }) {
         route.name === "Chat")
     ) {
       e.preventDefault();
-      showRestrictedAccessAlert();
+      showRestrictedAccessAlert("restricted");
     }
   };
 
@@ -67,6 +84,7 @@ export default function HomeTabs({ route }) {
     myPage: MyPageComponent,
     searchPage: SearchComponent,
   } = userRoleData;
+
   // userRole에 따른 페이지 분류
   // const [HomeComponent, setHomeComponent] = useState(null);
   // const [MyPageComponent, setMyPageComponent] = useState(null);
@@ -271,7 +289,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderBottomWidth: 0,
     alignItems: "center",
-    paddingTop: StatusBar.currentHeight * 1.3,
+    // paddingTop: StatusBar.currentHeight * 1.3,
     paddingHorizontal: 18,
     paddingVertical: 12,
   },

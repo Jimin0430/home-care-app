@@ -1,5 +1,12 @@
-import React from "react";
-import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import {
@@ -13,9 +20,63 @@ import { Fontisto } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { Color } from "../../styles/color";
+import { getUserName } from "../../utils/storage";
+
+import useDrop from "../../node_modules/react-use/esm/useDrop";
+import {
+  getCaregiverData,
+  getCaregiverMyProfile,
+} from "../../apis/caregiverApi";
 
 export default function CaregiverMyPageScreen() {
   const navigation = useNavigation();
+
+  const [userName, setUserName] = useState("");
+  const [caregiverData, setCaregiverData] = useState(null);
+
+  const fetchUserName = async () => {
+    try {
+      const getName = await getUserName();
+      setUserName(getName || false);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserName();
+  }, []);
+
+  useEffect(() => {
+    if (userName) {
+      const fetchCaregiverData = async () => {
+        try {
+          console.log("api 호출할 때의 유저 네임 : ", userName);
+          const [basicData, profileData] = await Promise.all([
+            getCaregiverData(userName),
+            getCaregiverMyProfile(userName),
+          ]);
+
+          const combinedData = {
+            ...basicData,
+            ...profileData,
+          };
+          setCaregiverData(combinedData);
+        } catch (e) {
+          console.log(e);
+        }
+      };
+      fetchCaregiverData();
+    }
+  }, [userName]);
+
+  useEffect(() => {
+    console.log("Got userName at CaregiverMyPageScreen:", userName);
+    if (caregiverData) {
+      console.log("Caregiver data:", caregiverData);
+    }
+  }, [userName, caregiverData]);
+
   const profileInfo = [
     { label: "활동 시간/요일", value: "월 수 금 | 오전 8시 - 오후 6시" },
     {
@@ -59,6 +120,24 @@ export default function CaregiverMyPageScreen() {
   const handleEditButton = () => {
     navigation.navigate("CaregiverMyPageEdit");
   };
+
+  if (caregiverData === null) {
+    return (
+      <View
+        style={[
+          commonLayoutStyle.container,
+          {
+            flex: 1,
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          },
+        ]}
+      >
+        <ActivityIndicator size="large" color={Color.pink900} />
+      </View>
+    );
+  }
   return (
     <View style={commonLayoutStyle.container}>
       <ScrollView
@@ -74,7 +153,9 @@ export default function CaregiverMyPageScreen() {
           <View style={profileScreenStyle.profileInfo}>
             <View style={profileScreenStyle.profileInfoTopSection}>
               <View style={profileScreenStyle.certificateAlign}>
-                <Text style={profileScreenStyle.name}>부평 헬렌켈러</Text>
+                <Text style={profileScreenStyle.name}>
+                  {caregiverData.username}
+                </Text>
                 <MaterialCommunityIcons
                   name="check-decagram"
                   size={17}
@@ -87,8 +168,12 @@ export default function CaregiverMyPageScreen() {
             </View>
 
             <View style={profileScreenStyle.detailContainer}>
-              <Text style={profileScreenStyle.details}>나이 : 32살</Text>
-              <Text style={profileScreenStyle.details}>성별 : 여자</Text>
+              <Text style={profileScreenStyle.details}>
+                나이 : {caregiverData.name}
+              </Text>
+              <Text style={profileScreenStyle.details}>
+                성별 : {caregiverData.gender}
+              </Text>
             </View>
           </View>
           <View style={profileScreenStyle.ratingContainer}>

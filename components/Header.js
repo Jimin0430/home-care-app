@@ -6,37 +6,32 @@ import {
   StyleSheet,
   Platform,
   StatusBar,
-  SafeAreaView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
-const Header = ({ title, placeholder }) => {
+const Header = ({ title }) => {
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="chevron-back" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>{title}</Text>
-        <View style={styles.placeholder} />
-      </View>
-    </SafeAreaView>
+    <View style={styles.headerContainer}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Ionicons name="chevron-back" size={24} color="black" />
+      </TouchableOpacity>
+      <Text style={styles.headerTitle}>{title}</Text>
+      <View style={styles.placeholder} />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
-    backgroundColor: "white",
-  },
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     padding: 16,
     backgroundColor: "white",
-    borderBottomWidth: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: "#e0e0e0",
   },
   headerTitle: {
     fontSize: 18,

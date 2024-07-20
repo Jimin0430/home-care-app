@@ -6,10 +6,14 @@ export const showCustomAlert = (title, message, onPress = () => {}) => {
   });
 };
 
-export const showRestrictedAccessAlert = (onPress = () => {}) => {
-  showCustomAlert(
-    "서비스 이용 제한",
-    "해당 서비스는 요양 보호사 등록 후 사용 가능합니다.",
-    onPress
-  );
+export const showRestrictedAccessAlert = (
+  messageType = "restricted",
+  onPress = () => {}
+) => {
+  const messages = {
+    restricted: "해당 서비스는 요양 보호사 등록 후 사용 가능합니다.",
+    upcoming: "환자 매칭 후 사용 가능한 기능입니다.",
+  };
+
+  showCustomAlert("서비스 이용 제한", messages[messageType], onPress);
 };

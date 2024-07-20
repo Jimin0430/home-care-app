@@ -4,6 +4,7 @@ import {
   StyleSheet,
   // Platform,
   Text,
+  StatusBar,
   ActivityIndicator,
 } from "react-native";
 import {
@@ -15,7 +16,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 
 import {
   getUserRole,
@@ -91,12 +92,12 @@ export default function App() {
       const roleIndex = await getUserRoleIndex();
       const signedIn = await getAutoSignedIn();
 
-      // setUserRole(role || false);
-      // setUserRoleIndex(roleIndex || -1);
-      // setIsSignedIn(signedIn || false);
-      setUserRole("Caregiver");
-      setUserRoleIndex(0);
-      setIsSignedIn(true);
+      setUserRole(role || false);
+      setUserRoleIndex(roleIndex);
+      setIsSignedIn(signedIn || false);
+      // setUserRole("Caregiver");
+      // setUserRoleIndex(0);
+      // setIsSignedIn(true);
     } catch (error) {
       console.log(error);
       setUserRole(false);
@@ -109,11 +110,11 @@ export default function App() {
     fetchUserRole();
   }, []);
 
-  useEffect(() => {
-    console.log("app.js 페이지 userRole: " + userRole);
-    console.log("app.js 페이지 userRoleIndex: " + userRoleIndex);
-    console.log("app.js 페이지 isSignedIn: " + isSignedIn);
-  }, [isSignedIn]);
+  // useEffect(() => {
+  //   console.log("app.js 페이지 userRole: " + userRole);
+  //   console.log("app.js 페이지 userRoleIndex: " + userRoleIndex);
+  //   console.log("app.js 페이지 isSignedIn: " + isSignedIn);
+  // }, [isSignedIn]);
 
   if (isSignedIn === null) {
     return (
@@ -129,7 +130,7 @@ export default function App() {
 
   return (
     <>
-      <StatusBar style="dark" backgroundColor="#fff" />
+      <StatusBar backgroundColor="#fff" barStyle="dark-content" />
       {/* <SafeAreaView style={styles.safeArea}> */}
       <SafeAreaProvider>
         <AuthProvider handleSignIn={handleSignIn}>
