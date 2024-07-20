@@ -11,6 +11,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Color } from "../../styles/color";
 import { profileScreenStyle } from "../../styles/globalStyles";
+import { showRestrictedAccessAlert } from "../../components/CustomAlert";
 
 const windowHeight = Dimensions.get("window").height;
 
@@ -32,6 +33,15 @@ export default function PatientHomeScreen({ navigation }) {
   const moveScheduleManagement = () => {
     navigation.navigate("PatientScheduleTimeScreen");
   };
+  const moveToReview = () => {
+    navigation.navigate("ReviewScreen", { fromPatientHome: true });
+  };
+  const moveToSearch = () => {
+    navigation.navigate("PatientSearchCaregiver");
+  };
+  const handleAlert = () => {
+    showRestrictedAccessAlert("upcomingPatient");
+  };
   return (
     <View style={styles.container}>
       <ScrollView
@@ -39,7 +49,7 @@ export default function PatientHomeScreen({ navigation }) {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       >
-        <View style={styles.imageViewer}>
+        <TouchableOpacity style={styles.imageViewer} onPress={moveToSearch}>
           <ImageBackground
             source={require("../../assets/images/homeBanner.jpg")}
             style={styles.bannerImage}
@@ -47,7 +57,7 @@ export default function PatientHomeScreen({ navigation }) {
           >
             <Text style={styles.bannerText}>요양사 찾기</Text>
           </ImageBackground>
-        </View>
+        </TouchableOpacity>
 
         <View style={[styles.homeMainContainer, { height: boxHeight }]}>
           <View style={styles.mainInnerContainer}>
@@ -81,6 +91,7 @@ export default function PatientHomeScreen({ navigation }) {
                 styles.leftInnerBox,
                 { flex: 1.1, backgroundColor: Color.grin600 },
               ]}
+              onPress={handleAlert}
             >
               <Text style={styles.mainBoxInnerText}>
                 나의 리뷰 {"\n"}작성하기
@@ -102,7 +113,9 @@ export default function PatientHomeScreen({ navigation }) {
         <View style={styles.reviewContainer}>
           <View style={styles.communityTop}>
             <Text style={styles.middleTitle}>후기</Text>
-            <Text style={styles.middleText}>더보기 {">"}</Text>
+            <TouchableOpacity onPress={moveToReview}>
+              <Text style={styles.middleText}>더보기 {">"}</Text>
+            </TouchableOpacity>
           </View>
           <View style={profileScreenStyle.sectionInfo}>
             {review.data.slice(0, 3).map((review, reviewIndex) => (

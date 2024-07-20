@@ -14,6 +14,7 @@ import { useRoute } from "@react-navigation/native";
 import { signInScreenStyle } from "../styles/globalStyles";
 import { submitPatientInfo } from "../apis/signInApi";
 import { useAuth } from "../contexts/AuthContext";
+import { setUserName } from "../utils/storage";
 
 import Dropdown from "./buttons/Dropdown";
 import SingleChoiceSelector from "./buttons/OptionPicker";
@@ -98,6 +99,9 @@ export default function SignInPatient({ route }) {
       };
       const data = await submitPatientInfo(userInfo);
       console.log("Server response:", data);
+      if (data.response) {
+        // setUserName(userInfo.username);
+      }
       // Clear the form
       setFormData(initialState);
     } catch (e) {

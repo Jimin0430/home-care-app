@@ -50,7 +50,7 @@ export default function CaregiverHomeScreen() {
   };
 
   const handleAlert = () => {
-    showRestrictedAccessAlert("upcoming");
+    showRestrictedAccessAlert("upcomingCaregiver");
   };
 
   return (

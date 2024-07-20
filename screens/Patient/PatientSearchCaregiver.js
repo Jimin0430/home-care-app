@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+
 import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import moment from "moment";
@@ -8,7 +10,7 @@ import { schedules } from "../../utils/patientScheduleData";
 import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
+import Header from "../../components/Header";
 // Generate random caregiver data
 const generateCaregivers = () => {
   const names = ["헬렌켈러", "마리퀴리", "플로렌스", "나이팅게일"];
@@ -43,6 +45,9 @@ const PatientSearchCaregiver = () => {
   const [valueGender, setValueGender] = useState(null);
   const [selectedDate, setSelectedDate] = useState(""); // 초기 선택된 날짜
   const [filteredSchedules, setFilteredSchedules] = useState([]);
+
+  const route = useRoute();
+  const needHeader = route?.params?.needHeader ?? false;
 
   useEffect(() => {
     console.log(selectedDate);
@@ -97,6 +102,8 @@ const PatientSearchCaregiver = () => {
 
   return (
     <View style={styles.container}>
+      {needHeader && <Header title={"요양사 찾기"} />}
+
       <View style={styles.dropdownContainer}>
         <TouchableOpacity style={styles.searchBackground}>
           <FontAwesome

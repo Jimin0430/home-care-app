@@ -36,6 +36,7 @@ import ReviewScreen from "./screens/ReviewScreen";
 import CaregiverSearchScreen from "./screens/Caregiver/CaregiverSearchScreen";
 import CommunityPostScreen from "./screens/CommunityPostScreen";
 import PatientMyPageScreen from "./screens/Patient/PatientMyPageScreen";
+import PatientSearchCaregiver from "./screens/Patient/PatientSearchCaregiver";
 
 const Stack = createStackNavigator();
 const AuthStack = createStackNavigator();
@@ -61,19 +62,19 @@ export default function App() {
   const [isSignedIn, setIsSignedIn] = useState(null);
   // const [isLoading, setIsLoading] = useState(true);
 
-  // // 로그인 정보 초기화
-  // useEffect(() => {
-  //   const clearStorage = async () => {
-  //     try {
-  //       await AsyncStorage.clear();
-  //       console.log("AsyncStorage cleared");
-  //     } catch (e) {
-  //       console.error("Failed to clear AsyncStorage:", e);
-  //     }
-  //   };
+  // 로그인 정보 초기화
+  useEffect(() => {
+    const clearStorage = async () => {
+      try {
+        await AsyncStorage.clear();
+        console.log("AsyncStorage cleared");
+      } catch (e) {
+        console.error("Failed to clear AsyncStorage:", e);
+      }
+    };
 
-  //   clearStorage();
-  // }, []);
+    clearStorage();
+  }, []);
 
   const handleSignIn = (role, roleIndex) => {
     setUserRole(role);
@@ -151,6 +152,12 @@ export default function App() {
                   <Stack.Screen
                     name="CaregiverSearchScreen"
                     component={CaregiverSearchScreen}
+                    initialParams={{ needHeader: true }}
+                  />
+
+                  <Stack.Screen
+                    name="PatientSearchCaregiver"
+                    component={PatientSearchCaregiver}
                     initialParams={{ needHeader: true }}
                   />
                   <Stack.Screen

@@ -15,6 +15,7 @@ const ChatListScreen = () => {
   const fetchUserName = async () => {
     try {
       const getName = await getUserName();
+      console.log(getName);
       setUsername(getName || "");
     } catch (e) {
       console.log(e);
