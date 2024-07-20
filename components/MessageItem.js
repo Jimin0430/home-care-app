@@ -2,15 +2,34 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Color } from "../styles/color";
+import moment from "moment";
 
 const MessageItem = ({
-  currentUsername,
   sender,
   receiver,
   content,
   timestamp,
+  currentUsername,
 }) => {
-  const displayName = sender === currentUsername ? receiver : sender;
+  const formatDate = (date) => {
+    const now = moment();
+    const messageDate = moment(date);
+    const diffMinutes = now.diff(messageDate, "minutes");
+    const diffHours = now.diff(messageDate, "hours");
+    const diffDays = now.diff(messageDate, "days");
+
+    if (diffMinutes < 1) {
+      return "지금";
+    } else if (diffMinutes < 60) {
+      return `${diffMinutes}분 전`;
+    } else if (diffHours < 24) {
+      return `${diffHours}시간 전`;
+    } else if (diffDays <= 3) {
+      return `${diffDays}일 전`;
+    } else {
+      return messageDate.format("YYYY-MM-DD");
+    }
+  };
 
   return (
     <View style={styles.messageContainer}>
@@ -18,12 +37,14 @@ const MessageItem = ({
         <Ionicons name="person-circle" size={50} color={Color.pink900} />
       </View>
       <View style={styles.contextContainer}>
-        <Text style={styles.senderReceiverText}>{displayName}</Text>
+        <Text style={styles.senderReceiverText}>
+          {sender === currentUsername ? receiver : sender}
+        </Text>
         <Text style={styles.contentText} numberOfLines={1} ellipsizeMode="tail">
           {content}
         </Text>
       </View>
-      <Text style={styles.timestampText}>{timestamp}</Text>
+      <Text style={styles.timestampText}>{formatDate(timestamp)}</Text>
     </View>
   );
 };
@@ -61,6 +82,7 @@ const styles = StyleSheet.create({
     right: 15,
     fontSize: 12,
     color: "#999",
+    // textAlign: "right",
   },
 });
 

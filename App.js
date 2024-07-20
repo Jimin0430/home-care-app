@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  // SafeAreaView,
-  StyleSheet,
-  // Platform,
-  Text,
-  StatusBar,
-  ActivityIndicator,
-} from "react-native";
+import { StyleSheet, Text, StatusBar, ActivityIndicator } from "react-native";
 import {
   SafeAreaView,
   SafeAreaProvider,
@@ -15,8 +8,6 @@ import {
 } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-
-// import { StatusBar } from "expo-status-bar";
 
 import {
   getUserRole,
@@ -40,9 +31,11 @@ import CaregiverMyPageEdit from "./screens/Caregiver/CaregiverMyPageEdit";
 import PatientMyPageEdit from "./screens/Patient/PatientMyPageEdit";
 import PatientScheduleTimeScreen from "./screens/Patient/PatientScheduleTimeScreen";
 import PatientScheduleNoteScreen from "./screens/Patient/PatientScheduleNoteScreen";
-import ChatListScreen from "./screens/ChatListScreen";
 import ChatScreen from "./screens/ChatScreen";
 import ReviewScreen from "./screens/ReviewScreen";
+import CaregiverSearchScreen from "./screens/Caregiver/CaregiverSearchScreen";
+import CommunityPostScreen from "./screens/CommunityPostScreen";
+import PatientMyPageScreen from "./screens/Patient/PatientMyPageScreen";
 
 const Stack = createStackNavigator();
 const AuthStack = createStackNavigator();
@@ -146,7 +139,25 @@ export default function App() {
                     component={HomeTabs}
                     initialParams={{ userRole, userRoleIndex }}
                   />
-                  <Stack.Screen name="ReviewScreen" component={ReviewScreen} />
+                  <Stack.Screen
+                    name="CommunityPostScreen"
+                    component={CommunityPostScreen}
+                  />
+                  <Stack.Screen
+                    name="ReviewScreen"
+                    component={ReviewScreen}
+                    initialParams={{ myReviewPage: true }}
+                  />
+                  <Stack.Screen
+                    name="CaregiverSearchScreen"
+                    component={CaregiverSearchScreen}
+                    initialParams={{ needHeader: true }}
+                  />
+                  <Stack.Screen
+                    name="PatientMyPageScreen"
+                    component={PatientMyPageScreen}
+                    initialParams={{ fromFindPatient: true }}
+                  />
                   <Stack.Screen
                     name="CaregiverSearchEducation"
                     component={CaregiverSearchEducation}

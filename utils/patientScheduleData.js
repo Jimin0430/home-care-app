@@ -1,3 +1,8 @@
+const genders = ["여자", "남자"];
+
+const getRandomGender = () =>
+  genders[Math.floor(Math.random() * genders.length)];
+
 export const schedules = [
   // 2024-07-20
   {
@@ -8,6 +13,7 @@ export const schedules = [
     date: "2024-07-20",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "8:00",
@@ -17,6 +23,7 @@ export const schedules = [
     date: "2024-07-20",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "9:00",
@@ -26,6 +33,7 @@ export const schedules = [
     date: "2024-07-20",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "10:00",
@@ -35,6 +43,7 @@ export const schedules = [
     date: "2024-07-20",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "11:00",
@@ -44,6 +53,7 @@ export const schedules = [
     date: "2024-07-20",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "12:00",
@@ -53,6 +63,7 @@ export const schedules = [
     date: "2024-07-20",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "13:00",
@@ -62,6 +73,7 @@ export const schedules = [
     date: "2024-07-20",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "14:00",
@@ -71,6 +83,7 @@ export const schedules = [
     date: "2024-07-20",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "15:00",
@@ -80,6 +93,7 @@ export const schedules = [
     date: "2024-07-20",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "16:00",
@@ -89,6 +103,7 @@ export const schedules = [
     date: "2024-07-20",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "17:00",
@@ -98,6 +113,7 @@ export const schedules = [
     date: "2024-07-20",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "18:00",
@@ -107,6 +123,7 @@ export const schedules = [
     date: "2024-07-20",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "19:00",
@@ -116,6 +133,7 @@ export const schedules = [
     date: "2024-07-20",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "20:00",
@@ -125,6 +143,7 @@ export const schedules = [
     date: "2024-07-20",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "21:00",
@@ -134,6 +153,7 @@ export const schedules = [
     date: "2024-07-20",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   // 2024-07-21
   {
@@ -144,6 +164,7 @@ export const schedules = [
     date: "2024-07-21",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "8:00",
@@ -153,6 +174,7 @@ export const schedules = [
     date: "2024-07-21",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "9:00",
@@ -162,6 +184,7 @@ export const schedules = [
     date: "2024-07-21",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "10:00",
@@ -171,6 +194,7 @@ export const schedules = [
     date: "2024-07-21",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "11:00",
@@ -180,6 +204,7 @@ export const schedules = [
     date: "2024-07-21",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "12:00",
@@ -189,6 +214,7 @@ export const schedules = [
     date: "2024-07-21",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "13:00",
@@ -198,6 +224,7 @@ export const schedules = [
     date: "2024-07-21",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "14:00",
@@ -207,6 +234,7 @@ export const schedules = [
     date: "2024-07-21",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "15:00",
@@ -216,6 +244,7 @@ export const schedules = [
     date: "2024-07-21",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "16:00",
@@ -225,6 +254,7 @@ export const schedules = [
     date: "2024-07-21",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "17:00",
@@ -234,6 +264,7 @@ export const schedules = [
     date: "2024-07-21",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "18:00",
@@ -243,6 +274,7 @@ export const schedules = [
     date: "2024-07-21",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "19:00",
@@ -252,6 +284,7 @@ export const schedules = [
     date: "2024-07-21",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "20:00",
@@ -261,6 +294,7 @@ export const schedules = [
     date: "2024-07-21",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "21:00",
@@ -270,6 +304,7 @@ export const schedules = [
     date: "2024-07-21",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   // 2024-07-22
   {
@@ -280,6 +315,7 @@ export const schedules = [
     date: "2024-07-22",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "8:00",
@@ -289,6 +325,7 @@ export const schedules = [
     date: "2024-07-22",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "9:00",
@@ -298,6 +335,7 @@ export const schedules = [
     date: "2024-07-22",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "10:00",
@@ -307,6 +345,7 @@ export const schedules = [
     date: "2024-07-22",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "11:00",
@@ -316,6 +355,7 @@ export const schedules = [
     date: "2024-07-22",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "12:00",
@@ -325,6 +365,7 @@ export const schedules = [
     date: "2024-07-22",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "13:00",
@@ -334,6 +375,7 @@ export const schedules = [
     date: "2024-07-22",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "14:00",
@@ -343,6 +385,7 @@ export const schedules = [
     date: "2024-07-22",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "15:00",
@@ -352,6 +395,7 @@ export const schedules = [
     date: "2024-07-22",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "16:00",
@@ -361,6 +405,7 @@ export const schedules = [
     date: "2024-07-22",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "17:00",
@@ -370,6 +415,7 @@ export const schedules = [
     date: "2024-07-22",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "18:00",
@@ -379,6 +425,7 @@ export const schedules = [
     date: "2024-07-22",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "19:00",
@@ -388,6 +435,7 @@ export const schedules = [
     date: "2024-07-22",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "20:00",
@@ -397,6 +445,7 @@ export const schedules = [
     date: "2024-07-22",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "21:00",
@@ -406,6 +455,7 @@ export const schedules = [
     date: "2024-07-22",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   // 2024-07-23
   {
@@ -416,6 +466,7 @@ export const schedules = [
     date: "2024-07-23",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "8:00",
@@ -425,6 +476,7 @@ export const schedules = [
     date: "2024-07-23",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "9:00",
@@ -434,6 +486,7 @@ export const schedules = [
     date: "2024-07-23",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "10:00",
@@ -443,6 +496,7 @@ export const schedules = [
     date: "2024-07-23",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "11:00",
@@ -452,6 +506,7 @@ export const schedules = [
     date: "2024-07-23",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "12:00",
@@ -461,6 +516,7 @@ export const schedules = [
     date: "2024-07-23",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "13:00",
@@ -470,6 +526,7 @@ export const schedules = [
     date: "2024-07-23",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "14:00",
@@ -479,6 +536,7 @@ export const schedules = [
     date: "2024-07-23",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "15:00",
@@ -488,6 +546,7 @@ export const schedules = [
     date: "2024-07-23",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "16:00",
@@ -497,6 +556,7 @@ export const schedules = [
     date: "2024-07-23",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "17:00",
@@ -506,6 +566,7 @@ export const schedules = [
     date: "2024-07-23",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "18:00",
@@ -515,6 +576,7 @@ export const schedules = [
     date: "2024-07-23",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "19:00",
@@ -524,6 +586,7 @@ export const schedules = [
     date: "2024-07-23",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "20:00",
@@ -533,6 +596,7 @@ export const schedules = [
     date: "2024-07-23",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "21:00",
@@ -542,6 +606,7 @@ export const schedules = [
     date: "2024-07-23",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   // 2024-07-24
   {
@@ -552,6 +617,7 @@ export const schedules = [
     date: "2024-07-24",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "8:00",
@@ -561,6 +627,7 @@ export const schedules = [
     date: "2024-07-24",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "9:00",
@@ -570,6 +637,7 @@ export const schedules = [
     date: "2024-07-24",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "10:00",
@@ -579,6 +647,7 @@ export const schedules = [
     date: "2024-07-24",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "11:00",
@@ -588,6 +657,7 @@ export const schedules = [
     date: "2024-07-24",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "12:00",
@@ -597,6 +667,7 @@ export const schedules = [
     date: "2024-07-24",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "13:00",
@@ -606,6 +677,7 @@ export const schedules = [
     date: "2024-07-24",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "14:00",
@@ -615,6 +687,7 @@ export const schedules = [
     date: "2024-07-24",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "15:00",
@@ -624,6 +697,7 @@ export const schedules = [
     date: "2024-07-24",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "16:00",
@@ -633,6 +707,7 @@ export const schedules = [
     date: "2024-07-24",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "17:00",
@@ -642,6 +717,7 @@ export const schedules = [
     date: "2024-07-24",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "18:00",
@@ -651,6 +727,7 @@ export const schedules = [
     date: "2024-07-24",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "19:00",
@@ -660,6 +737,7 @@ export const schedules = [
     date: "2024-07-24",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "20:00",
@@ -669,6 +747,7 @@ export const schedules = [
     date: "2024-07-24",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "21:00",
@@ -678,6 +757,7 @@ export const schedules = [
     date: "2024-07-24",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   // 2024-07-25
   {
@@ -688,6 +768,7 @@ export const schedules = [
     date: "2024-07-25",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "8:00",
@@ -697,6 +778,7 @@ export const schedules = [
     date: "2024-07-25",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "9:00",
@@ -706,6 +788,7 @@ export const schedules = [
     date: "2024-07-25",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "10:00",
@@ -715,6 +798,7 @@ export const schedules = [
     date: "2024-07-25",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "11:00",
@@ -724,6 +808,7 @@ export const schedules = [
     date: "2024-07-25",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "12:00",
@@ -733,6 +818,7 @@ export const schedules = [
     date: "2024-07-25",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "13:00",
@@ -742,6 +828,7 @@ export const schedules = [
     date: "2024-07-25",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "14:00",
@@ -751,6 +838,7 @@ export const schedules = [
     date: "2024-07-25",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "15:00",
@@ -760,6 +848,7 @@ export const schedules = [
     date: "2024-07-25",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "16:00",
@@ -769,6 +858,7 @@ export const schedules = [
     date: "2024-07-25",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "17:00",
@@ -778,6 +868,7 @@ export const schedules = [
     date: "2024-07-25",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "18:00",
@@ -787,6 +878,7 @@ export const schedules = [
     date: "2024-07-25",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "19:00",
@@ -796,6 +888,7 @@ export const schedules = [
     date: "2024-07-25",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "20:00",
@@ -805,6 +898,7 @@ export const schedules = [
     date: "2024-07-25",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "21:00",
@@ -814,6 +908,7 @@ export const schedules = [
     date: "2024-07-25",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   // 2024-07-26
   {
@@ -824,6 +919,7 @@ export const schedules = [
     date: "2024-07-26",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "8:00",
@@ -833,6 +929,7 @@ export const schedules = [
     date: "2024-07-26",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "9:00",
@@ -842,6 +939,7 @@ export const schedules = [
     date: "2024-07-26",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "10:00",
@@ -851,6 +949,7 @@ export const schedules = [
     date: "2024-07-26",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "11:00",
@@ -860,6 +959,7 @@ export const schedules = [
     date: "2024-07-26",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "12:00",
@@ -869,6 +969,7 @@ export const schedules = [
     date: "2024-07-26",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "13:00",
@@ -878,6 +979,7 @@ export const schedules = [
     date: "2024-07-26",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "14:00",
@@ -887,6 +989,7 @@ export const schedules = [
     date: "2024-07-26",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "15:00",
@@ -896,6 +999,7 @@ export const schedules = [
     date: "2024-07-26",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "16:00",
@@ -905,6 +1009,7 @@ export const schedules = [
     date: "2024-07-26",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "17:00",
@@ -914,6 +1019,7 @@ export const schedules = [
     date: "2024-07-26",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "18:00",
@@ -923,6 +1029,7 @@ export const schedules = [
     date: "2024-07-26",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "19:00",
@@ -932,6 +1039,7 @@ export const schedules = [
     date: "2024-07-26",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "20:00",
@@ -941,6 +1049,7 @@ export const schedules = [
     date: "2024-07-26",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "21:00",
@@ -950,6 +1059,7 @@ export const schedules = [
     date: "2024-07-26",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   // 2024-07-27
   {
@@ -960,6 +1070,7 @@ export const schedules = [
     date: "2024-07-27",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "8:00",
@@ -969,6 +1080,7 @@ export const schedules = [
     date: "2024-07-27",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "9:00",
@@ -978,6 +1090,7 @@ export const schedules = [
     date: "2024-07-27",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "10:00",
@@ -987,6 +1100,7 @@ export const schedules = [
     date: "2024-07-27",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "11:00",
@@ -996,6 +1110,7 @@ export const schedules = [
     date: "2024-07-27",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "12:00",
@@ -1005,6 +1120,7 @@ export const schedules = [
     date: "2024-07-27",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "13:00",
@@ -1014,6 +1130,7 @@ export const schedules = [
     date: "2024-07-27",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "14:00",
@@ -1023,6 +1140,7 @@ export const schedules = [
     date: "2024-07-27",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "15:00",
@@ -1032,6 +1150,7 @@ export const schedules = [
     date: "2024-07-27",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "16:00",
@@ -1041,6 +1160,7 @@ export const schedules = [
     date: "2024-07-27",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "17:00",
@@ -1050,6 +1170,7 @@ export const schedules = [
     date: "2024-07-27",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "18:00",
@@ -1059,6 +1180,7 @@ export const schedules = [
     date: "2024-07-27",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "19:00",
@@ -1068,6 +1190,7 @@ export const schedules = [
     date: "2024-07-27",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "20:00",
@@ -1077,6 +1200,7 @@ export const schedules = [
     date: "2024-07-27",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "21:00",
@@ -1086,6 +1210,7 @@ export const schedules = [
     date: "2024-07-27",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   // 2024-07-28
   {
@@ -1096,6 +1221,7 @@ export const schedules = [
     date: "2024-07-28",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "8:00",
@@ -1105,6 +1231,7 @@ export const schedules = [
     date: "2024-07-28",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "9:00",
@@ -1114,6 +1241,7 @@ export const schedules = [
     date: "2024-07-28",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "10:00",
@@ -1123,6 +1251,7 @@ export const schedules = [
     date: "2024-07-28",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "11:00",
@@ -1132,6 +1261,7 @@ export const schedules = [
     date: "2024-07-28",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "12:00",
@@ -1141,6 +1271,7 @@ export const schedules = [
     date: "2024-07-28",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "13:00",
@@ -1150,6 +1281,7 @@ export const schedules = [
     date: "2024-07-28",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "14:00",
@@ -1159,6 +1291,7 @@ export const schedules = [
     date: "2024-07-28",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "15:00",
@@ -1168,6 +1301,7 @@ export const schedules = [
     date: "2024-07-28",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "16:00",
@@ -1177,6 +1311,7 @@ export const schedules = [
     date: "2024-07-28",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "17:00",
@@ -1186,6 +1321,7 @@ export const schedules = [
     date: "2024-07-28",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "18:00",
@@ -1195,6 +1331,7 @@ export const schedules = [
     date: "2024-07-28",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "19:00",
@@ -1204,6 +1341,7 @@ export const schedules = [
     date: "2024-07-28",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "20:00",
@@ -1213,6 +1351,7 @@ export const schedules = [
     date: "2024-07-28",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "21:00",
@@ -1222,6 +1361,7 @@ export const schedules = [
     date: "2024-07-28",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   // 기존 데이터
   {
@@ -1232,6 +1372,7 @@ export const schedules = [
     date: "2024-07-29",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "8:00",
@@ -1241,6 +1382,7 @@ export const schedules = [
     date: "2024-07-29",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "9:00",
@@ -1250,6 +1392,7 @@ export const schedules = [
     date: "2024-07-29",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "10:00",
@@ -1259,6 +1402,7 @@ export const schedules = [
     date: "2024-07-29",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "11:00",
@@ -1268,6 +1412,7 @@ export const schedules = [
     date: "2024-07-29",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "12:00",
@@ -1277,6 +1422,7 @@ export const schedules = [
     date: "2024-07-29",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "13:00",
@@ -1286,6 +1432,7 @@ export const schedules = [
     date: "2024-07-29",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "14:00",
@@ -1295,6 +1442,7 @@ export const schedules = [
     date: "2024-07-29",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "15:00",
@@ -1304,6 +1452,7 @@ export const schedules = [
     date: "2024-07-29",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "16:00",
@@ -1313,6 +1462,7 @@ export const schedules = [
     date: "2024-07-29",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "17:00",
@@ -1322,6 +1472,7 @@ export const schedules = [
     date: "2024-07-29",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "18:00",
@@ -1331,6 +1482,7 @@ export const schedules = [
     date: "2024-07-29",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "19:00",
@@ -1340,6 +1492,7 @@ export const schedules = [
     date: "2024-07-29",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "20:00",
@@ -1349,6 +1502,7 @@ export const schedules = [
     date: "2024-07-29",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "21:00",
@@ -1358,6 +1512,7 @@ export const schedules = [
     date: "2024-07-29",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   // 2024-07-30
   {
@@ -1368,6 +1523,7 @@ export const schedules = [
     date: "2024-07-30",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "8:00",
@@ -1377,6 +1533,7 @@ export const schedules = [
     date: "2024-07-30",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "9:00",
@@ -1386,6 +1543,7 @@ export const schedules = [
     date: "2024-07-30",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "10:00",
@@ -1395,6 +1553,7 @@ export const schedules = [
     date: "2024-07-30",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "11:00",
@@ -1404,6 +1563,7 @@ export const schedules = [
     date: "2024-07-30",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "12:00",
@@ -1413,6 +1573,7 @@ export const schedules = [
     date: "2024-07-30",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "13:00",
@@ -1422,6 +1583,7 @@ export const schedules = [
     date: "2024-07-30",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "14:00",
@@ -1431,6 +1593,7 @@ export const schedules = [
     date: "2024-07-30",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "15:00",
@@ -1440,6 +1603,7 @@ export const schedules = [
     date: "2024-07-30",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "16:00",
@@ -1449,6 +1613,7 @@ export const schedules = [
     date: "2024-07-30",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "17:00",
@@ -1458,6 +1623,7 @@ export const schedules = [
     date: "2024-07-30",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "18:00",
@@ -1467,6 +1633,7 @@ export const schedules = [
     date: "2024-07-30",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "19:00",
@@ -1476,6 +1643,7 @@ export const schedules = [
     date: "2024-07-30",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "20:00",
@@ -1485,6 +1653,7 @@ export const schedules = [
     date: "2024-07-30",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "21:00",
@@ -1494,6 +1663,7 @@ export const schedules = [
     date: "2024-07-30",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   // 2024-07-31
   {
@@ -1504,6 +1674,7 @@ export const schedules = [
     date: "2024-07-31",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "9:00",
@@ -1513,6 +1684,7 @@ export const schedules = [
     date: "2024-07-31",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "10:00",
@@ -1522,6 +1694,7 @@ export const schedules = [
     date: "2024-07-31",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "11:00",
@@ -1531,6 +1704,7 @@ export const schedules = [
     date: "2024-07-31",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "12:00",
@@ -1540,6 +1714,7 @@ export const schedules = [
     date: "2024-07-31",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "13:00",
@@ -1549,6 +1724,7 @@ export const schedules = [
     date: "2024-07-31",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "14:00",
@@ -1558,6 +1734,7 @@ export const schedules = [
     date: "2024-07-31",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "15:00",
@@ -1567,6 +1744,7 @@ export const schedules = [
     date: "2024-07-31",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "16:00",
@@ -1576,6 +1754,7 @@ export const schedules = [
     date: "2024-07-31",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "17:00",
@@ -1585,6 +1764,7 @@ export const schedules = [
     date: "2024-07-31",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "18:00",
@@ -1594,6 +1774,7 @@ export const schedules = [
     date: "2024-07-31",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "19:00",
@@ -1603,6 +1784,7 @@ export const schedules = [
     date: "2024-07-31",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "20:00",
@@ -1612,6 +1794,7 @@ export const schedules = [
     date: "2024-07-31",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "21:00",
@@ -1621,6 +1804,7 @@ export const schedules = [
     date: "2024-07-31",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "22:00",
@@ -1630,6 +1814,7 @@ export const schedules = [
     date: "2024-07-31",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   // 2024-08-01
   {
@@ -1640,6 +1825,7 @@ export const schedules = [
     date: "2024-08-01",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "11:00",
@@ -1649,6 +1835,7 @@ export const schedules = [
     date: "2024-08-01",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "12:00",
@@ -1658,6 +1845,7 @@ export const schedules = [
     date: "2024-08-01",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "13:00",
@@ -1667,6 +1855,7 @@ export const schedules = [
     date: "2024-08-01",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "14:00",
@@ -1676,6 +1865,7 @@ export const schedules = [
     date: "2024-08-01",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "15:00",
@@ -1685,6 +1875,7 @@ export const schedules = [
     date: "2024-08-01",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "16:00",
@@ -1694,6 +1885,7 @@ export const schedules = [
     date: "2024-08-01",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "17:00",
@@ -1703,6 +1895,7 @@ export const schedules = [
     date: "2024-08-01",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "18:00",
@@ -1712,6 +1905,7 @@ export const schedules = [
     date: "2024-08-01",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "19:00",
@@ -1721,6 +1915,7 @@ export const schedules = [
     date: "2024-08-01",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "20:00",
@@ -1730,6 +1925,7 @@ export const schedules = [
     date: "2024-08-01",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "21:00",
@@ -1739,6 +1935,7 @@ export const schedules = [
     date: "2024-08-01",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "22:00",
@@ -1748,6 +1945,7 @@ export const schedules = [
     date: "2024-08-01",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "23:00",
@@ -1757,6 +1955,7 @@ export const schedules = [
     date: "2024-08-01",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "24:00",
@@ -1766,6 +1965,7 @@ export const schedules = [
     date: "2024-08-01",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   // 2024-08-02
   {
@@ -1776,6 +1976,7 @@ export const schedules = [
     date: "2024-08-02",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "11:00",
@@ -1785,6 +1986,7 @@ export const schedules = [
     date: "2024-08-02",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "12:00",
@@ -1794,6 +1996,7 @@ export const schedules = [
     date: "2024-08-02",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "13:00",
@@ -1803,6 +2006,7 @@ export const schedules = [
     date: "2024-08-02",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "14:00",
@@ -1812,6 +2016,7 @@ export const schedules = [
     date: "2024-08-02",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "15:00",
@@ -1821,6 +2026,7 @@ export const schedules = [
     date: "2024-08-02",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "16:00",
@@ -1830,6 +2036,7 @@ export const schedules = [
     date: "2024-08-02",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "17:00",
@@ -1839,6 +2046,7 @@ export const schedules = [
     date: "2024-08-02",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "18:00",
@@ -1848,6 +2056,7 @@ export const schedules = [
     date: "2024-08-02",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "19:00",
@@ -1857,6 +2066,7 @@ export const schedules = [
     date: "2024-08-02",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "20:00",
@@ -1866,6 +2076,7 @@ export const schedules = [
     date: "2024-08-02",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "21:00",
@@ -1875,6 +2086,7 @@ export const schedules = [
     date: "2024-08-02",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "22:00",
@@ -1884,6 +2096,7 @@ export const schedules = [
     date: "2024-08-02",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "23:00",
@@ -1893,6 +2106,7 @@ export const schedules = [
     date: "2024-08-02",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "24:00",
@@ -1902,6 +2116,7 @@ export const schedules = [
     date: "2024-08-02",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "10:00",
@@ -1911,6 +2126,7 @@ export const schedules = [
     date: "2024-08-03",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "11:00",
@@ -1920,6 +2136,7 @@ export const schedules = [
     date: "2024-08-03",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "12:00",
@@ -1929,6 +2146,7 @@ export const schedules = [
     date: "2024-08-03",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "13:00",
@@ -1938,6 +2156,7 @@ export const schedules = [
     date: "2024-08-03",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "14:00",
@@ -1947,6 +2166,7 @@ export const schedules = [
     date: "2024-08-03",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "15:00",
@@ -1956,6 +2176,7 @@ export const schedules = [
     date: "2024-08-03",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "16:00",
@@ -1965,6 +2186,7 @@ export const schedules = [
     date: "2024-08-03",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "17:00",
@@ -1974,6 +2196,7 @@ export const schedules = [
     date: "2024-08-03",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "18:00",
@@ -1983,6 +2206,7 @@ export const schedules = [
     date: "2024-08-03",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "19:00",
@@ -1992,6 +2216,7 @@ export const schedules = [
     date: "2024-08-03",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "20:00",
@@ -2001,6 +2226,7 @@ export const schedules = [
     date: "2024-08-03",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "21:00",
@@ -2010,6 +2236,7 @@ export const schedules = [
     date: "2024-08-03",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "22:00",
@@ -2019,6 +2246,7 @@ export const schedules = [
     date: "2024-08-03",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "23:00",
@@ -2028,6 +2256,7 @@ export const schedules = [
     date: "2024-08-03",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "24:00",
@@ -2037,6 +2266,7 @@ export const schedules = [
     date: "2024-08-03",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "10:45",
@@ -2046,6 +2276,7 @@ export const schedules = [
     date: "2024-08-04",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "11:00",
@@ -2055,6 +2286,7 @@ export const schedules = [
     date: "2024-08-04",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "12:00",
@@ -2064,6 +2296,7 @@ export const schedules = [
     date: "2024-08-04",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "13:00",
@@ -2073,6 +2306,7 @@ export const schedules = [
     date: "2024-08-04",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "14:00",
@@ -2082,6 +2316,7 @@ export const schedules = [
     date: "2024-08-04",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "15:00",
@@ -2091,6 +2326,7 @@ export const schedules = [
     date: "2024-08-04",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "16:00",
@@ -2100,6 +2336,7 @@ export const schedules = [
     date: "2024-08-04",
     emergency: true,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "17:00",
@@ -2109,6 +2346,7 @@ export const schedules = [
     date: "2024-08-04",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "18:00",
@@ -2118,6 +2356,7 @@ export const schedules = [
     date: "2024-08-04",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "19:00",
@@ -2127,6 +2366,7 @@ export const schedules = [
     date: "2024-08-04",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "20:00",
@@ -2136,6 +2376,7 @@ export const schedules = [
     date: "2024-08-04",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "21:00",
@@ -2145,6 +2386,7 @@ export const schedules = [
     date: "2024-08-04",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "22:00",
@@ -2154,6 +2396,7 @@ export const schedules = [
     date: "2024-08-04",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "23:00",
@@ -2163,6 +2406,7 @@ export const schedules = [
     date: "2024-08-04",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "24:00",
@@ -2172,6 +2416,7 @@ export const schedules = [
     date: "2024-08-04",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "14:00",
@@ -2181,6 +2426,7 @@ export const schedules = [
     date: "2024-08-05",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "15:00",
@@ -2190,6 +2436,7 @@ export const schedules = [
     date: "2024-08-05",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "16:00",
@@ -2199,6 +2446,7 @@ export const schedules = [
     date: "2024-08-05",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "17:00",
@@ -2208,6 +2456,7 @@ export const schedules = [
     date: "2024-08-05",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "18:00",
@@ -2217,6 +2466,7 @@ export const schedules = [
     date: "2024-08-05",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "19:00",
@@ -2226,6 +2476,7 @@ export const schedules = [
     date: "2024-08-05",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "20:00",
@@ -2235,6 +2486,7 @@ export const schedules = [
     date: "2024-08-05",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "21:00",
@@ -2244,6 +2496,7 @@ export const schedules = [
     date: "2024-08-05",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
   {
     time: "22:00",
@@ -2253,6 +2506,7 @@ export const schedules = [
     date: "2024-08-05",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "23:00",
@@ -2262,6 +2516,7 @@ export const schedules = [
     date: "2024-08-05",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "24:00",
@@ -2271,6 +2526,7 @@ export const schedules = [
     date: "2024-08-05",
     emergency: true,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "25:00",
@@ -2280,6 +2536,7 @@ export const schedules = [
     date: "2024-08-05",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "26:00",
@@ -2289,6 +2546,7 @@ export const schedules = [
     date: "2024-08-05",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "27:00",
@@ -2298,6 +2556,7 @@ export const schedules = [
     date: "2024-08-05",
     emergency: false,
     pills: false,
+    gender: getRandomGender(),
   },
   {
     time: "28:00",
@@ -2307,5 +2566,6 @@ export const schedules = [
     date: "2024-08-05",
     emergency: false,
     pills: true,
+    gender: getRandomGender(),
   },
 ];

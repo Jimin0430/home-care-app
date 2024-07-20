@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 16,
     backgroundColor: "white",
-    borderBottomWidth: 1,
-    borderBottomColor: "#e0e0e0",
+    // borderBottomWidth: 1,
+    // borderBottomColor: "#e0e0e0",
   },
   headerTitle: {
     fontSize: 18,

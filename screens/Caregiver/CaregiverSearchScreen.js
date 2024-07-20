@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+  TouchableOpacity,
+} from "react-native";
 import CalendarStrip from "react-native-calendar-strip";
 import DropDownPicker from "react-native-dropdown-picker";
 import moment from "moment";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { Color } from "../../styles/color";
 import { schedules } from "../../utils/patientScheduleData";
 
 import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import Header from "../../components/Header";
+
 const CaregiverSearchScreen = () => {
   const [openRegion, setOpenRegion] = useState(false);
   const [openTimeSlot, setOpenTimeSlot] = useState(false);
@@ -18,17 +28,28 @@ const CaregiverSearchScreen = () => {
   const [valueTimeSlot, setValueTimeSlot] = useState(null);
   const [valuePeriod, setValuePeriod] = useState(null);
   const [valueGender, setValueGender] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(""); // 초기 선택된 날짜
+  const [selectedDate, setSelectedDate] = useState(
+    moment().format("YYYY-MM-DD")
+  ); // 초기 선택된 날짜
   const [filteredSchedules, setFilteredSchedules] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const navigation = useNavigation();
+  const route = useRoute();
+  const needHeader = route?.params?.needHeader ?? false;
 
   useEffect(() => {
-    console.log(selectedDate);
-    if (selectedDate && schedules) {
-      const filtered = schedules
-        .filter((schedule) => schedule.date === selectedDate)
-        .sort((a, b) => moment(a.time, "HH:mm") - moment(b.time, "HH:mm"));
-      setFilteredSchedules(filtered);
-    }
+    const fetchData = async () => {
+      if (selectedDate && schedules) {
+        setLoading(true);
+        const filtered = schedules
+          .filter((schedule) => schedule.date === selectedDate)
+          .sort((a, b) => moment(a.time, "HH:mm") - moment(b.time, "HH:mm"));
+        setFilteredSchedules(filtered);
+        setLoading(false);
+      }
+    };
+    fetchData();
   }, [selectedDate, schedules]);
 
   const onDateSelected = (date) => {
@@ -36,7 +57,15 @@ const CaregiverSearchScreen = () => {
   };
 
   const renderScheduleItem = ({ item }) => (
-    <View style={styles.scheduleItem}>
+    <TouchableOpacity
+      style={styles.scheduleItem}
+      onPress={() => {
+        navigation.navigate("PatientMyPageScreen", {
+          name: item.title,
+          gender: item.gender, // 성별 정보를 여기에 맞게 수정해야 합니다.
+        });
+      }}
+    >
       <Text style={styles.scheduleTime}>{item.time}</Text>
       <View style={styles.scheduleDetails}>
         <View style={styles.titleContainer}>
@@ -53,14 +82,16 @@ const CaregiverSearchScreen = () => {
           )}
         </View>
         <Text style={styles.scheduleSubtext}>
-          여 | 시급: {item.pay} | 종료: {item.duration}
+          {item.gender} | 시급: {item.pay} | 종료: {item.duration}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
     <View style={styles.container}>
+      {needHeader && <Header title={"환자 찾기"} />}
+
       <CalendarStrip
         scrollable
         style={styles.calendarStrip}
@@ -179,12 +210,16 @@ const CaregiverSearchScreen = () => {
           />
         </View>
       </View>
-      <FlatList
-        data={filteredSchedules}
-        renderItem={renderScheduleItem}
-        keyExtractor={(item, index) => index.toString()}
-        style={styles.scheduleList}
-      />
+      {loading ? (
+        <ActivityIndicator size="large" color={Color.pink900} />
+      ) : (
+        <FlatList
+          data={filteredSchedules}
+          renderItem={renderScheduleItem}
+          keyExtractor={(item, index) => index.toString()}
+          style={styles.scheduleList}
+        />
+      )}
     </View>
   );
 };
@@ -208,7 +243,6 @@ const styles = StyleSheet.create({
   },
   dropdownWrapper: {
     alignSelf: "flex-start",
-    // zIndex: 3000, // Ensure each wrapper has its own stacking context
     marginRight: 10, // Adjust spacing between the dropdowns
   },
   dropdown: {

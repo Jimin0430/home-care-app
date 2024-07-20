@@ -35,7 +35,7 @@ const ChatScreen = ({ route }) => {
               (message.sender_username === receiver &&
                 message.receiver_username === sender)
           )
-          .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+          .sort((a, b) => new Date(a.sent_at) - new Date(b.sent_at)); // sent_at 기준으로 정렬
         setMessages(allMessages);
       } catch (error) {
         console.error("Failed to fetch messages:", error);
@@ -59,9 +59,13 @@ const ChatScreen = ({ route }) => {
           sender_username: sender,
           receiver_username: receiver,
           content: inputMessage,
-          timestamp: new Date().toISOString(), // 현재 시간으로 타임스탬프 설정
+          sent_at: new Date().toISOString(), // 현재 시간으로 sent_at 설정
         };
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
+        setMessages((prevMessages) =>
+          [...prevMessages, newMessage].sort(
+            (a, b) => new Date(a.sent_at) - new Date(b.sent_at)
+          )
+        ); // 새로운 메시지를 추가하고 sent_at 기준으로 정렬
         setInputMessage("");
       } catch (error) {
         console.error("Failed to send message:", error);
@@ -96,7 +100,7 @@ const ChatScreen = ({ route }) => {
         <FlatList
           data={messages}
           keyExtractor={(item, index) =>
-            item.id ? item.id.toString() : `${index}-${item.timestamp}`
+            item.id ? item.id.toString() : `${index}-${item.sent_at}`
           } // 메시지의 고유 id 사용
           renderItem={renderItem}
           contentContainerStyle={styles.messageList}
@@ -179,8 +183,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginLeft: 10,
     paddingHorizontal: 15,
-    paddingVertical: 10,
-    backgroundColor: Color.pink900,
+    paddingVertical: 5,
+    backgroundColor: Color.pink800,
+    marginVertical: 5,
     borderRadius: 10,
   },
   sendButtonText: {

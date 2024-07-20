@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import CustomSlider from "../../components/CustomSlider";
 
@@ -8,9 +8,15 @@ import {
   commonLayoutStyle,
   profileScreenStyle,
 } from "../../styles/globalStyles";
+import Header from "../../components/Header";
 
 export default function PatientMyPageScreen() {
   const navigation = useNavigation();
+
+  const route = useRoute();
+  const fromFindPatient = route?.params?.fromFindPatient ?? false;
+  const { name = "고양시 순자씨", gender = "여자" } = route?.params ?? {};
+
   const profileInfo = [
     { label: "병명", value: "선망증세" },
     { label: "키/몸무게", value: "167cm | 57kg" },
@@ -69,6 +75,7 @@ export default function PatientMyPageScreen() {
 
   return (
     <View style={commonLayoutStyle.container}>
+      {fromFindPatient && <Header title="환자 프로필 페이지" />}
       <ScrollView
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
@@ -81,12 +88,12 @@ export default function PatientMyPageScreen() {
           />
           <View style={profileScreenStyle.profileInfo}>
             <View style={profileScreenStyle.profileInfoTopSection}>
-              <Text style={profileScreenStyle.name}>고양시 순자씨</Text>
+              <Text style={profileScreenStyle.name}>{name}</Text>
             </View>
 
             <View style={profileScreenStyle.detailContainer}>
               <Text style={profileScreenStyle.details}>나이 : 72살</Text>
-              <Text style={profileScreenStyle.details}>성별 : 여자</Text>
+              <Text style={profileScreenStyle.details}>성별 : {gender}</Text>
               <Text style={profileScreenStyle.badge}>
                 특징 : 식사 보조, 거동 보조
               </Text>
@@ -187,14 +194,16 @@ export default function PatientMyPageScreen() {
       </ScrollView>
 
       {/* Bottom Button */}
-      <TouchableOpacity
-        style={profileScreenStyle.bottomButton}
-        onPress={() => navigateToEditPage()}
-      >
-        <Text style={profileScreenStyle.bottomButtonText}>
-          나의 정보 수정하기
-        </Text>
-      </TouchableOpacity>
+      {!fromFindPatient && (
+        <TouchableOpacity
+          style={profileScreenStyle.bottomButton}
+          onPress={() => navigateToEditPage()}
+        >
+          <Text style={profileScreenStyle.bottomButtonText}>
+            나의 정보 수정하기
+          </Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }

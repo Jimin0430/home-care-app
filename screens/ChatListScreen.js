@@ -47,7 +47,9 @@ const ChatListScreen = () => {
 
       const lastMessages = Object.keys(groupedMessages).map((key) => {
         const messages = groupedMessages[key];
-        return messages[messages.length - 1];
+        return messages.sort(
+          (a, b) => new Date(b.sent_at) - new Date(a.sent_at)
+        )[0]; // sent_at 기준으로 최신 메시지 가져오기
       });
 
       setMessageList(lastMessages);
@@ -88,7 +90,7 @@ const ChatListScreen = () => {
               sender={item.sender_username}
               receiver={item.receiver_username}
               content={item.content}
-              timestamp={item.timestamp}
+              timestamp={item.sent_at}
               type={item.type} // 추가된 type 값 전달
             />
           </TouchableOpacity>

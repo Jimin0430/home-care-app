@@ -1,68 +1,91 @@
-// ReviewScreen.js
 import React from "react";
-import { View, Text, FlatList, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  Image,
+  SafeAreaView,
+} from "react-native";
+import { useRoute } from "@react-navigation/native";
 
-const reviews = [
-  {
-    id: "1",
-    username: "사용자 닉네임",
-    rating: "★★★★★",
-    review:
-      "후기 후기 후기 후기 후기 후기 후기 후기 후기 후기 후기 후기 후기 ...",
-    avatar: "https://via.placeholder.com/50", // Placeholder 이미지 URL
-  },
-  {
-    id: "2",
-    username: "사용자 닉네임",
-    rating: "★★★★★",
-    review:
-      "후기 후기 후기 후기 후기 후기 후기 후기 후기 후기 후기 후기 후기 ...",
-    avatar: "https://via.placeholder.com/50",
-  },
-  // 추가 리뷰 항목들
-];
+import { Rating } from "react-native-ratings";
+import Header from "../components/Header";
+import { signInScreenStyle, profileEditStyle } from "../styles/globalStyles";
+import { Color } from "../styles/color";
+import { reviews } from "../utils/reviewDataForCaregiver";
 
 const ReviewScreen = () => {
+  const route = useRoute();
+  const myReviewPage = route?.params?.myReviewPage ?? false;
+
   const renderItem = ({ item }) => (
     <View style={styles.reviewContainer}>
-      <Image source={{ uri: item.avatar }} style={styles.avatar} />
-      <View style={styles.reviewContent}>
-        <Text style={styles.username}>{item.username}</Text>
-        <Text style={styles.rating}>{item.rating}</Text>
-        <Text style={styles.review}>{item.review}</Text>
+      <View style={styles.topContainer}>
+        <Image
+          source={require("../assets/images/patientProfileImage.png")}
+          style={styles.avatar}
+        />
+        <View style={styles.reviewContent}>
+          <Text style={styles.username}>{item.username}</Text>
+          <View style={styles.ratingContainer}>
+            <Rating
+              type="heart"
+              ratingCount={5}
+              imageSize={20}
+              readonly
+              startingValue={item.rating}
+              style={styles.rating}
+            />
+          </View>
+        </View>
       </View>
+
+      <Text style={styles.review}>{item.review}</Text>
     </View>
   );
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={reviews}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-      />
-    </View>
+    <SafeAreaView style={profileEditStyle.safeArea}>
+      <Header title={myReviewPage ? "나의 리뷰 모아보기" : "후기"} />
+
+      <View
+        style={[
+          signInScreenStyle.scrollViewContent,
+          { flex: 1, paddingHorizontal: 30, paddingBottom: 10 },
+        ]}
+      >
+        <FlatList
+          data={reviews}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          showsVerticalScrollIndicator={false} // 스크롤바 숨기기
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: "#fff",
-  },
   reviewContainer: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderBottomWidth: 0.5,
+    borderBottomColor: Color.gray500,
+  },
+  topContainer: {
     flexDirection: "row",
     alignItems: "flex-start",
     paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#eee",
   },
   avatar: {
     width: 50,
     height: 50,
     borderRadius: 25,
     marginRight: 10,
+    resizeMode: "cover",
   },
   reviewContent: {
     flex: 1,
@@ -71,9 +94,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  ratingContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-start", // 왼쪽 정렬
+    width: "100%",
+  },
   rating: {
-    fontSize: 14,
-    color: "red",
+    marginVertical: 5,
   },
   review: {
     fontSize: 14,

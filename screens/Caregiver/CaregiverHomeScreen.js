@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
   Text,
@@ -11,6 +11,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { showRestrictedAccessAlert } from "../../components/CustomAlert";
 
+import { getUserName } from "../../utils/storage";
 import { Color } from "../../styles/color";
 // import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -19,13 +20,39 @@ export default function CaregiverHomeScreen() {
 
   const windowHeight = Dimensions.get("window").height;
   const boxHeight = windowHeight * 0.48; // 화면 세로 길이의 40% 계산
+
+  const [username, setUsername] = useState("");
+
+  const fetchUserName = async () => {
+    try {
+      const getName = await getUserName();
+      setUsername(getName || "");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserName();
+  }, []);
+
   const moveToMap = () => {
-    navigation.navigate("CaregiverSearchEducation");
+    navigation.navigate("CaregiverSearchEducation", { username: username });
+  };
+  const moveToReview = () => {
+    navigation.navigate("ReviewScreen");
+  };
+  const moveToSearch = () => {
+    navigation.navigate("CaregiverSearchScreen");
+  };
+  const moveToCommunity = () => {
+    navigation.navigate("CommunityPostScreen");
   };
 
   const handleAlert = () => {
     showRestrictedAccessAlert("upcoming");
   };
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -33,7 +60,7 @@ export default function CaregiverHomeScreen() {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       >
-        <View style={styles.imageViewer}>
+        <TouchableOpacity style={styles.imageViewer} onPress={moveToSearch}>
           <ImageBackground
             source={require("../../assets/images/homeBanner.jpg")}
             style={styles.bannerImage}
@@ -41,7 +68,7 @@ export default function CaregiverHomeScreen() {
           >
             <Text style={styles.bannerText}>환자 찾기</Text>
           </ImageBackground>
-        </View>
+        </TouchableOpacity>
 
         <View style={[styles.homeMainContainer, { height: boxHeight }]}>
           <View style={styles.mainInnerContainer}>
@@ -76,6 +103,7 @@ export default function CaregiverHomeScreen() {
                 styles.leftInnerBox,
                 { flex: 1.1, backgroundColor: Color.grin600 },
               ]}
+              onPress={moveToReview}
             >
               <Text style={styles.mainBoxInnerText}>
                 나의 리뷰 {"\n"}관리하기
@@ -94,18 +122,19 @@ export default function CaregiverHomeScreen() {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.communityContainer}>
+        <TouchableOpacity
+          style={styles.communityContainer}
+          onPress={moveToCommunity}
+        >
           <View style={styles.communityTop}>
             <Text style={styles.middleTitle}>커뮤니티 글</Text>
             <Text style={styles.middleText}>더보기 {">"}</Text>
           </View>
           <View style={styles.communityBox}>
-            <Text style={styles.middleTitle}>
-              이런 상황의 대처법이 궁금해요
-            </Text>
-            <Text>답변 4개</Text>
+            <Text style={styles.middleTitle}>고민: 요양보호사의 체력 관리</Text>
+            <Text>답변 5개</Text>
           </View>
-        </View>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );

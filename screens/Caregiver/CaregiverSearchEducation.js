@@ -5,10 +5,11 @@ import Header from "../../components/Header";
 import { Color } from "../../styles/color";
 
 import { Entypo } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
-const CaregiverSearchEducation = () => {
+const CaregiverSearchEducation = ({ route }) => {
+  const { username } = route.params;
+
   return (
     <View style={[styles.container, { backgroundColor: "blue" }]}>
       <View style={{ backgroundColor: "pink" }}>
@@ -16,7 +17,7 @@ const CaregiverSearchEducation = () => {
       </View>
       <View style={styles.top}>
         <View style={[styles.keyWrapper, { marginBottom: 20, gap: 0 }]}>
-          <Text style={styles.title}>부평 헬렌켈러님!</Text>
+          <Text style={styles.title}>{username}님!</Text>
           <MaterialCommunityIcons
             name="penguin"
             size={21}
@@ -38,7 +39,7 @@ const CaregiverSearchEducation = () => {
             </View>
           </View>
           <View style={styles.infoTextData}>
-            <Text style={styles.infoText}>인천 미추홀구 소성로40</Text>
+            <Text style={styles.infoText}>서울 중구 퇴계로6길 55</Text>
             <Text style={styles.infoText}>인근 10km</Text>
           </View>
           <View style={styles.verticalLine} />
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
   infoBox: {
     flexDirection: "row",
     // backgroundColor: "#7de4da",
-    backgroundColor: "#9be5de",
+    backgroundColor: "#7fd2ca",
     paddingHorizontal: 25,
     paddingVertical: 18,
     borderRadius: 4,
