@@ -13,13 +13,22 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Header from "../../components/Header";
 // Generate random caregiver data
 const generateCaregivers = () => {
-  const names = ["헬렌켈러", "마리퀴리", "플로렌스", "나이팅게일"];
+  const names = [
+    "플로렌스",
+    "헬렌켈러",
+    "나이팅게일",
+    "감마리아",
+    "유호경",
+    "박에스더",
+    "마리퀴리",
+    "홍정숙",
+  ];
   const caregivers = [];
   for (let i = 0; i < 10; i++) {
     const randomName = names[Math.floor(Math.random() * names.length)];
     caregivers.push({
       id: i,
-      name: `부평 ${randomName}`,
+      name: `서울 ${randomName}`,
       intro: "내 가족처럼 돌보는 요양사입니다.",
       pay: 12000,
       gender: "성별 : 여자",
@@ -46,6 +55,7 @@ const PatientSearchCaregiver = () => {
   const [selectedDate, setSelectedDate] = useState(""); // 초기 선택된 날짜
   const [filteredSchedules, setFilteredSchedules] = useState([]);
 
+  const navigation = useNavigation();
   const route = useRoute();
   const needHeader = route?.params?.needHeader ?? false;
 
@@ -64,7 +74,14 @@ const PatientSearchCaregiver = () => {
   };
 
   const renderCaregiverItem = ({ item }) => (
-    <View style={styles.caregiverItem}>
+    <TouchableOpacity
+      style={styles.caregiverItem}
+      onPress={() => {
+        navigation.navigate("CaregiverMyPageScreen", {
+          name: item.name, //받는 사람 이름
+        });
+      }}
+    >
       <View style={styles.leftShadow} />
       <Image
         source={require("../../assets/images/caregiverProfileImage.png")}
@@ -97,7 +114,7 @@ const PatientSearchCaregiver = () => {
           <Text style={styles.caregiverDescription}>{item.gender}</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (

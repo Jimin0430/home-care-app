@@ -21,7 +21,7 @@ const ChatScreen = ({ route }) => {
   const { sender, receiver } = route.params;
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
-
+  console.log(sender, " ", receiver);
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -135,9 +135,9 @@ const styles = StyleSheet.create({
   },
   messageContainer: {
     marginVertical: 6,
-    paddingHorizontal: 15,
+    paddingHorizontal: 20,
     paddingVertical: 9,
-    borderRadius: 30,
+    borderRadius: 20,
     maxWidth: "80%",
   },
   sender: {

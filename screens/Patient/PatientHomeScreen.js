@@ -12,6 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Color } from "../../styles/color";
 import { profileScreenStyle } from "../../styles/globalStyles";
 import { showRestrictedAccessAlert } from "../../components/CustomAlert";
+import { showCustomAlert } from "../../components/CustomAlert";
 
 const windowHeight = Dimensions.get("window").height;
 
@@ -28,7 +29,9 @@ export default function PatientHomeScreen({ navigation }) {
     ],
   };
 
-  const checkGradeProfit = () => {};
+  const checkGradeProfit = () => {
+    showCustomAlert("안내", "곧 추가될 서비스입니다.");
+  };
 
   const moveScheduleManagement = () => {
     navigation.navigate("PatientScheduleTimeScreen");
@@ -103,6 +106,7 @@ export default function PatientHomeScreen({ navigation }) {
                 styles.leftInnerBox,
                 { flex: 2, backgroundColor: Color.grin500 },
               ]}
+              onPress={checkGradeProfit}
             >
               <Text style={styles.mainBoxInnerText}>
                 관련{"\n"}뉴스 기사{"\n"}살펴보기

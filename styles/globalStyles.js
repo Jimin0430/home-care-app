@@ -173,7 +173,7 @@ export const profileScreenStyle = StyleSheet.create({
   },
   ratingContainer: {
     position: "absolute",
-    top: 17,
+    top: 2,
     right: 25,
     flexDirection: "row",
     alignItems: "center",

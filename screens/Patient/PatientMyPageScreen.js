@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { getUserName } from "../../utils/storage";
 
 import CustomSlider from "../../components/CustomSlider";
 
@@ -9,13 +10,64 @@ import {
   profileScreenStyle,
 } from "../../styles/globalStyles";
 import Header from "../../components/Header";
+import { getPatientData } from "../../apis/patientApi";
 
 export default function PatientMyPageScreen() {
   const navigation = useNavigation();
-
   const route = useRoute();
   const fromFindPatient = route?.params?.fromFindPatient ?? false;
-  const { name = "고양시 순자씨", gender = "여자" } = route?.params ?? {};
+  const name = route?.params?.name;
+
+  const [patientData, setPatientData] = useState(null);
+  const [userName, setUserName] = useState("");
+
+  const fetchUserName = async () => {
+    try {
+      const getName = await getUserName();
+      setUserName(getName || false);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    console.log(fromFindPatient);
+    if (fromFindPatient) {
+      setPatientData({ name: name, age: 72, gender: "남자" });
+      fetchUserName();
+      // setPatientData({ username: "김순자 어르신", age: 72, gender: "남자" }); //api안되면
+    } else {
+      fetchUserName();
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   if (!fromFindPatient) {
+  //     fetchUserName();
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    if (!fromFindPatient && userName) {
+      const fetchCaregiverData = async () => {
+        try {
+          console.log("api 호출할 때의 유저 네임 : ", userName);
+          const basicData = await getPatientData(userName);
+
+          setPatientData(basicData);
+        } catch (e) {
+          console.log(e);
+        }
+      };
+      fetchCaregiverData();
+    }
+  }, [userName]);
+
+  useEffect(() => {
+    console.log("Got userName at CaregiverMyPageScreen:", userName);
+    if (patientData) {
+      console.log("Caregiver data:", patientData);
+    }
+  }, [userName, patientData]);
 
   const profileInfo = [
     { label: "병명", value: "선망증세" },
@@ -27,7 +79,7 @@ export default function PatientMyPageScreen() {
   ];
 
   const workInfo = [
-    { label: "근무지", value: "인천 미추홀구 소성로 40 현대아파트" },
+    { label: "근무지", value: "서울 중구 퇴계로 3길 43" },
     { label: "고용 형태", value: "장기 근무" },
     {
       label: "일급",
@@ -64,13 +116,10 @@ export default function PatientMyPageScreen() {
     },
   ];
   const navigateToEditPage = () => {
-    // navigate("Stacks", {
-    //   screen: "PatientMyPageEdit",
-    // });
-    // navigation("Stacks", {
-    //   screen: "PatientMyPageEdit",
-    // });
     navigation.navigate("PatientMyPageEdit");
+  };
+  const navigateToChatPage = () => {
+    navigation.navigate("ChatScreen", { sender: userName, receiver: name });
   };
 
   return (
@@ -88,12 +137,19 @@ export default function PatientMyPageScreen() {
           />
           <View style={profileScreenStyle.profileInfo}>
             <View style={profileScreenStyle.profileInfoTopSection}>
-              <Text style={profileScreenStyle.name}>{name}</Text>
+              <Text style={profileScreenStyle.name}>{patientData?.name}</Text>
+              {/* <Text style={profileScreenStyle.name}>{userName}</Text> */}
             </View>
 
             <View style={profileScreenStyle.detailContainer}>
-              <Text style={profileScreenStyle.details}>나이 : 72살</Text>
-              <Text style={profileScreenStyle.details}>성별 : {gender}</Text>
+              <Text style={profileScreenStyle.details}>
+                나이 : {patientData?.age}
+                {/* 나이 : 72살 */}
+              </Text>
+              <Text style={profileScreenStyle.details}>
+                성별 : {patientData?.gender}
+                {/* 성별 : 남자 */}
+              </Text>
               <Text style={profileScreenStyle.badge}>
                 특징 : 식사 보조, 거동 보조
               </Text>
@@ -194,13 +250,24 @@ export default function PatientMyPageScreen() {
       </ScrollView>
 
       {/* Bottom Button */}
-      {!fromFindPatient && (
+      {!fromFindPatient ? (
         <TouchableOpacity
           style={profileScreenStyle.bottomButton}
           onPress={() => navigateToEditPage()}
         >
           <Text style={profileScreenStyle.bottomButtonText}>
             나의 정보 수정하기
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={profileScreenStyle.bottomButton}
+          onPress={() => navigateToChatPage()}
+        >
+          <Text style={profileScreenStyle.bottomButtonText}>
+            {patientData?.name}님에게 쪽지 보내기
+            {/* {name}님에게 쪽지 보내기 */}
+            {/* name //api안되면 */}
           </Text>
         </TouchableOpacity>
       )}

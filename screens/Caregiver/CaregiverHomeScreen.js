@@ -40,7 +40,9 @@ export default function CaregiverHomeScreen() {
     navigation.navigate("CaregiverSearchEducation", { username: username });
   };
   const moveToReview = () => {
-    navigation.navigate("ReviewScreen");
+    navigation.navigate("ReviewScreen", {
+      isCaregiver: true,
+    });
   };
   const moveToSearch = () => {
     navigation.navigate("CaregiverSearchScreen");

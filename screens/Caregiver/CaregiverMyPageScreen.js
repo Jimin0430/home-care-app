@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import {
   commonLayoutStyle,
@@ -27,12 +27,17 @@ import {
   getCaregiverData,
   getCaregiverMyProfile,
 } from "../../apis/caregiverApi";
+import Header from "../../components/Header";
 
 export default function CaregiverMyPageScreen() {
   const navigation = useNavigation();
+  const route = useRoute();
 
-  const [userName, setUserName] = useState("");
+  const fromFindCaregiver = route?.params?.fromFindCaregiver ?? false;
+  const name = route?.params?.name;
+
   const [caregiverData, setCaregiverData] = useState(null);
+  const [userName, setUserName] = useState("");
 
   const fetchUserName = async () => {
     try {
@@ -44,11 +49,17 @@ export default function CaregiverMyPageScreen() {
   };
 
   useEffect(() => {
-    fetchUserName();
+    console.log(fromFindCaregiver);
+    if (fromFindCaregiver) {
+      setCaregiverData({ username: name, age: 32, gender: "여자" });
+      fetchUserName();
+    } else {
+      fetchUserName();
+    }
   }, []);
 
   useEffect(() => {
-    if (userName) {
+    if (!fromFindCaregiver && userName) {
       const fetchCaregiverData = async () => {
         try {
           console.log("api 호출할 때의 유저 네임 : ", userName);
@@ -121,10 +132,20 @@ export default function CaregiverMyPageScreen() {
     navigation.navigate("CaregiverMyPageEdit");
   };
   const moveToReview = () => {
-    navigation.navigate("ReviewScreen");
+    navigation.navigate("ReviewScreen", {
+      fromFindCaregiver: fromFindCaregiver,
+      isCaregiver: fromFindCaregiver ? false : true,
+    });
   };
 
-  if (caregiverData === null) {
+  const navigateToChatPage = () => {
+    navigation.navigate("ChatScreen", {
+      sender: userName,
+      receiver: name,
+    });
+  };
+
+  if (!fromFindCaregiver && caregiverData === null) {
     return (
       <View
         style={[
@@ -141,8 +162,11 @@ export default function CaregiverMyPageScreen() {
       </View>
     );
   }
+
   return (
     <View style={commonLayoutStyle.container}>
+      {fromFindCaregiver && <Header title="요양사 프로필 페이지" />}
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
@@ -157,7 +181,7 @@ export default function CaregiverMyPageScreen() {
             <View style={profileScreenStyle.profileInfoTopSection}>
               <View style={profileScreenStyle.certificateAlign}>
                 <Text style={profileScreenStyle.name}>
-                  {caregiverData.username}
+                  {caregiverData?.username}
                 </Text>
                 <MaterialCommunityIcons
                   name="check-decagram"
@@ -172,10 +196,10 @@ export default function CaregiverMyPageScreen() {
 
             <View style={profileScreenStyle.detailContainer}>
               <Text style={profileScreenStyle.details}>
-                나이 : {caregiverData.name}
+                나이 : {caregiverData?.age}
               </Text>
               <Text style={profileScreenStyle.details}>
-                성별 : {caregiverData.gender}
+                성별 : {caregiverData?.gender}
               </Text>
             </View>
           </View>
@@ -282,14 +306,25 @@ export default function CaregiverMyPageScreen() {
       </ScrollView>
 
       {/* Bottom Button */}
-      <TouchableOpacity
-        style={profileScreenStyle.bottomButton}
-        onPress={() => handleEditButton()}
-      >
-        <Text style={profileScreenStyle.bottomButtonText}>
-          나의 프로필 수정하기
-        </Text>
-      </TouchableOpacity>
+      {!fromFindCaregiver ? (
+        <TouchableOpacity
+          style={profileScreenStyle.bottomButton}
+          onPress={() => handleEditButton()}
+        >
+          <Text style={profileScreenStyle.bottomButtonText}>
+            나의 프로필 수정하기
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={profileScreenStyle.bottomButton}
+          onPress={() => navigateToChatPage()}
+        >
+          <Text style={profileScreenStyle.bottomButtonText}>
+            {caregiverData?.username}에게 쪽지 보내기
+          </Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }

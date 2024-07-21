@@ -3,9 +3,17 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { profileEditStyle } from "../styles/globalStyles";
 import { Color } from "../styles/color";
 
-const SelectOneOfTwo = ({ leftButtonText, rightButtonText }) => {
+const SelectOneOfTwo = ({
+  leftButtonText,
+  rightButtonText,
+  handleInputChange,
+}) => {
   const [selectedType, setSelectedType] = useState("");
 
+  const handleClick = (selectedGender) => {
+    handleInputChange("gender", selectedGender);
+    setSelectedType(selectedGender);
+  };
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -14,7 +22,7 @@ const SelectOneOfTwo = ({ leftButtonText, rightButtonText }) => {
           { width: 140, alignItems: "center" },
           selectedType === leftButtonText && styles.selectedButton,
         ]}
-        onPress={() => setSelectedType(leftButtonText)}
+        onPress={() => handleClick(leftButtonText)}
       >
         <Text
           style={[
@@ -31,7 +39,7 @@ const SelectOneOfTwo = ({ leftButtonText, rightButtonText }) => {
           { width: 140, alignItems: "center" },
           selectedType === rightButtonText && styles.selectedButton,
         ]}
-        onPress={() => setSelectedType(rightButtonText)}
+        onPress={() => handleClick(rightButtonText)}
       >
         <Text
           style={[

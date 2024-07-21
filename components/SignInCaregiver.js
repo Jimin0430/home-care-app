@@ -20,6 +20,7 @@ import {
 
 import { useAuth } from "../contexts/AuthContext";
 
+import SelectOneOfTwo from "./SelectOneOfTwo";
 import Logo from "../assets/images/logo.svg";
 import { Color } from "../styles/color";
 import { getUserName, setUserName } from "../utils/storage";
@@ -267,6 +268,12 @@ export default function SignInCaregiver({ route }) {
                         </Text>
                       </TouchableOpacity>
                     </View>
+                  ) : label === "성별" ? (
+                    <SelectOneOfTwo
+                      leftButtonText={"여자"}
+                      rightButtonText={"남자"}
+                      handleInputChange={handleInputChange}
+                    />
                   ) : (
                     <TextInput
                       style={signInScreenStyle.input}

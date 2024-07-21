@@ -18,8 +18,9 @@ import { reviews } from "../utils/reviewDataForCaregiver";
 const ReviewScreen = () => {
   const route = useRoute();
   const myReviewPage = route?.params?.myReviewPage ?? false;
-  const { fromPatientHome } = route?.params ?? false;
-
+  const fromPatientHome = route?.params?.fromPatientHome ?? false;
+  const fromFindCaregiver = route?.params?.fromFindCaregiver ?? false;
+  const isCaregiver = route?.params?.isCaregiver ?? false;
   const renderItem = ({ item }) => (
     <View style={styles.reviewContainer}>
       <View style={styles.topContainer}>
@@ -46,11 +47,15 @@ const ReviewScreen = () => {
     </View>
   );
 
+  console.log("fromFindCaregiver :", fromFindCaregiver);
+  console.log("fromPatientHome : ", fromPatientHome);
+  console.log("myReviewPage : ", myReviewPage);
   return (
     <SafeAreaView style={profileEditStyle.safeArea}>
-      <Header
-        title={myReviewPage && !fromPatientHome ? "나의 리뷰 모아보기" : "후기"}
-      />
+      {/* fromFindCaregiver */}
+      {/* fromPatientHome  */}
+      {isCaregiver ? <Header title={"나의 리뷰 모아보기"} /> : null}
+      {fromPatientHome || fromFindCaregiver ? <Header title={"후기"} /> : null}
 
       <View
         style={[

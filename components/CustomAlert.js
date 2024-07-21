@@ -12,7 +12,7 @@ export const showRestrictedAccessAlert = (
 ) => {
   const messages = {
     restricted: "해당 서비스는 요양 보호사 등록 후 사용 가능합니다.",
-    upcomingCaregiver: "환자 매칭 후 사용 가능한 기능입니다.",
+    upcomingCaregiver: "마이프로필 등록 후 사용 가능합니다.",
     upcomingPatient: "요양사 매칭 후 사용 가능한 기능입니다.",
   };
 

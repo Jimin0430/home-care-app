@@ -9,10 +9,7 @@ const SingleChoiceSelector = ({ options, formData, handleInputChange }) => {
   const handlePress = (index) => {
     setSelectedOption(index);
     //api 수정 시 활성화
-    // handleInputChange({
-    //   ...formData,
-    //   ["간병서비스 필요 정도"]: selectedOption,
-    // });
+    handleInputChange("service_urgency_index", index);
   };
 
   return (
@@ -52,7 +49,9 @@ const styles = StyleSheet.create({
     gap: 9,
   },
   optionContainer: {
-    position: "relative",
+    // position: "relative",
+    flex: 1,
+    width: "100%",
   },
   selectedButton: {
     borderColor: Color.pink900,

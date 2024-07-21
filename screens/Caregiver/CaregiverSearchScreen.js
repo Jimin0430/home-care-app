@@ -62,7 +62,7 @@ const CaregiverSearchScreen = () => {
       onPress={() => {
         navigation.navigate("PatientMyPageScreen", {
           name: item.title,
-          gender: item.gender, // 성별 정보를 여기에 맞게 수정해야 합니다.
+          gender: item.gender,
         });
       }}
     >

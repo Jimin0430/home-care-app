@@ -37,6 +37,7 @@ import CaregiverSearchScreen from "./screens/Caregiver/CaregiverSearchScreen";
 import CommunityPostScreen from "./screens/CommunityPostScreen";
 import PatientMyPageScreen from "./screens/Patient/PatientMyPageScreen";
 import PatientSearchCaregiver from "./screens/Patient/PatientSearchCaregiver";
+import CaregiverMyPageScreen from "./screens/Caregiver/CaregiverMyPageScreen";
 
 const Stack = createStackNavigator();
 const AuthStack = createStackNavigator();
@@ -129,7 +130,7 @@ export default function App() {
     <>
       <StatusBar backgroundColor="#fff" barStyle="dark-content" />
       {/* <SafeAreaView style={styles.safeArea}> */}
-      <SafeAreaProvider>
+      <SafeAreaProvider style={{ flex: 1 }} edges={["right", "bottom", "left"]}>
         <AuthProvider handleSignIn={handleSignIn}>
           <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -147,7 +148,7 @@ export default function App() {
                   <Stack.Screen
                     name="ReviewScreen"
                     component={ReviewScreen}
-                    initialParams={{ myReviewPage: true }}
+                    // initialParams={{ myReviewPage: true }}
                   />
                   <Stack.Screen
                     name="CaregiverSearchScreen"
@@ -159,6 +160,11 @@ export default function App() {
                     name="PatientSearchCaregiver"
                     component={PatientSearchCaregiver}
                     initialParams={{ needHeader: true }}
+                  />
+                  <Stack.Screen
+                    name="CaregiverMyPageScreen"
+                    component={CaregiverMyPageScreen}
+                    initialParams={{ fromFindCaregiver: true }}
                   />
                   <Stack.Screen
                     name="PatientMyPageScreen"

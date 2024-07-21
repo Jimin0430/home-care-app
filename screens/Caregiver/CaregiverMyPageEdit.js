@@ -33,6 +33,23 @@ export default function CaregiverMyPageEdit({ navigation }) {
   const [showTimeEndPicker, setShowTimeEndPicker] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
+  // 초기 상태 설정
+  const initialState = {
+    name: "",
+    username: "",
+    email: "",
+    password: "",
+    age: 0,
+    gender: "",
+    phone: "",
+    hopeWorkType: "",
+  };
+
+  const [formData, setFormData] = useState(initialState);
+
+  const handleInputChange = async (name, value) => {
+    setFormData({ ...formData, [name]: value });
+  };
   const onChangeTimeStart = (event, selectedDate) => {
     const currentTime = selectedDate || timeStart;
     setShowTimeStartPicker(Platform.OS === "ios");
@@ -167,6 +184,7 @@ export default function CaregiverMyPageEdit({ navigation }) {
                 <SelectOneOfTwo
                   leftButtonText={"장기"}
                   rightButtonText={"단기"}
+                  handleInputChange={handleInputChange}
                 />
               </View>
               <View style={profileEditStyle.inputContainer}>
