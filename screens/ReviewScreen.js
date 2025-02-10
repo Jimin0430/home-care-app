@@ -47,9 +47,6 @@ const ReviewScreen = () => {
     </View>
   );
 
-  console.log("fromFindCaregiver :", fromFindCaregiver);
-  console.log("fromPatientHome : ", fromPatientHome);
-  console.log("myReviewPage : ", myReviewPage);
   return (
     <SafeAreaView style={profileEditStyle.safeArea}>
       {/* fromFindCaregiver */}

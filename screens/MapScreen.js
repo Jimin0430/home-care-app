@@ -72,7 +72,6 @@ export default class MapScreen extends Component {
   }
 
   async componentDidMount() {
-    console.log("Fixed locations:", this.state.randomLocations); // 고정된 위도경도 콘솔 출력
     if (Platform.OS === "web") {
       loadGoogleMapsAPI(() => {
         this.setState({ googleMapsLoaded: true });

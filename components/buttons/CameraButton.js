@@ -25,11 +25,8 @@ const PhotoButton = ({ setSelectedImage }) => {
       quality: 1,
     });
 
-    console.log(result);
     if (!result.canceled) {
       setSelectedImage(result.assets[0].uri);
-
-      console.log(result.assets[0].uri); // 여기서 result.uri를 사용해서 사진을 업로드하거나 처리할 수 있습니다.
     }
   };
 

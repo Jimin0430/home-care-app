@@ -22,9 +22,7 @@ import { Color } from "../styles/color";
 
 const Tab = createBottomTabNavigator();
 
-export default function HomeTabs({ route }) {
-  // const { userRole, userRoleIndex } = route.params;
-
+export default function HomeTabs() {
   // userRole에 따른 페이지 분류
   const [userRoleData, setUserRoleData] = useState(null);
   const [userRole, setUserRole] = useState(null);
@@ -35,7 +33,6 @@ export default function HomeTabs({ route }) {
       const role = await getUserRole();
       const roleIndex = await getUserRoleIndex();
 
-      console.log("getUserRoleIndex 결과 : ", roleIndex);
       setUserRole(role);
       setUserRoleIndex(roleIndex);
     } catch (error) {
@@ -54,22 +51,20 @@ export default function HomeTabs({ route }) {
       (data) => data.index === userRoleIndex
     );
     setUserRoleData(roleData);
-    console.log("Hometabs.js 페이지 실행");
-    console.log("Hometabs.js 페이지 userRole : ", userRole);
-    console.log("Hometabs.js 페이지 userRoleIndex : ", userRoleIndex);
   }, [userRoleIndex]); //
 
-  const handleTabPress = (e, route) => {
-    if (
-      userRole === "AspiringCaregiver" &&
-      (route.name === "My page" ||
-        route.name === "Search" ||
-        route.name === "Chat")
-    ) {
-      e.preventDefault();
-      showRestrictedAccessAlert("restricted");
-    }
-  };
+  const RESTRICTED_ROUTES = new Set(["My page", "Search", "Chat"]);
+
+  const handleTabPress = useCallback(
+    (event, route) => {
+      if (userRole !== "AspiringCaregiver") return;
+      if (!RESTRICTED_ROUTES.has(route.name)) return;
+
+      event.preventDefault();
+      showRestrictedAccessAlert();
+    },
+    [userRole]
+  );
 
   if (!userRoleData) {
     return (
@@ -84,26 +79,6 @@ export default function HomeTabs({ route }) {
     myPage: MyPageComponent,
     searchPage: SearchComponent,
   } = userRoleData;
-
-  // userRole에 따른 페이지 분류
-  // const [HomeComponent, setHomeComponent] = useState(null);
-  // const [MyPageComponent, setMyPageComponent] = useState(null);
-  // const [MyPageEditComponent, setMyPageEditComponent] = useState(null);
-
-  // useEffect(() => {
-  //   console.log("home tab page : " + userRole);
-  //   console.log("home tab page : " + userRoleIndex);
-
-  //   const homeComponentPerType = dataPerUserRole[userRoleIndex]?.homePage;
-  //   const myPageComponentPerType = dataPerUserRole[userRoleIndex]?.myPage;
-  //   const MyPageEditComponentPerType = dataPerUserRole[userRoleIndex]?.myPage;
-
-  //   setHomeComponent(() => homeComponentPerType);
-  //   setMyPageComponent(() => myPageComponentPerType);
-  //   setMyPageEditComponent(() => MyPageEditComponentPerType);
-  // }, [userRoleIndex]);
-
-  // userRole이 "AspiringCaregiver"이고, 접근이 제한된 탭일 경우 Alert를 표시
 
   return (
     <SafeAreaView style={styles.container}>

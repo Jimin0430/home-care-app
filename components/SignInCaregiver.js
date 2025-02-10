@@ -35,19 +35,11 @@ const hasFinalConsonant = (char) => {
 };
 
 export default function SignInCaregiver({ route }) {
-  //userRole 이 CareGiver 이면 다음 버튼 -> uploadCertificate (자격증 업로드) 페이지 -> 종료 ->hometab
-  //userRole 이 AspiringCaregiver 이면 종료버튼 -> hometab
   const navigation = useNavigation();
-  // const route = useRoute();
-  // const { handleSignIn } = route.params;
   const { handleSignIn } = useAuth();
 
   const { userRole, userRoleIndex } = route.params;
 
-  // const userRole = route.params?.userRole;
-  // const userRoleIndex = route.params?.userRoleIndex;
-
-  console.log("SignInCaregiver : " + userRole);
   // 초기 상태 설정
   const initialState = {
     name: "",
@@ -66,29 +58,13 @@ export default function SignInCaregiver({ route }) {
 
   const handleInputChange = async (name, value) => {
     setFormData({ ...formData, [name]: value });
-
-    // // 유효성 검사
-    // if (name === "username" && value) {
-    //   try {
-    //     const available = await checkUsernameAvailability(value);
-    //     console.log("available : ", available);
-    //     setUsernameAvailable(available);
-    //   } catch (error) {
-    //     console.error("Failed to check username availability:", error);
-    //     // 사용자에게 오류 메시지를 표시할 수 있습니다.
-    //     Alert.alert("오류", "닉네임 중복 확인 중 문제가 발생했습니다.");
-    //   }
-    // }
   };
 
   const checkAvailability = async (name, value) => {
     // 유효성 검사
     if (name === "username" && value) {
-      console.log(value);
-      console.log(typeof value);
       try {
         const available = await checkUsernameAvailability(value);
-        console.log("checkUsernameAvailability : ", available);
         setUsernameAvailable(available);
       } catch (error) {
         console.error("Failed to check username availability:", error);
@@ -96,7 +72,6 @@ export default function SignInCaregiver({ route }) {
     } else if (name === "email" && value) {
       try {
         const available = await checkEmailAvailability(value);
-        console.log("checkEmailAvailability : ", available);
         setEmailAvailable(available);
       } catch (error) {
         console.error("Failed to check email availability:", error);
@@ -118,7 +93,7 @@ export default function SignInCaregiver({ route }) {
   };
 
   const handleSubmit = async () => {
-    logFormData();
+    // logFormData();
     try {
       const userInfo = {
         name: formData.name,
@@ -131,34 +106,11 @@ export default function SignInCaregiver({ route }) {
         password: formData.password,
       };
 
-      // // 유효성 검사
-      // if (
-      //   !userInfo.name ||
-      //   !userInfo.age ||
-      //   !userInfo.gender ||
-      //   !userInfo.phone ||
-      //   !userInfo.address ||
-      //   !userInfo.username ||
-      //   !userInfo.email ||
-      //   !userInfo.password
-      // ) {
-      //   Alert.alert("모든 필드를 채워주세요.");
-      //   return;
-      // }
-
-      // username 중복 검사
-      // if (!usernameAvailable) {
-      //   Alert.alert("사용할 수 없는 닉네임입니다. 다른 닉네임을 입력해주세요.");
-      //   return;
-      // }
-
       const data = await submitCaregiverInfo(userInfo);
       if (data.response) {
         setUserName(userInfo.username);
       }
 
-      console.log("Server response:", data.response);
-      // Clear the form
       setFormData(initialState);
     } catch (e) {
       console.log(e);
@@ -167,15 +119,11 @@ export default function SignInCaregiver({ route }) {
 
   const handleCompleteSignup = async () => {
     await handleSubmit();
-    console.log("SignInCaregiver : ", userRole);
-    console.log("회원가입 완료하기 클릭됨");
-
     handleSignIn(userRole, userRoleIndex);
   };
 
   const moveToSubmit = async () => {
     await handleSubmit();
-    console.log("다음 버튼 클릭");
     navigation.navigate("UploadCertificate", {
       userRole: userRole,
       userRoleIndex: userRoleIndex,
@@ -208,7 +156,6 @@ export default function SignInCaregiver({ route }) {
 
   return (
     <KeyboardAvoidingView
-      // behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={signInScreenStyle.keyboardPush}
       keyboardVerticalOffset={statusBarHeight}
     >

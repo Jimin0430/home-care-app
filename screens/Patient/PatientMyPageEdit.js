@@ -51,7 +51,6 @@ export default function PatientMyPageEdit({ navigation }) {
     //async 제거. api 완성 안됨
     // await handleSubmit();
     navigation.goBack();
-    console.log("save 버튼 클릭");
   };
 
   const userInfoFields = {

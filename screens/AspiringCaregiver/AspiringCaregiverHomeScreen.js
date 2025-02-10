@@ -19,7 +19,6 @@ export default function AspiringCaregiverHomeScreen() {
 
   const handleSupportButton = () => {
     // 지원 버튼 클릭 시 처리할 내용
-    console.log("지원 버튼 클릭됨");
   };
 
   return (

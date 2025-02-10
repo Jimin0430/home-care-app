@@ -43,7 +43,6 @@ export const getUserRole = async () => {
 export const setUserRoleIndex = async (value) => {
   try {
     const userRoleIndex = JSON.stringify(value);
-    console.log("storage.js userRoleIndex 저장된 값 : ", userRoleIndex);
     await AsyncStorage.setItem("user-role-index", userRoleIndex);
   } catch (e) {
     console.log(e);
@@ -53,8 +52,6 @@ export const setUserRoleIndex = async (value) => {
 export const getUserRoleIndex = async () => {
   try {
     const userRoleIndex = await AsyncStorage.getItem("user-role-index");
-    console.log("storage.js get userRoleIndex : ", userRoleIndex);
-
     return userRoleIndex !== null ? JSON.parse(userRoleIndex) : -1;
   } catch (e) {
     console.log(e);

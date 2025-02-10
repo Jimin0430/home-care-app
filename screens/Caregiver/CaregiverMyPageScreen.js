@@ -49,7 +49,6 @@ export default function CaregiverMyPageScreen() {
   };
 
   useEffect(() => {
-    console.log(fromFindCaregiver);
     if (fromFindCaregiver) {
       setCaregiverData({ username: name, age: 32, gender: "여자" });
       fetchUserName();
@@ -62,7 +61,6 @@ export default function CaregiverMyPageScreen() {
     if (!fromFindCaregiver && userName) {
       const fetchCaregiverData = async () => {
         try {
-          console.log("api 호출할 때의 유저 네임 : ", userName);
           const [basicData, profileData] = await Promise.all([
             getCaregiverData(userName),
             getCaregiverMyProfile(userName),
@@ -80,13 +78,6 @@ export default function CaregiverMyPageScreen() {
       fetchCaregiverData();
     }
   }, [userName]);
-
-  useEffect(() => {
-    console.log("Got userName at CaregiverMyPageScreen:", userName);
-    if (caregiverData) {
-      console.log("Caregiver data:", caregiverData);
-    }
-  }, [userName, caregiverData]);
 
   const profileInfo = [
     { label: "활동 시간/요일", value: "월 수 금 | 오전 8시 - 오후 6시" },

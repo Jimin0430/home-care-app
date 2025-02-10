@@ -21,7 +21,6 @@ const ChatScreen = ({ route }) => {
   const { sender, receiver } = route.params;
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
-  console.log(sender, " ", receiver);
   useEffect(() => {
     const fetchMessages = async () => {
       try {

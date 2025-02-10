@@ -44,7 +44,6 @@ export default function SignInPatient({ route }) {
 
   const moveToHomeTab = () => {
     handleSignIn(userRole, userRoleIndex);
-    console.log("sign in page : " + userRole);
   };
 
   const options = ["고민 중이에요.", "구하는 중이에요.", "당장 필요해요."];
@@ -96,7 +95,7 @@ export default function SignInPatient({ route }) {
 
   //유저 정보 저장
   const handleSubmit = async () => {
-    logFormData();
+    // logFormData();
     try {
       const userInfo = {
         name: formData.name,
@@ -111,10 +110,8 @@ export default function SignInPatient({ route }) {
         relationship_index: parseInt(formData.relationship_index),
       };
       const data = await submitPatientInfo(userInfo);
-      console.log("Server response:", data);
       if (data.response) {
         setUserName(userInfo.username);
-        console.log(userInfo.username);
       }
       // Clear the form
       setFormData(initialState);
@@ -133,11 +130,8 @@ export default function SignInPatient({ route }) {
   const checkAvailability = async (name, value) => {
     // 유효성 검사
     if (name === "username" && value) {
-      console.log(value);
-      console.log(typeof value);
       try {
         const available = await checkUsernameAvailability(value);
-        console.log("checkUsernameAvailability : ", available);
         setUsernameAvailable(available);
       } catch (error) {
         console.error("Failed to check username availability:", error);
@@ -145,7 +139,6 @@ export default function SignInPatient({ route }) {
     } else if (name === "email" && value) {
       try {
         const available = await checkEmailAvailability(value);
-        console.log("checkEmailAvailability : ", available);
         setEmailAvailable(available);
       } catch (error) {
         console.error("Failed to check email availability:", error);

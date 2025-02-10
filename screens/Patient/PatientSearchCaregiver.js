@@ -60,7 +60,6 @@ const PatientSearchCaregiver = () => {
   const needHeader = route?.params?.needHeader ?? false;
 
   useEffect(() => {
-    console.log(selectedDate);
     if (selectedDate && schedules) {
       const filtered = schedules
         .filter((schedule) => schedule.date === selectedDate)

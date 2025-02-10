@@ -20,4 +20,3 @@ function generateRandomLocations(count) {
 }
 
 const randomLocations = generateRandomLocations(4);
-console.log(randomLocations);

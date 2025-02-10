@@ -10,7 +10,6 @@ const RelationshipPicker = ({ items, setItems, handleInputChange }) => {
 
   const onChangeValue = (value) => {
     setValue(value);
-    console.log(value);
     handleInputChange("relationship_index", value);
   };
 

@@ -30,7 +30,6 @@ export default function PatientMyPageScreen() {
     }
   };
   useEffect(() => {
-    console.log(fromFindPatient);
     if (fromFindPatient) {
       setPatientData({ name: name, age: 72, gender: "남자" });
       fetchUserName();
@@ -50,7 +49,6 @@ export default function PatientMyPageScreen() {
     if (!fromFindPatient && userName) {
       const fetchCaregiverData = async () => {
         try {
-          console.log("api 호출할 때의 유저 네임 : ", userName);
           const basicData = await getPatientData(userName);
 
           setPatientData(basicData);
@@ -61,13 +59,6 @@ export default function PatientMyPageScreen() {
       fetchCaregiverData();
     }
   }, [userName]);
-
-  useEffect(() => {
-    console.log("Got userName at CaregiverMyPageScreen:", userName);
-    if (patientData) {
-      console.log("Caregiver data:", patientData);
-    }
-  }, [userName, patientData]);
 
   const profileInfo = [
     { label: "병명", value: "선망증세" },

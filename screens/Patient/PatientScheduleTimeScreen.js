@@ -54,7 +54,6 @@ export default function PatientScheduleTimeScreen({ navigation }) {
 
   const onChangeStartDate = (event, selectedDate) => {
     const currentDate = selectedDate || startDate;
-    console.log("currentDate : ", currentDate);
 
     setShowStartDatePicker(Platform.OS === "ios");
     setStartDate(currentDate);

@@ -10,9 +10,6 @@ import { dataPerUserRole } from "../utils/dataPerUserRole";
 export default function SignIn() {
   const navigation = useNavigation();
   const route = useRoute();
-  console.log("SignIn page 실행");
-  // const { handleSignIn } = route.params;
-  //파라미터로서 전달받음
   const moveSignInPerRole = async (userRole, userRoleIndex, moveToPage) => {
     try {
       //로컬 스토리지에 저장
@@ -25,9 +22,6 @@ export default function SignIn() {
       });
       //handleSignIn은 건들지 않음. 여기서 업데이트하면 다음 회원가입 창으로 이동하지 않고, 상태가 업데이트 되면서 app.js에서 홈탭으로 리렌더링 됨
       // App.js의 상태 업데이트 및 HomeTabs로 이동
-      // handleSignIn(userRole, userRoleIndex);
-
-      console.log("sign in page : " + userRole);
     } catch (error) {
       console.log(error);
     }

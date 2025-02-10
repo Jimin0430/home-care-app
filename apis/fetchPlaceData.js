@@ -1,7 +1,7 @@
 import Config from "react-native-config";
 
 async function fetchPlaceData(latLongArray) {
-  // const apiKey = Config.GOOGLE_MAPS_API_KEY; // 여기에 실제 API 키를 넣으세요
+  // const apiKey = Config.GOOGLE_MAPS_API_KEY;
   const apiKey = "AIzaSyDtZrroHW8B937WdhKlsf1jikT97_rsBBY";
   const results = [];
 

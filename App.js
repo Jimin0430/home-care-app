@@ -43,7 +43,6 @@ const Stack = createStackNavigator();
 const AuthStack = createStackNavigator();
 
 function AuthNavigator() {
-  console.log("로그인 페이지 라우팅");
   return (
     <AuthStack.Navigator screenOptions={{ headerShown: false }}>
       <AuthStack.Screen name="SignIn" component={SignIn} />
@@ -68,7 +67,6 @@ export default function App() {
     const clearStorage = async () => {
       try {
         await AsyncStorage.clear();
-        console.log("AsyncStorage cleared");
       } catch (e) {
         console.error("Failed to clear AsyncStorage:", e);
       }
@@ -108,12 +106,6 @@ export default function App() {
     fetchUserRole();
   }, []);
 
-  // useEffect(() => {
-  //   console.log("app.js 페이지 userRole: " + userRole);
-  //   console.log("app.js 페이지 userRoleIndex: " + userRoleIndex);
-  //   console.log("app.js 페이지 isSignedIn: " + isSignedIn);
-  // }, [isSignedIn]);
-
   if (isSignedIn === null) {
     return (
       <SafeAreaView style={styles.safeArea}>
@@ -122,9 +114,6 @@ export default function App() {
       </SafeAreaView>
     );
   }
-  // if (!isLoading) {
-  //   console.log("로딩 끝남");
-  // }
 
   return (
     <>
